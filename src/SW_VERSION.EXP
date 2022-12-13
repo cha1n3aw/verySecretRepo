@@ -1,0 +1,17 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/Autocode' *) 
+(* @OBJECTFLAGS := '0, 8' *) 
+(* @SYMFILEFLAGS := '2048' *) 
+PROGRAM SW_Version 
+VAR 
+	SW_Git_Commit_s32	: DINT;		(* First 7 characters of the current git commit, hex *) 
+	SW_Git_Hash_as8	: STRING;	(* First 7 characters of the current git commit, hex *) 
+END_VAR 
+(* @END_DECLARATION := '0' *) 
+(*********************************************) 
+(*  DON'T MAKE ANY CHANGES TO THIS PROGRAM!! *) 
+(*     FILE WAS AUTOMATICALLY GENERATED!!    *) 
+(*********************************************) 
+SW_Git_Commit_s32 := 16#;
+SW_Git_Hash_as8 := '';
+END_PROGRAM 

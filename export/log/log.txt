@@ -1,0 +1,174 @@
+export/bin/exportAll.cmd(3): project build
+Import(1): system C:\\Users\user\DST-Ural\ѕрошивки\—тенд\Software\Bosch_Lab\import\bin\UpdateSW.bat
+Import(2): query off ok
+Import(3): project import C:\\Users\user\DST-Ural\ѕрошивки\—тенд\Software\Bosch_Lab\src\SW_VERSION.exp
+>>Dialog: QUERYYESNOALL (Type: 'YESNOCANCEL', Return: 'Yes')
+»мпортирование 'SW_Version'
+Import(3): »мпорт выполнен
+Import(4): project import C:\\Users\user\DST-Ural\ѕрошивки\—тенд\Software\Bosch_Lab\DPC_TM10_para.exp
+>>Dialog: QUERYYESNOALL (Type: 'YESNOCANCEL', Return: 'Yes')
+»мпортирование 'para_e'
+>>Dialog: QUERYYESNOALL (Type: 'YESNOCANCEL', Return: 'Yes')
+»мпортирование 'para_ts'
+>>Dialog: QUERYYESNOALL (Type: 'YESNOCANCEL', Return: 'Yes')
+»мпортирование 'Callback_diag_getPara'
+>>Dialog: QUERYYESNOALL (Type: 'YESNOCANCEL', Return: 'Yes')
+»мпортирование 'PrmData'
+Import(4): »мпорт выполнен
+Import(5): project import C:\\Users\user\DST-Ural\ѕрошивки\—тенд\Software\Bosch_Lab\DPC_TM10_error.exp
+>>Dialog: QUERYYESNOALL (Type: 'YESNOCANCEL', Return: 'Yes')
+»мпортирование 'applError_e'
+>>Dialog: QUERYYESNOALL (Type: 'YESNOCANCEL', Return: 'Yes')
+»мпортирование 'applError_ts'
+Import(5): »мпорт выполнен
+Import(6): query on
+'C:\Program Files (x86)\Common Files\CAA-Targets\RC28-14_30_Family_FLASH_V2.0\Library\BODAS-design_Library_V20.lib': CRC равно b611ce8c
+'C:\Program Files (x86)\Common Files\CAA-Targets\RC28-14_30_Family_FLASH_V2.0\Library\BODAS_RC28-14_30_Family_V01_03.lib': CRC равно a3d6691b
+'C:\Program Files (x86)\Common Files\CAA-Targets\RC28-14_30_Family_FLASH_V2.0\Library\CIA405_Library_V02_01.lib': CRC равно f3c15a2e
+'C:\Program Files (x86)\Common Files\CAA-Targets\RC28-14_30_Family_FLASH_V2.0\Library\INEXT_Library_V01_06.lib': CRC равно d4179511
+'C:\Program Files (x86)\Common Files\CAA-Targets\RC28-14_30_Family_FLASH_V2.0\Library\lib_mat.lib': CRC равно 77a8825e
+'C:\Program Files (x86)\Common Files\CAA-Targets\RC28-14_30_Family_FLASH_V2.0\Library\RCE_InitParameter_V01_03.lib': CRC равно ee507f3e
+'C:\Program Files (x86)\Common Files\CAA-Targets\RC28-14_30_Family_FLASH_V2.0\Library\RCE_Library_V01_03.lib': CRC равно efc52578
+'C:\Program Files (x86)\Common Files\CAA-Targets\RC28-14_30_Family_FLASH_V2.0\Library\SAFOUT_Library_V02_04.lib': CRC равно 477dd37b
+'C:\Program Files (x86)\Common Files\CAA-Targets\RC28-14_30_Family_FLASH_V2.0\Library\STANDARD_V02_00.lib': CRC равно b13a74cf
+'C:\Program Files (x86)\Bosch Rexroth\BODAS-design 3.0.17\CoDeSys V2.3\Library\Util.lib': CRC равно 3ca02a98
+ќбъ€влени€ глобальных констант
+ќбъ€влени€ глобальных констант библиотек
+ќбъ€влени€ глобальных констант
+ќбъ€влени€ глобальных констант библиотек
+»нтерфейс POU 'CALLBACK_DIAG_GETPARA'
+»нтерфейс POU 'PRMDATA'
+»нтерфейс POU 'PRMDATA_SAMPLE'
+»нтерфейс POU 'SW_VERSION'
+ќбъ€влени€ глобальных переменных
+–аспределение данных
+ѕроверка конфигурации задач
+¬нимание: неиспользуемые входы/выходы не обновл€ютс€ (см. опции целевой платформы)!
+–еализаци€ POU 'Callback_diag_getPara'
+–еализаци€ POU 'PrmData'
+–еализаци€ POU 'PrmData_Sample'
+–еализаци€ POU 'SW_Version'
+–еализаци€ POU 'PLC_PRG'
+–евизи€ конфигурации параметра
+ онфигураци€ аппаратуры
+POU индексов:548 (26%)
+»спользовано данных: 39838 из 262144 байт (15.20%)
+CRC of downloaded code (335758 bytes): 0xa7545e0f
+Generate HEX-File: C:\Users\user\DST-Ural\ѕрошивки\—тенд\Software\Bosch_Lab\DPC_TM10_RUN.HEX
+–азмер кода: 335762 байт
+0 ошибок, 0 предупреждений.
+export/bin/exportAll.cmd(4): file save
+export/bin/exportAll.cmd(5): replace yesall
+export/bin/exportAll.cmd(6): project expmul src\
+Ёкспортирование 'getEEP_Index' в файл 'SRC\GETEEP_INDEX.EXP'
+Ёкспортирование 'getEEP_P3' в файл 'SRC\GETEEP_P3.EXP'
+Ёкспортирование 'getEEP_Page' в файл 'SRC\GETEEP_PAGE.EXP'
+Ёкспортирование 'saveValue_if_Changed' в файл 'SRC\SAVEVALUE_IF_CHANGED.EXP'
+Ёкспортирование 'CHARCODE' в файл 'SRC\CHARCODE.EXP'
+Ёкспортирование 'conv_mV_to_dig' в файл 'SRC\CONV_MV_TO_DIG.EXP'
+Ёкспортирование 'isRegulationNow' в файл 'SRC\ISREGULATIONNOW.EXP'
+Ёкспортирование 'Lowpass_calc' в файл 'SRC\LOWPASS_CALC.EXP'
+Ёкспортирование 'Lowpass_init' в файл 'SRC\LOWPASS_INIT.EXP'
+Ёкспортирование 'roundingTo5' в файл 'SRC\ROUNDINGTO5.EXP'
+Ёкспортирование 'Scale_fun_s16' в файл 'SRC\SCALE_FUN_S16.EXP'
+Ёкспортирование 'set_poti_value' в файл 'SRC\SET_POTI_VALUE.EXP'
+Ёкспортирование 'tact_button' в файл 'SRC\TACT_BUTTON.EXP'
+Ёкспортирование 'calc_deadband' в файл 'SRC\CALC_DEADBAND.EXP'
+Ёкспортирование 'Get_PR2_25' в файл 'SRC\GET_PR2_25.EXP'
+Ёкспортирование 'Get_PR2_50' в файл 'SRC\GET_PR2_50.EXP'
+Ёкспортирование 'Get_PR2_600' в файл 'SRC\GET_PR2_600.EXP'
+Ёкспортирование 'Get_Suction_Pressure' в файл 'SRC\GET_SUCTION_PRESSURE.EXP'
+Ёкспортирование 'getPedal_Sensor_fb' в файл 'SRC\GETPEDAL_SENSOR_FB.EXP'
+Ёкспортирование 'in_joystick_fb' в файл 'SRC\IN_JOYSTICK_FB.EXP'
+Ёкспортирование 'Get_Dig_Freq_Inputs' в файл 'SRC\GET_DIG_FREQ_INPUTS.EXP'
+Ёкспортирование 'get_Status' в файл 'SRC\GET_STATUS.EXP'
+Ёкспортирование 'Get_System_Info' в файл 'SRC\GET_SYSTEM_INFO.EXP'
+Ёкспортирование 'out_Control' в файл 'SRC\OUT_CONTROL.EXP'
+Ёкспортирование 'out_Current' в файл 'SRC\OUT_CURRENT.EXP'
+Ёкспортирование 'out_DIG' в файл 'SRC\OUT_DIG.EXP'
+Ёкспортирование 'out_Status' в файл 'SRC\OUT_STATUS.EXP'
+Ёкспортирование 'setProp' в файл 'SRC\SETPROP.EXP'
+Ёкспортирование 'Can_reset' в файл 'SRC\CAN_RESET.EXP'
+Ёкспортирование 'proc_Err_CAN' в файл 'SRC\PROC_ERR_CAN.EXP'
+Ёкспортирование 'proc_Err_DIG_outs' в файл 'SRC\PROC_ERR_DIG_OUTS.EXP'
+Ёкспортирование 'proc_Err_Inputs' в файл 'SRC\PROC_ERR_INPUTS.EXP'
+Ёкспортирование 'proc_Err_Parameters' в файл 'SRC\PROC_ERR_PARAMETERS.EXP'
+Ёкспортирование 'proc_Err_Power' в файл 'SRC\PROC_ERR_POWER.EXP'
+Ёкспортирование 'proc_Err_PWM' в файл 'SRC\PROC_ERR_PWM.EXP'
+Ёкспортирование 'proc_Err_Sensors' в файл 'SRC\PROC_ERR_SENSORS.EXP'
+Ёкспортирование 'proc_Err_Status' в файл 'SRC\PROC_ERR_STATUS.EXP'
+Ёкспортирование 'flash_Error_Code' в файл 'SRC\FLASH_ERROR_CODE.EXP'
+Ёкспортирование 'handleError' в файл 'SRC\HANDLEERROR.EXP'
+Ёкспортирование 'review_Errors' в файл 'SRC\REVIEW_ERRORS.EXP'
+Ёкспортирование 'Callback_diag_getPara' в файл 'SRC\CALLBACK_DIAG_GETPARA.EXP'
+Ёкспортирование 'Callback_update_appl_param' в файл 'SRC\CALLBACK_UPDATE_APPL_PARAM.EXP'
+Ёкспортирование 'PrmData' в файл 'SRC\PRMDATA.EXP'
+Ёкспортирование 'PrmData_Sample' в файл 'SRC\PRMDATA_SAMPLE.EXP'
+Ёкспортирование 'SW_Version' в файл 'SRC\SW_VERSION.EXP'
+Ёкспортирование 'Callback_MAIN_Task' в файл 'SRC\CALLBACK_MAIN_TASK.EXP'
+Ёкспортирование 'PLC_PRG' в файл 'SRC\PLC_PRG.EXP'
+Ёкспортирование 'Startlock_RC28_14' в файл 'SRC\STARTLOCK_RC28_14.EXP'
+Ёкспортирование 'SwInfo' в файл 'SRC\SWINFO.EXP'
+Ёкспортирование 'struc_inputs' в файл 'SRC\STRUC_INPUTS.EXP'
+Ёкспортирование 'struc_IO_Chnl' в файл 'SRC\STRUC_IO_CHNL.EXP'
+Ёкспортирование 'struc_outputs' в файл 'SRC\STRUC_OUTPUTS.EXP'
+Ёкспортирование 'struc_Can_Chnl' в файл 'SRC\STRUC_CAN_CHNL.EXP'
+Ёкспортирование 'struc_Can_Status' в файл 'SRC\STRUC_CAN_STATUS.EXP'
+Ёкспортирование 'struc_J1939' в файл 'SRC\STRUC_J1939.EXP'
+Ёкспортирование 'struc_J1939_Box' в файл 'SRC\STRUC_J1939_BOX.EXP'
+Ёкспортирование 'struc_J1939_Data' в файл 'SRC\STRUC_J1939_DATA.EXP'
+Ёкспортирование 'struc_J1939_DataLength' в файл 'SRC\STRUC_J1939_DATALENGTH.EXP'
+Ёкспортирование 'struc_J1939_PGN' в файл 'SRC\STRUC_J1939_PGN.EXP'
+Ёкспортирование 'struc_J1939_Timeout' в файл 'SRC\STRUC_J1939_TIMEOUT.EXP'
+Ёкспортирование 'struc_Can' в файл 'SRC\STRUC_CAN.EXP'
+Ёкспортирование 'struc_Can_Box' в файл 'SRC\STRUC_CAN_BOX.EXP'
+Ёкспортирование 'struc_Can_Data' в файл 'SRC\STRUC_CAN_DATA.EXP'
+Ёкспортирование 'struc_Can_Id' в файл 'SRC\STRUC_CAN_ID.EXP'
+Ёкспортирование 'enum_Can' в файл 'SRC\ENUM_CAN.EXP'
+Ёкспортирование 'enum_Startlock_Test' в файл 'SRC\ENUM_STARTLOCK_TEST.EXP'
+Ёкспортирование 'ApplErrorNew_ts' в файл 'SRC\APPLERRORNEW_TS.EXP'
+Ёкспортирование 'ErrorEntry_ts' в файл 'SRC\ERRORENTRY_TS.EXP'
+Ёкспортирование 'FuncParams_ts' в файл 'SRC\FUNCPARAMS_TS.EXP'
+Ёкспортирование 'ParaListEntry_ts' в файл 'SRC\PARALISTENTRY_TS.EXP'
+Ёкспортирование 'attr1_tu' в файл 'SRC\ATTR1_TU.EXP'
+Ёкспортирование 'attr2_tu' в файл 'SRC\ATTR2_TU.EXP'
+Ёкспортирование 'attr3_tu' в файл 'SRC\ATTR3_TU.EXP'
+Ёкспортирование 'attr4_tu' в файл 'SRC\ATTR4_TU.EXP'
+Ёкспортирование 'attr_tu' в файл 'SRC\ATTR_TU.EXP'
+Ёкспортирование 'EEPROMAdrress_ts' в файл 'SRC\EEPROMADRRESS_TS.EXP'
+Ёкспортирование 'Parameter_ts' в файл 'SRC\PARAMETER_TS.EXP'
+Ёкспортирование 'ParameterGroup_ts' в файл 'SRC\PARAMETERGROUP_TS.EXP'
+Ёкспортирование 'ParameterMenu_ts' в файл 'SRC\PARAMETERMENU_TS.EXP'
+Ёкспортирование 'ProcessVariable_ts' в файл 'SRC\PROCESSVARIABLE_TS.EXP'
+Ёкспортирование 'ProcessVariableGroup_ts' в файл 'SRC\PROCESSVARIABLEGROUP_TS.EXP'
+Ёкспортирование 'applError_e' в файл 'SRC\APPLERROR_E.EXP'
+Ёкспортирование 'para_e' в файл 'SRC\PARA_E.EXP'
+Ёкспортирование 'applError_ts' в файл 'SRC\APPLERROR_TS.EXP'
+Ёкспортирование 'para_ts' в файл 'SRC\PARA_TS.EXP'
+Ёкспортирование 'Global_CONST' в файл 'SRC\GLOBAL_CONST.EXP'
+Ёкспортирование 'Global_Variables' в файл 'SRC\GLOBAL_VARIABLES.EXP'
+Ёкспортирование 'Globale_Variablen' в файл 'SRC\GLOBALE_VARIABLEN.EXP'
+Ёкспортирование 'State_Machines' в файл 'SRC\STATE_MACHINES.EXP'
+Ёкспортирование 'Variable_Configuration' в файл 'SRC\VARIABLE_CONFIGURATION.EXP'
+Ёкспортирование ' онфигураци€ ѕЋ ' в файл 'SRC\ онфигураци€ ѕЋ .EXP'
+Ёкспортирование ' онфигураци€ задач' в файл 'SRC\ онфигураци€ задач.EXP'
+Ёкспортирование ' онфигураци€ тревог' в файл 'SRC\ онфигураци€ тревог.EXP'
+Ёкспортирование 'BODAS-design_Library_V20.lib 15.2.18 10_15_14' в файл 'SRC\BODAS-DESIGN_LIBRARY_V20.LIB 15.2.18 10_15_14.EXP'
+Ёкспортирование 'BODAS_RC28-14_30_Family_V01_03.lib 7.6.18 09_26_32' в файл 'SRC\BODAS_RC28-14_30_FAMILY_V01_03.LIB 7.6.18 09_26_32.EXP'
+Ёкспортирование 'CIA405_Library_V02_01.lib 15.2.18 10_15_14' в файл 'SRC\CIA405_LIBRARY_V02_01.LIB 15.2.18 10_15_14.EXP'
+Ёкспортирование 'INEXT_Library_V01_06.lib 15.2.18 10_15_14' в файл 'SRC\INEXT_LIBRARY_V01_06.LIB 15.2.18 10_15_14.EXP'
+Ёкспортирование 'lib_mat.lib 15.2.18 10_15_14' в файл 'SRC\LIB_MAT.LIB 15.2.18 10_15_14.EXP'
+Ёкспортирование 'RCE_InitParameter_V01_03.lib 15.2.18 10_15_14' в файл 'SRC\RCE_INITPARAMETER_V01_03.LIB 15.2.18 10_15_14.EXP'
+Ёкспортирование 'RCE_Library_V01_03.lib 15.2.18 10_15_14' в файл 'SRC\RCE_LIBRARY_V01_03.LIB 15.2.18 10_15_14.EXP'
+Ёкспортирование 'SAFOUT_Library_V02_04.lib 15.2.18 10_15_14' в файл 'SRC\SAFOUT_LIBRARY_V02_04.LIB 15.2.18 10_15_14.EXP'
+Ёкспортирование 'STANDARD_V02_00.lib 15.2.18 10_15_14' в файл 'SRC\STANDARD_V02_00.LIB 15.2.18 10_15_14.EXP'
+Ёкспортирование 'Util.lib 13.6.14 15_20_40' в файл 'SRC\UTIL.LIB 13.6.14 15_20_40.EXP'
+Ёкспортирование '–абоча€ область' в файл 'SRC\–абоча€ область.EXP'
+Ёкспортирование 'CompileAndExport' в файл 'SRC\COMPILEANDEXPORT.EXP'
+Ёкспортирование 'export' в файл 'SRC\EXPORT.EXP'
+Ёкспортирование 'Export_project' в файл 'SRC\EXPORT_PROJECT.EXP'
+Ёкспортирование 'Import' в файл 'SRC\IMPORT.EXP'
+Ёкспорт завершен
+export/bin/exportAll.cmd(7): replace query
+export/bin/exportAll.cmd(8): file quit
+export/bin/exportAll.cmd: 0 ошибок, 0 предупреждений.
