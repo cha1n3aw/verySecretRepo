@@ -564,7 +564,7 @@ ParameterMenus_as      : ARRAY [1..5] OF ParameterMenu_ts :=
    (* parameter menu 1 - up to 8 groups can be defined here *)
    (*********************************************)
    (
-      MenuName_as8        := 'Menu 1',
+      MenuName_as8        := 'ПРИВЕТ',
 
       ParameterGroup_as   := 
 
