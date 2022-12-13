@@ -1,0 +1,16 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/20_CAN\/20_J1939' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE struc_J1939 :
+	STRUCT
+		Box						:	struc_J1939_Box;   							(*structure to define the databox-numbers*)
+		PGN						:	struc_J1939_PGN;								(*structure to define the PGN *)
+		SOURCE_ADRESS			: 	USINT 							:= 0;			(*source addr - diesel usually has address "0" *)
+		TIMEOUT					: 	struc_J1939_Timeout;							(*structure to define timeout of the J1939 message  *)
+		Length					:	struc_J1939_DataLength; 					(*structure to define length of the J1939 message  *)
+		Data						:	struc_J1939_Data;								(*data structure of the J1939 message content *)
+		DISABLE_CALLBACK		: 	UINT 								:= 16#FFFF;	(*No callback functions defined, "j1939_getRxDataboxStatus" shoul be used instead*)
+		Status					: 	struc_CAN_Status;   							(* structure to define the J1939 databox status *)
+	END_STRUCT
+END_TYPE
+(* @END_DECLARATION := '0' *)

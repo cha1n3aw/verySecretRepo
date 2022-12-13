@@ -1,0 +1,7 @@
+MACRO
+MacroName: 'export'
+MacroMenu: 'export'
+MacroCmd: 'project expmul src\'
+END_MACRO
+
+

@@ -1,0 +1,16 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/05_Basic_Calc\/eeprom_operations' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+(* Определение номера страницы eeprom по индексу параметра *)
+FUNCTION getEEP_Page : INT
+VAR_INPUT
+	EEP_num					: INT;
+END_VAR
+VAR
+	EEP_ELEMENT_OF_PAGE	: INT		:= 256;
+END_VAR
+(* @END_DECLARATION := '0' *)
+getEEP_Page := EEP_num / EEP_ELEMENT_OF_PAGE;
+END_FUNCTION

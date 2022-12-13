@@ -1,0 +1,82 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/60_Error handling\/Process Errors' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+PROGRAM proc_Err_Power
+VAR
+	ProcessErr1_fb: 			handleError;
+	ProcessErr2_fb: 			handleError;
+	ProcessErr3_fb: 			handleError;
+	ProcessErr4_fb: 			handleError;
+
+
+	uSupplyVB_mV_u16: UINT;
+	uSupplyVSS2_mV_u16: UINT;
+	uSupplyVSS1_mV_u16: UINT;
+END_VAR
+(* @END_DECLARATION := '0' *)
+uSupplyVB_mV_u16 		:= sys_getSupply( VB );					(* voltage level of VB [mV] *)
+
+(*******************************************************************************************)
+(******************** @ERR: 24V too high ****************************************************)
+(*******************************************************************************************)
+ProcessErr1_fb(
+	stErrorCondition_b8	:= stStartlock_b8 AND uSupplyVB_mV_u16 > 32000 ,		(* error condition *)
+	stQuitCondition_b8	:= TRUE ,								(* reset condition *)
+	tiDelay_u16				:= DELAY_STANDARD,					(* debouncing time [ms] *)
+	numErr_code_u16		:= ERR_SUPPLY_VB_HIGH,						(* start at 16#8000 *)
+	numErr_nbr_u8			:= 0,								(* error no for B-s text inputs *)
+	bSave_b8					:= TRUE,									(* save in EEPROM *)
+	tiCycle_s16				:= CYCLE,								(* current cycle time *)
+	bFlag_b8					=> Err.Supply_vb_high_b8 );		(* flag induces reaction in _RUN block*)
+
+
+
+(*******************************************************************************************)
+(******************** @ERR: 24V too low ****************************************************)
+(*******************************************************************************************)
+ProcessErr2_fb(
+	stErrorCondition_b8	:= stStartlock_b8 AND uSupplyVB_mV_u16 < 18000 ,		(* error condition *)
+	stQuitCondition_b8	:= TRUE ,								(* reset condition *)
+	tiDelay_u16				:= DELAY_STANDARD,					(* debouncing time [ms] *)
+	numErr_code_u16		:= ERR_SUPPLY_VB_LOW,						(* start at 16#8000 *)
+	numErr_nbr_u8			:= 0,								(* error no for B-s text inputs *)
+	bSave_b8					:= TRUE,									(* save in EEPROM *)
+	tiCycle_s16				:= CYCLE,								(* current cycle time *)
+	bFlag_b8					=> Err.Supply_vb_low_b8 );		(* flag induces reaction in _RUN block*)
+
+
+(*******************************************************************************************)
+(******************** @ERR: VSS1 ***********************************************************)
+(*******************************************************************************************)
+uSupplyVSS1_mV_u16	:= sys_getSupply( VSS_1 );				(* voltage level of VSS1 [mV] *)
+
+ProcessErr3_fb(
+	stErrorCondition_b8	:= stStartlock_b8 AND
+									(uSupplyVSS1_mV_u16 < 4500 OR	uSupplyVSS1_mV_u16 > 5500),		(* error condition *)
+	stQuitCondition_b8	:= TRUE,									(* reset condition *)
+	tiDelay_u16				:= DELAY_STANDARD,					(* debouncing time [ms] *)
+	numErr_code_u16		:= ERR_SUPPLY_VSS1,					(* start at 16#8000 *)
+	numErr_nbr_u8			:= 0,										(* error no for B-s text inputs *)
+	bSave_b8					:= TRUE,									(* save in EEPROM *)
+	tiCycle_s16				:= CYCLE,								(* current cycle time *)
+	bFlag_b8					=> Err.Supply_vss1_b8 );			(* flag induces reaction in _RUN block*)
+
+
+(*******************************************************************************************)
+(******************** @ERR: VSS2 ***********************************************************)
+(*******************************************************************************************)
+uSupplyVSS2_mV_u16	:= sys_getSupply( VSS_2 );		(* voltage level of VSS2 [mV] *)
+
+ProcessErr4_fb(
+	stErrorCondition_b8	:= stStartlock_b8 AND
+									(uSupplyVSS2_mV_u16 < 9500 OR uSupplyVSS2_mV_u16 > 10500),	(* error condition *)
+	stQuitCondition_b8	:= TRUE,									(* reset condition *)
+	tiDelay_u16				:= DELAY_STANDARD,					(* debouncing time [ms] *)
+	numErr_code_u16		:= ERR_SUPPLY_VSS2,					(* start at 16#8000 *)
+	numErr_nbr_u8			:= 0,										(* error no for B-s text inputs *)
+	bSave_b8					:= TRUE,									(* save in EEPROM *)
+	tiCycle_s16				:= CYCLE,								(* current cycle time *)
+	bFlag_b8					=> Err.Supply_vss2_b8 );			(* flag induces reaction in _RUN block*)
+END_PROGRAM

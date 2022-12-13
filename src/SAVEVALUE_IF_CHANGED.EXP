@@ -1,0 +1,33 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/05_Basic_Calc\/eeprom_operations' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION saveValue_if_Changed : INT
+(* Функция выполняет проверку параметра EEPROM.
+	В случае, если параметр изменился, то производим сохранение в память EEPROM *)
+VAR_INPUT
+	isSave_enabled_b8		: BOOL;			(* Флаг - Внесение изменений в память EEPROM разрешено *)
+
+	EEP_num					: INT;			(* Номер параметра в EEPROM*)
+	param_s16				: INT;			(* Параметр, который нужно проверить и пересохранить *)
+END_VAR
+VAR
+	ee_param_s16			: INT;			(* Значение параметра в памяти EEPROM *)
+
+END_VAR
+(* @END_DECLARATION := '0' *)
+	IF isSave_enabled_b8 THEN
+
+		(* Получение актуального значения параметра в EEPROM *)
+		ee_param_s16 := ree_getValue(getEEP_Page(EEP_num), getEEP_Index(EEP_num));
+
+		IF param_s16 <> ee_param_s16 THEN
+		(* Если параметр не соответствует значению в EEPROM, то сохраняем измененный параметр в память EEPROM *)
+
+			saveValue_if_Changed := ee_saveValue(getEEP_Page(EEP_num), getEEP_Index(EEP_num), param_s16);
+
+		END_IF
+
+	END_IF
+END_FUNCTION

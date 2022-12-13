@@ -1,0 +1,44 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/05_Basic_Calc' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+(**********************************************************************************************************
+* (c) Copyright by BOSCH REXROTH AG, all rights reserved *
+***********************************************************************************************************
+PROJECT:   Universal Scale Function
+Added 19/01-2011. Weronika Melija,  Bosch Rexroth Russia
+Checked 13/05 -2011. Vitaly Lewitan, DCRU/MA-SMC
+Short Description
+-	Linear Scalling Function 
+************************************************************************************************************)
+FUNCTION Scale_fun_s16 : INT
+VAR_INPUT
+	input_s16				:		INT;
+	x1_s16					:		INT;
+	x2_s16					:		INT;
+	y1_s16					:		INT;
+	y2_s16					: 		INT;
+END_VAR
+VAR
+	Out_Raw_s16		:		INT;
+END_VAR
+(* @END_DECLARATION := '0' *)
+(* linear scaling *)
+IF input_s16 <= x1_s16 THEN
+	Out_Raw_s16 := y1_s16;	(* No calculations *)
+ELSIF input_s16 >= x2_s16  THEN
+	Out_Raw_s16 := y2_s16;	(* No calculations *)
+ELSE								(* Calculate Scale Function *)
+	Out_Raw_s16 := DINT_TO_INT ( INT_TO_DINT(input_s16 - x1_s16)  *   (y2_s16 - y1_s16)   /   (x2_s16 - x1_s16) + y1_s16);
+END_IF
+(************************** Limiting *******************************************)
+IF y1_s16 <= y2_s16 THEN
+	Scale_fun_s16 := LIMIT(y1_s16,  Out_Raw_s16, y2_s16);
+ELSIF y1_s16 >  y2_s16 THEN
+	Scale_fun_s16 := LIMIT(y2_s16, Out_Raw_s16, y1_s16 );
+ELSE
+	Scale_fun_s16 := LIMIT(y1_s16,  Out_Raw_s16, y2_s16);
+END_IF
+(**********************************************************************************)
+END_FUNCTION

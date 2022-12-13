@@ -1,0 +1,25 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @GLOBAL_VARIABLE_LIST := 'State_Machines' *)
+(* @PATH := '' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+VAR_GLOBAL
+	stMachine_s16				: INT		:= 0;		(*	machine state 	*)
+	stStartlock_b8				: BOOL; 				(* No HW problems detected at start, if TRUE *)
+	stStartAppl_b8				: BOOL;				(* Application Start condition OK, if TRUE *)
+END_VAR
+
+VAR_GLOBAL CONSTANT
+
+(*************************************************************************************************)
+	DEACTIVATED				:	INT	:=	0;
+	ACTIVATED				:	INT	:=	1;
+
+END_VAR
+(* @OBJECT_END := 'State_Machines' *)
+(* @CONNECTIONS := State_Machines
+FILENAME : ''
+FILETIME : 0
+EXPORT : 0
+NUMOFCONNECTIONS : 0
+*)

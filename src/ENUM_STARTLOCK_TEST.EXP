@@ -1,0 +1,22 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/40_Other' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE enum_Startlock_Test :
+(
+	(* startlock tests *)
+	TEST_SUPPLY	:= 1,
+	TEST_VSS1,
+	TEST_VSS2,
+	TEST_VSS3,
+	TEST_HWMONITOR_1,
+	TEST_CONDITION_1,
+	TEST_SWITCH1,
+	TEST_SWITCH2,
+	TEST_SAFOUT,
+	TEST_DIESEL,
+	TEST_HWMONITOR_2,
+	TEST_CONDITION_2,
+	TEST_MAX
+);
+END_TYPE
+(* @END_DECLARATION := '0' *)

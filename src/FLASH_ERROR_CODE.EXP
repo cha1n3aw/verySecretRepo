@@ -1,0 +1,165 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/60_Error handling' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+(*************************************************************************************
+* PROGRAM flash_Error_Code
+*/
+* Provide 2 digit flash code indication.
+**************************************************************************************************
+* (c) Copyright by BOSCH REXROTH AG, all rights reserved *
+**************************************************************************************************
+**************************************************************************************************
+* PROJECT:	 Universal
+* VERSION INFORMATION: 
+*	v1.00, 27.03.2012, Vitaly Lewitan, DCRU-MA/SMC
+
+* REVISION HISTORY:
+* no revision so far
+*
+*
+*)
+
+(* insert command RETURN to deactivate this function block *)
+(* RETURN; *)
+PROGRAM flash_Error_Code
+VAR CONSTANT
+	ELC_WAIT:											INT	:= 0;
+	ELC_PAUSE_10_1_PREP:			INT	:= 4;
+	ELC_PAUSE_10_1:							INT	:= 5;
+	ELC_PAUSE_LONG_PREP:		INT	:= 6;
+	ELC_PAUSE_LONG:						INT	:= 7;
+	ELC_FLASH_10_PREP:				INT	:= 8;
+	ELC_FLASH_10_ON:						INT	:= 9;
+	ELC_FLASH_10_OFF:					INT	:= 10;
+	ELC_FLASH_1_PREP:					INT	:= 11;
+	ELC_FLASH_1_ON:						INT	:= 12;
+	ELC_FLASH_1_OFF:						INT	:= 13;
+END_VAR
+VAR
+	stErrorLampControl_s16: INT := ELC_WAIT;  (* переменная статуса управления лампой ошибки *)
+	Blink_Code_Digit_s16: INT;
+	BlinkTimer_fb: TON;
+END_VAR
+VAR_INPUT
+	BlinkCode_s16: INT;
+	tiBlink10H_u32: TIME;
+	tiBlink10L_u32: TIME;
+	tiBlinkPause_10_1_u32: TIME;
+	tiBlink1_H_u32: TIME;
+	tiBlink1_L_u32: TIME;
+	tiPauseLong_u32: TIME;
+END_VAR
+VAR_OUTPUT
+	ErrLamp_b8: BOOL;
+	Error_Indication_Completed_b8: BOOL;
+END_VAR
+(* @END_DECLARATION := '0' *)
+BlinkTimer_fb;
+
+CASE stErrorLampControl_s16 OF   (* переменная статуса процедуры управления лампой ошибки ПУЛО*)
+
+ELC_WAIT:
+		ErrLamp_b8 := FALSE;
+		Error_Indication_Completed_b8 := FALSE;
+ 		IF BlinkCode_s16 > 0 THEN
+				stErrorLampControl_s16 := ELC_FLASH_10_PREP;
+		ELSE
+				stErrorLampControl_s16 := ELC_WAIT;
+		END_IF
+
+ELC_FLASH_10_PREP:
+		Blink_Code_Digit_s16 := BlinkCode_s16 / 10;
+(*		Blink_Code_Digit_s16 := Blink_Code_Digit_s16 MOD 10;  ????????? *)
+		BlinkTimer_fb( in := FALSE );
+		BlinkTimer_fb.PT := tiBlink10H_u32;
+		BlinkTimer_fb( in :=TRUE );
+		stErrorLampControl_s16 := ELC_FLASH_10_ON;
+
+ELC_FLASH_10_ON:     (* сигнала старшего разряда, ЛО включена *)
+		IF Blink_Code_Digit_s16 <= 0 THEN
+			stErrorLampControl_s16 := ELC_PAUSE_10_1_PREP;  (* порепрыгиваем на мигалку младших разрядов *)
+		ELSE
+			ErrLamp_b8 := TRUE;  (* включение ЛО *)
+
+			IF BlinkTimer_fb.Q THEN
+				BlinkTimer_fb( in := FALSE );
+				BlinkTimer_fb.PT := tiBlink10L_u32;
+				BlinkTimer_fb( in := TRUE );
+				stErrorLampControl_s16 := ELC_FLASH_10_OFF;  (* Переход на сл. шаг *)
+			END_IF
+		END_IF
+
+ELC_FLASH_10_OFF:
+		ErrLamp_b8 := FALSE;   (* выключение ЛО *)
+		IF BlinkTimer_fb.Q THEN
+			BlinkTimer_fb( in := FALSE );
+			BlinkTimer_fb.PT := tiBlink10H_u32;
+			BlinkTimer_fb( in := TRUE );
+			Blink_Code_Digit_s16 := Blink_Code_Digit_s16 - 1;  (* счётчик миганий ЛО *)
+			stErrorLampControl_s16 := ELC_FLASH_10_ON;
+		END_IF
+
+ELC_PAUSE_10_1_PREP:
+		BlinkTimer_fb( in := FALSE );
+		BlinkTimer_fb.PT := tiBlinkPause_10_1_u32;
+		BlinkTimer_fb( in :=TRUE );
+		stErrorLampControl_s16 := ELC_PAUSE_10_1;
+
+ELC_PAUSE_10_1:
+		ErrLamp_b8 := FALSE;
+
+		IF BlinkTimer_fb.Q THEN
+			BlinkTimer_fb( in := FALSE );
+			stErrorLampControl_s16 := ELC_FLASH_1_PREP;
+		END_IF
+
+
+ELC_FLASH_1_PREP:
+		Blink_Code_Digit_s16 := BlinkCode_s16 MOD 10;
+		BlinkTimer_fb( in := FALSE );
+		BlinkTimer_fb.PT := tiBlink1_H_u32;
+		BlinkTimer_fb( in := TRUE );
+
+		stErrorLampControl_s16 := ELC_FLASH_1_ON;
+
+
+ELC_FLASH_1_ON:                 (* сигнал ЛО младшего разряда, ЛО включена *)
+		IF Blink_Code_Digit_s16 <= 0 THEN
+			stErrorLampControl_s16 := ELC_PAUSE_LONG_PREP;
+		ELSE
+			ErrLamp_b8 := TRUE;     (* включение ЛО *)
+					IF BlinkTimer_fb.Q THEN
+						BlinkTimer_fb( in := FALSE );
+						BlinkTimer_fb.PT := tiBlink1_L_u32;
+						BlinkTimer_fb( in := TRUE );
+						stErrorLampControl_s16 := ELC_FLASH_1_OFF;
+					END_IF
+		END_IF
+
+ELC_FLASH_1_OFF:
+		ErrLamp_b8 := FALSE;
+		IF BlinkTimer_fb.Q THEN
+			BlinkTimer_fb( in := FALSE );
+			BlinkTimer_fb.PT := tiBlink1_H_u32;
+			BlinkTimer_fb( in := TRUE );
+			Blink_Code_Digit_s16 := Blink_Code_Digit_s16 - 1;
+			stErrorLampControl_s16 := ELC_FLASH_1_ON;
+		END_IF
+
+ELC_PAUSE_LONG_PREP:
+		BlinkTimer_fb( in := FALSE );
+		BlinkTimer_fb.PT := tiPauseLong_u32;
+		BlinkTimer_fb( in := TRUE );
+		stErrorLampControl_s16 := ELC_PAUSE_LONG;
+
+ELC_PAUSE_LONG:
+		ErrLamp_b8 := FALSE;
+		Error_Indication_Completed_b8 := TRUE;
+		IF BlinkTimer_fb.Q THEN
+			stErrorLampControl_s16 := ELC_WAIT;
+		END_IF
+
+END_CASE
+END_PROGRAM

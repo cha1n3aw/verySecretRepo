@@ -1,0 +1,707 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+(*************************************************************************************
+PROGRAM: Startlock_RC28_14
+
+BRIEF: check secure condition before starting RC 
+
+*************************************************************************************
+ (c) Copyright by BOSCH REXROTH AG, all rights reserved 
+*************************************************************************************
+PROJECT: DPCA40 for RC28-14/30
+
+VERSION INFORMATION
+	V1.0 	Benez Fabien, DC-MA/EMF2 (General template)
+	V1.1	Lewitan Vitaly, DCRU-MA/SMC(ME2)
+- errors, which are processed in this program, are configured via excell configurator
+- errors can be observed via "err" structure within this application
+_____________________________________________
+|Best to read using Lucida Consol 9pt (Cyrillic) 	|
+|tab-width=3 				             			|   	
+|____________________________________________|
+see  [Project] [Options] [Editor] [Fonts]
+*************************************************************************************)
+PROGRAM Startlock_RC28_14
+VAR
+	stStartlock_Condition_s16				: INT; 	(*state of the startlock*)
+
+	uSupply_VB_mV_u16							: UINT;	(*voltage of VB*)
+	uSupply_VP_1_mV_u16						: UINT;	(*voltage of VP*)
+	uSupply_VSS_1_mV_u16						: UINT;	(*voltage of VSS1*)
+	uSupply_VSS_2_mV_u16						: UINT;	(*voltage of VSS2*)
+	uSupply_VSS_3_mV_u16						: UINT;	(*voltage of VSS3*)
+
+	setVP_1_u16									: UINT;	(*state of the power supply1*)
+	setVP_2_u16									: UINT;	(*state of the power supply2*)
+
+	st_INH_b8									: BOOL; 	(*state of the inhibit pin*)
+
+	stError_Case_u16							: UINT;	(*consequence of the errors: LIMP home, Stop, Ignored...*)
+	Counter_s16									: INT;	(* counter for the activation of the error-reaction*)
+
+	stSafoutCableBrake_b8					: BOOL; 	(* TRUE if no cable brake detection*)
+	stSafoutShortCircuit_b8					: BOOL;	(* TRUE if no short circuit detection*)
+	stSafoutFinished_b8						: BOOL;	(* TRUE if the Safout check is done*)
+
+	Mo_ErrorCheck_Empty_b8					: BOOL;
+
+	fb_ERR_PWRON_supply_vb_low			: handleError; (* error detection by start- vb_low*)
+	fb_ERR_PWRON_supply_vss				: handleError; (* error detection by start- supply_vss*)
+	fb_ERR_PWRON_hwmonitor_1				: handleError; (* error detection by start- hwmonitor_1*)
+	fb_ERR_PWRON_startcondition_1		: handleError; (* error detection by start- startcondition_1*)
+	fb_ERR_PWRON_engine_speed			: handleError; (* error detection by start- engine_speed*)
+	fb_ERR_PWRON_hwmonitor_2				: handleError; (* error detection by start- hwmonitor_2*)
+	fb_ERR_PWRON_startcondition_2		: handleError; (* error detection by start- startcondition_2*)
+	fb_ERR_PWRON_safout_cable_brake	: handleError; (* error detection by start- safout_cable_brake*)
+	fb_ERR_PWRON_safout_short_circuit	: handleError; (* error detection by start- safout_short_circuit*)
+	fb_ERR_PWRON_powerswitch_1			: handleError; (* error detection by start- powerswitch_1*)
+	fb_ERR_PWRON_powersupply				: handleError; (* error detection by start- powersupply*)
+	fb_ERR_PWRON_powerswitch_2			: handleError; (* error detection by start- powerswitch_2*)
+	fb_ERR_PWRON_reverse_power			: handleError; (* error detection by start- reverse_power*)
+	fb_ERR_PWRON_emergency_stopp		: handleError; (* error detection by start- emergency_stop*)
+
+(*  	stError_case_au16: ARRAY [0..20] OF UINT;   *)
+
+	stSafout_PumpL_u16: UINT;
+	stSafout_PumpR_u16: UINT;
+	safout_L_s: safout_ts;
+	safout_R_s: safout_ts;
+	stError_case_au16: ARRAY [0..20] OF UINT;
+END_VAR
+
+VAR_INPUT
+	StartconditionAppl_I_b8			: BOOL;	(* first start condition defined by the user*)
+	StartconditionAppl_II_b8		: BOOL;	(* second start condition defined by the used*)
+	StartconditionEngine_b8			: BOOL;	(* condition on the diesel to start the vehicle*)
+	EnableSafout_b8							: BOOL;	(* defines if the safout part should be active or not*)
+
+	tiCycle_s16									: INT;	(* cycle time of the start block*)
+END_VAR
+
+VAR_OUTPUT
+	StartEnable_b8							: BOOL; 	(*TRUE is the start block has detected no error*)
+	Mo_ErrorCheck_Ignore_b8			: BOOL;	(*TRUE if there is an monitor-error and if it should be ignored*)
+	Mo_ErrorCheck_LimpHome_b8		: BOOL;	(*TRUE if there is an monitor-error and if the LIMP home is required*)
+	Mo_ErrorCheck_Stop_b8				: BOOL;	(*TRUE if there is an monitor-error and if the vehicle has to stop*)
+	Mo_ErrorCheck_Switch_b8			: BOOL; 	(*TRUE if there is an monitor-error and if the switches should be down*)
+	stCase_u16									: INT; 	(*state of the start block*)
+ END_VAR
+
+VAR CONSTANT
+	STARTLOCK_CHECK_SUPPLY_VB_DS16				: INT		:= 0;
+	STARTLOCK_CHECK_SUPPLY_VSS_DS16				: INT		:= 1;
+	STARTLOCK_READ_HWMONITOR_1_DS16				: INT		:= 2;
+	STARTLOCK_CHECK_HWMONITOR_1_DS16			: INT		:= 3;
+	STARTLOCK_CHECK_CONDITION_1_DS16			: INT		:= 4;
+	STARTLOCK_CHECK_SWITCH_DS16						: INT		:= 5;
+	STARTLOCK_CONFIG_SAFOUT_DS16					: INT		:= 6;
+	STARTLOCK_CHECK_SAFOUT_DS16						: INT		:= 7;
+	STARTLOCK_CHECK_ENGINE_SPEED_DS16			: INT		:= 8;
+	STARTLOCK_CONFIG_VSS_DS16							: INT		:= 9;
+	STARTLOCK_READ_HWMONITOR_2_DS16				: INT		:= 10;
+	STARTLOCK_CHECK_HWMONITOR_2_DS16			: INT		:= 11;
+	STARTLOCK_CHECK_CONDITION_2_DS16			: INT		:= 12;
+	STARTLOCK_RUN_DS16										: INT		:= 13;
+
+	ERROR_NO_DU16													: UINT	:= 0;
+
+	ERROR_DELAY_DU16											: UINT	:= 400; (* max. known delay time is the time for config safout channels- spec. to 200ms*)
+
+END_VAR
+(* @END_DECLARATION := '0' *)
+(************************************************************************************)
+(******************** Read values for the FSM  **************************************)
+(************************************************************************************)
+
+(******************)
+(** SUPPLY: VB/VP *)
+(******************)
+		uSupply_VB_mV_u16			:= sys_getSupply(VB);    (* Battary Voltage *)
+		uSupply_VP_1_mV_u16		:= sys_getSupply(VP_1); (* Prop. Power Supply Voltage *)
+
+(*****************)
+(** SUPPLY: VSSx *)
+(*****************)
+		uSupply_VSS_1_mV_u16	:= sys_getSupply(VSS_1);   (* Sensor Supply *)
+		uSupply_VSS_2_mV_u16	:= sys_getSupply(VSS_2);
+		uSupply_VSS_3_mV_u16	:= sys_getSupply(VSS_3);
+
+(*********************)
+(* check VP switches *)
+(*********************)
+		(* see in state *)
+
+(***********************)
+(* check inhibit state *)
+(***********************)
+		st_INH_b8							:= USINT_TO_BOOL(sys_getINH());
+
+(***************************)
+(* check safout conditions *)
+(***************************)
+		(* see action safout status *)
+
+(****************************************)
+(* check start conditions of application*)
+(****************************************)
+
+(************************************************************************************)
+(******************** FSM  **********************************************************)
+(************************************************************************************)
+(* check secure condition before starting RC to operate *)
+CASE stStartlock_Condition_s16 OF
+
+(*1- check Vb supply>8.5V*)
+STARTLOCK_CHECK_SUPPLY_VB_DS16:
+		(* startcondition flag *)
+		StartEnable_b8	:= FALSE;
+		(* transition *)
+		IF (uSupply_VB_mV_u16 > 8500) THEN
+			stStartlock_Condition_s16 := STARTLOCK_CHECK_SUPPLY_VSS_DS16;
+		ELSE
+			;
+		END_IF
+
+(*2- check Vssx>threshold*)
+STARTLOCK_CHECK_SUPPLY_VSS_DS16:
+		(* startcondition flag *)
+		StartEnable_b8	:= FALSE;
+		(* transition *)
+		IF (
+			(uSupply_VSS_1_mV_u16 > 4500) AND
+			(*(uSupply_VSS_2_mV_u16 > 9500) AND*)
+			(uSupply_VSS_3_mV_u16 > 4500)
+			) THEN
+			stStartlock_Condition_s16	:= STARTLOCK_READ_HWMONITOR_1_DS16;
+		ELSE
+			;
+		END_IF
+
+(*3- read HW monitor1*)
+STARTLOCK_READ_HWMONITOR_1_DS16:
+		(* startcondition flag *)
+		StartEnable_b8	:= FALSE;
+		(* do *)
+		(* read hardware monitor *)
+		Startlock_RC28_14.monitor_status();
+
+		(* transition *)
+		stStartlock_Condition_s16	:= STARTLOCK_CHECK_HWMONITOR_1_DS16;
+
+(*4- check HW monitor1*)
+STARTLOCK_CHECK_HWMONITOR_1_DS16:
+		(* startcondition flag *)
+		StartEnable_b8	:= FALSE;
+		(* transition *)
+		IF (Mo_ErrorCheck_Stop_b8 = FALSE AND Mo_ErrorCheck_Switch_b8 = FALSE) THEN
+			stStartlock_Condition_s16	:= STARTLOCK_CHECK_CONDITION_1_DS16;
+		ELSE
+			;
+		END_IF
+
+(*5- check application specific start condition 1*)
+STARTLOCK_CHECK_CONDITION_1_DS16:
+		(* startcondition flag *)
+		StartEnable_b8	:= FALSE;
+		(* transition *)
+		IF (StartconditionAppl_I_b8 = TRUE) THEN
+			stStartlock_Condition_s16	:= STARTLOCK_CHECK_SWITCH_DS16;
+		ELSE
+			;
+		END_IF
+
+(*6- close central switch and check status*)
+STARTLOCK_CHECK_SWITCH_DS16:
+		(* startcondition flag *)
+		StartEnable_b8	:= FALSE;
+		(* do *)
+		setVP_1_u16	:= sys_setVP( VP_1, ON );				(* PWM-supply *)
+		setVP_2_u16	:= sys_setVP( VP_2, ON );				(* DIGout-supply *)
+		(* transition *)
+		IF (setVP_1_u16 = 16#0000 AND setVP_2_u16 = 16#0000) THEN
+
+			Startlock_RC28_14.CAN_Status(); (* Reset each CAN line in case of shut dn *)
+
+			IF (EnableSafout_b8 = TRUE) THEN
+				stStartlock_Condition_s16	:= STARTLOCK_CONFIG_SAFOUT_DS16;
+			ELSE
+				stStartlock_Condition_s16	:= STARTLOCK_CHECK_ENGINE_SPEED_DS16;
+			END_IF
+		ELSE
+			;
+		END_IF
+
+(*7- config safout channels*)
+STARTLOCK_CONFIG_SAFOUT_DS16:
+		(* startcondition flag *)
+		StartEnable_b8	:= FALSE;
+		(* optional SAFOUT Lib for customer *)
+		(* do *)
+		Startlock_RC28_14.safout_init();
+		(* transition *)
+		stStartlock_Condition_s16	:= STARTLOCK_CHECK_SAFOUT_DS16;
+
+(*8- check for successful configuration*)
+STARTLOCK_CHECK_SAFOUT_DS16:
+		(* startcondition flag *)
+		StartEnable_b8	:= FALSE;
+		(* do *)
+		Startlock_RC28_14.safout_status();
+
+		IF (stSafoutCableBrake_b8 = TRUE OR stSafoutShortCircuit_b8 = TRUE) THEN
+			Mo_ErrorCheck_LimpHome_b8	:= TRUE;
+		ELSE
+			;
+		END_IF
+
+		(* transition *)
+		IF (stSafoutFinished_b8 = TRUE) THEN
+			stStartlock_Condition_s16	:= STARTLOCK_CHECK_ENGINE_SPEED_DS16;
+		ELSE
+			;
+		END_IF
+
+(*9- check diesel engine speed > threshold*)
+STARTLOCK_CHECK_ENGINE_SPEED_DS16:
+		(* startcondition flag *)
+		StartEnable_b8	:= FALSE;
+		(* transition *)
+		IF (StartconditionEngine_b8 = TRUE) THEN
+			stStartlock_Condition_s16	:= STARTLOCK_CONFIG_VSS_DS16;
+		ELSE
+			;
+		END_IF
+
+(*10- config VSS1-3 Monitor*)
+STARTLOCK_CONFIG_VSS_DS16:
+		(* startcondition flag *)
+		StartEnable_b8	:= FALSE;
+		(* do *)
+		mo_cfgCheck(MO_VSS_1, MO_CHECK_ON);
+		mo_cfgCheck(MO_VSS_2, MO_CHECK_ON);
+		mo_cfgCheck(MO_VSS_3, MO_CHECK_ON);
+		(* transition *)
+		stStartlock_Condition_s16	:= STARTLOCK_READ_HWMONITOR_2_DS16;
+
+(*11- read HW monitor2*)
+STARTLOCK_READ_HWMONITOR_2_DS16:
+	(* startcondition flag *)
+		StartEnable_b8	:= FALSE;
+	(* do *)
+	(* read hardware monitor *)
+		Startlock_RC28_14.monitor_status();
+	(* transition *)
+		stStartlock_Condition_s16	:= STARTLOCK_CHECK_HWMONITOR_2_DS16;
+
+(*12- Check HW monitor2*)
+STARTLOCK_CHECK_HWMONITOR_2_DS16:
+		(* startcondition flag *)
+		StartEnable_b8	:= FALSE;
+		(* transition *)
+
+		IF (Mo_ErrorCheck_Stop_b8 = FALSE AND Mo_ErrorCheck_Switch_b8 = FALSE) THEN
+			stStartlock_Condition_s16	:= STARTLOCK_CHECK_CONDITION_2_DS16;
+		ELSE
+			;
+		END_IF
+
+
+(*13- check application specific start condition 2*)
+STARTLOCK_CHECK_CONDITION_2_DS16:
+		(* startcondition flag *)
+		StartEnable_b8	:= FALSE;
+		(* transition *)
+		IF (StartconditionAppl_II_b8 = TRUE) THEN
+			stStartlock_Condition_s16	:= STARTLOCK_RUN_DS16;
+		ELSE
+			;
+		END_IF
+
+(*13- RUN*)
+STARTLOCK_RUN_DS16:
+		(* startcondition flag *)
+		StartEnable_b8	:= TRUE;
+		(* do customer application *)
+			;
+
+ELSE
+	(* this state should never be reached *)
+	stStartlock_Condition_s16 := STARTLOCK_CHECK_SUPPLY_VSS_DS16;
+END_CASE
+
+stCase_u16 := stStartlock_Condition_s16;
+
+
+(*************************************************************************************************************)
+(******************** ERROR - STARTBLOC **********************************************************************)
+(*************************************************************************************************************)
+
+(*********************************************)
+(******** @ERR: CHECK_SUPPLY *****************)
+(*********************************************)
+	fb_ERR_PWRON_supply_vb_low(
+					stErrorCondition_b8	:= (stStartlock_Condition_s16 = STARTLOCK_CHECK_SUPPLY_VB_DS16),
+					stQuitCondition_b8	:= TRUE,
+					tiDelay_u16				:= ERROR_DELAY_DU16,
+					numErr_code_u16		:= ERR_PWRON_SUPPLY_VB_LOW,
+					numErr_nbr_u8			:= 0,
+					bSave_b8					:= FALSE,
+					tiCycle_s16				:= tiCycle_s16,
+					bFlag_b8					=> err.Pwron_supply_vb_low_b8);
+
+
+(*********************************************)
+(******** @ERR: CHECK_VSS ********************)
+(*********************************************)
+	fb_ERR_PWRON_supply_vss(
+					stErrorCondition_b8	:= (stStartlock_Condition_s16 = STARTLOCK_CHECK_SUPPLY_VSS_DS16),
+					stQuitCondition_b8	:= TRUE,
+					tiDelay_u16				:= ERROR_DELAY_DU16,
+					numErr_code_u16		:= ERR_PWRON_SUPPLY_VSS,
+					numErr_nbr_u8			:= 0,
+					bSave_b8					:= TRUE,
+					tiCycle_s16				:= tiCycle_s16,
+					bFlag_b8					=> err.Pwron_supply_vss_b8);
+
+(*********************************************)
+(******** @ERR: CHECK_HWMONITOR1**************)
+(*********************************************)
+	fb_ERR_PWRON_hwmonitor_1(
+					stErrorCondition_b8	:= (stStartlock_Condition_s16 = STARTLOCK_CHECK_HWMONITOR_1_DS16),
+					stQuitCondition_b8	:= TRUE,
+					tiDelay_u16				:= ERROR_DELAY_DU16,
+					numErr_code_u16		:= ERR_PWRON_HWMONITOR_1,
+					numErr_nbr_u8			:= 0,
+					bSave_b8					:= TRUE,
+					tiCycle_s16				:= tiCycle_s16,
+					bFlag_b8					=> err.Pwron_hwmonitor_1_b8);
+
+(*********************************************)
+(******** @ERR: CHECK_CONDITION_1 ************)
+(*********************************************)
+	fb_ERR_PWRON_startcondition_1(
+					stErrorCondition_b8	:= (stStartlock_Condition_s16 = STARTLOCK_CHECK_CONDITION_1_DS16),
+					stQuitCondition_b8	:= TRUE,
+					tiDelay_u16				:= ERROR_DELAY_DU16,
+					numErr_code_u16		:= ERR_PWRON_STARTCONDITION_1,
+					numErr_nbr_u8			:= 0,
+					bSave_b8					:= FALSE,
+					tiCycle_s16				:= tiCycle_s16,
+					bFlag_b8					=> err.Pwron_startcondition_1_b8);
+
+(*********************************************)
+(******** @ERR: CHECK_DIESELSPEED ************)
+(*********************************************)
+	fb_ERR_PWRON_engine_speed(
+					stErrorCondition_b8	:= (stStartlock_Condition_s16 = STARTLOCK_CHECK_ENGINE_SPEED_DS16),
+					stQuitCondition_b8	:= TRUE,
+					tiDelay_u16				:= ERROR_DELAY_DU16,
+					numErr_code_u16		:= ERR_PWRON_ENGINE_SPEED,
+					numErr_nbr_u8			:= 0,
+					bSave_b8					:= FALSE,
+					tiCycle_s16				:= tiCycle_s16,
+					bFlag_b8					=> err.Pwron_engine_speed_b8);
+
+(*********************************************)
+(******** @ERR: CHECK_HWMONITOR2**************)
+(*********************************************)
+	fb_ERR_PWRON_hwmonitor_2(
+					stErrorCondition_b8	:= (stStartlock_Condition_s16 = STARTLOCK_CHECK_HWMONITOR_2_DS16),
+					stQuitCondition_b8	:= TRUE,
+					tiDelay_u16				:= ERROR_DELAY_DU16,
+					numErr_code_u16		:= ERR_PWRON_HWMONITOR_2,
+					numErr_nbr_u8			:= 0,
+					bSave_b8					:= TRUE,
+					tiCycle_s16				:= tiCycle_s16,
+					bFlag_b8					=> err.Pwron_hwmonitor_2_b8);
+
+(*********************************************)
+(******** @ERR: CHECK_CONDITION_2 ************)
+(*********************************************)
+	fb_ERR_PWRON_startcondition_2(
+					stErrorCondition_b8	:= (stStartlock_Condition_s16 = STARTLOCK_CHECK_CONDITION_2_DS16),
+					stQuitCondition_b8	:= TRUE,
+					tiDelay_u16				:= ERROR_DELAY_DU16,
+					numErr_code_u16		:= ERR_PWRON_STARTCONDITION_2,
+					numErr_nbr_u8			:= 0,
+					bSave_b8					:= FALSE,
+					tiCycle_s16				:= tiCycle_s16,
+					bFlag_b8					=> err.Pwron_startcondition_2_b8);
+
+(*********************************************)
+(******** @ERR: CHECK_SAFOUT - cable_brake ***)
+(*********************************************)
+	fb_ERR_PWRON_safout_cable_brake(
+					stErrorCondition_b8	:= (stSafoutCableBrake_b8	= TRUE),
+					stQuitCondition_b8	:= TRUE,
+					tiDelay_u16				:= ERROR_DELAY_DU16,
+					numErr_code_u16		:= ERR_PWRON_SAFOUT_CABLE_BRAKE,
+					numErr_nbr_u8			:= 0,
+					bSave_b8					:= TRUE,
+					tiCycle_s16				:= tiCycle_s16,
+					bFlag_b8					=> err.Pwron_safout_cable_brake_b8);
+
+(*********************************************)
+(******** @ERR:CHECK_SAFOUT - short_circuit***)
+(*********************************************)
+	fb_ERR_PWRON_safout_short_circuit(
+					stErrorCondition_b8	:= (stSafoutShortCircuit_b8	= TRUE),
+					stQuitCondition_b8	:= TRUE,
+					tiDelay_u16				:= ERROR_DELAY_DU16,
+					numErr_code_u16		:= ERR_PWRON_SAFOUT_SHORT_CIRCUIT,
+					numErr_nbr_u8			:= 0,
+					bSave_b8					:= TRUE,
+					tiCycle_s16				:= tiCycle_s16,
+					bFlag_b8					=> err.Pwron_safout_short_circuit_b8);
+
+
+(*********************************************)
+(******** @ERR: SWITCH - Powerswitch_1 *******)
+(*********************************************)
+	fb_ERR_PWRON_powerswitch_1(
+					stErrorCondition_b8	:= (
+						(stStartlock_Condition_s16 = STARTLOCK_CHECK_SWITCH_DS16)  AND
+	(setVP_1_u16 = SYSSETVP_ON_LOCKED_DU16 OR setVP_2_u16 = SYSSETVP_ON_LOCKED_DU16)
+																					),
+					stQuitCondition_b8	:= TRUE,
+					tiDelay_u16				:= ERROR_DELAY_DU16,
+					numErr_code_u16		:= ERR_PWRON_POWERSWITCH_1,
+					numErr_nbr_u8			:= 0,
+					bSave_b8					:= TRUE,
+					tiCycle_s16				:= tiCycle_s16,
+					bFlag_b8					=> err.Pwron_powerswitch_1_b8);
+
+(*********************************************)
+(******** @ERR: SWITCH - No_power_supply *****)
+(*********************************************)
+	fb_ERR_PWRON_powersupply(
+					stErrorCondition_b8	:= (
+					(stStartlock_Condition_s16 = STARTLOCK_CHECK_SWITCH_DS16)  AND
+		(setVP_1_u16 = SYSSETVP_NOUBATT_DU16 OR setVP_2_u16 = SYSSETVP_NOUBATT_DU16)
+																					),
+					stQuitCondition_b8	:= TRUE,
+					tiDelay_u16				:= ERROR_DELAY_DU16,
+					numErr_code_u16		:= ERR_PWRON_POWERSUPPLY,
+					numErr_nbr_u8			:= 0,
+					bSave_b8					:= FALSE,
+					tiCycle_s16				:= tiCycle_s16,
+					bFlag_b8					=> err.Pwron_powersupply_b8);
+
+(*********************************************)
+(******** @ERR: SWITCH - Powerswitch_2 *******)
+(*********************************************)
+	fb_ERR_PWRON_powerswitch_2(
+					stErrorCondition_b8	:= (
+					(stStartlock_Condition_s16 = STARTLOCK_CHECK_SWITCH_DS16)  AND
+					(setVP_1_u16 = SYSSETVP_NOVP_DU16 OR setVP_2_u16 = SYSSETVP_NOVP_DU16)
+																					),
+					stQuitCondition_b8	:= TRUE,
+					tiDelay_u16				:= ERROR_DELAY_DU16,
+					numErr_code_u16		:= ERR_PWRON_POWERSWITCH_2,
+					numErr_nbr_u8			:= 0,
+					bSave_b8					:= TRUE,
+					tiCycle_s16				:= tiCycle_s16,
+					bFlag_b8					=> err.Pwron_powerswitch_2_b8);
+
+(*********************************************)
+(******** @ERR: SWITCH - Reverse_power  ******)
+(*********************************************)
+	fb_ERR_PWRON_reverse_power(
+
+					stErrorCondition_b8	:= (
+					(stStartlock_Condition_s16 = STARTLOCK_CHECK_SWITCH_DS16)  AND
+(setVP_1_u16=SYSSETVP_UNEXPECTED_VP_DU16 OR setVP_2_u16 = SYSSETVP_UNEXPECTED_VP_DU16)
+								),
+					stQuitCondition_b8	:= TRUE,
+					tiDelay_u16				:= ERROR_DELAY_DU16,
+					numErr_code_u16		:= ERR_PWRON_REVERSE_POWER,
+					numErr_nbr_u8			:= 0,
+					bSave_b8					:= TRUE,
+					tiCycle_s16				:= tiCycle_s16,
+					bFlag_b8					=> err.Pwron_reverse_power_b8);
+
+
+(*********************************************)
+(******** @ERR: SWITCH - EMCY_stop_active  ***)
+(*********************************************)
+	fb_ERR_PWRON_emergency_stopp(
+
+					stErrorCondition_b8	:= (
+						(stStartlock_Condition_s16 = STARTLOCK_CHECK_SWITCH_DS16)  AND
+	(setVP_1_u16 = SYSSETVP_INH_ACTIVE_DU16 OR setVP_2_u16 = SYSSETVP_INH_ACTIVE_DU16)
+							),
+					stQuitCondition_b8	:= TRUE,
+					tiDelay_u16				:= ERROR_DELAY_DU16,
+					numErr_code_u16		:= ERR_PWRON_EMERGENCY_STOP,
+					numErr_nbr_u8			:= 0,
+					bSave_b8					:= TRUE,
+					tiCycle_s16				:= tiCycle_s16,
+					bFlag_b8					=> err.Pwron_emergency_stop_b8);
+END_PROGRAM
+ACTION	CAN_status:
+(* check if a "BusOff" is occured for CAN2,CAN3 and CAN4  *)
+
+(*
+  CAN4_Status_u16 := can_getStatus(CAN_4);
+
+  	IF (	0 <> CAN4_Status_u16 )	THEN
+		can_init(CAN_4, BAUD_250K);
+	END_IF
+*)
+
+;
+END_ACTION
+
+ACTION	monitor_status:
+	(* reset variables *)
+	Counter_s16			:= 0;
+	stError_Case_u16	:= 16#FF;
+	(* reset error reply *)
+		mo_resetErrorReply();
+
+	WHILE(stError_Case_u16 <> 0 AND Counter_s16 <= 20) DO
+			Counter_s16			:= Counter_s16 + 1;
+			stError_Case_u16	:= mo_getError();
+			stError_case_au16[ Counter_s16 ] := stError_Case_u16; (* VL 28/04-2012,  In order to find definite error *)
+
+			CASE stError_Case_u16 OF
+				(* no error *)
+				ERROR_NO_DU16:
+					Mo_ErrorCheck_Empty_b8		:= TRUE;
+
+(* ignore errors (эти ошибки не приведут к запрету на выполнение основного ПО *)
+				MOF_V12V_DU16,
+				MOF_VREF_DU16,
+				MOC_ROM_SINGLEBITERR_DU16,
+				MOF_OP_HOURS_LIMIT_DU16:
+					Mo_ErrorCheck_Ignore_b8		:= TRUE;
+
+(* limp home errors (эти ошибки не приведут к запрету на выполнение основного ПО *)
+				MOF_VSS_1_DU16,
+				MOF_VSS_2_DU16,
+				MOF_VSS_3_DU16,
+				MOF_TEMPHW_WARNING_DU16:
+					Mo_ErrorCheck_LimpHome_b8	:= TRUE;
+
+(* stop errors (эти ошибки запретят выполнение основного ПО *)
+				MOF_TEMPHW_ERROR_DU16,
+				MOC_RAM_CONTENT_ERROR_DU16,
+				MOC_RAM_NOT_WRITABLE_DU16,
+				MOC_WDA_THRESHOLD_VIOLATION_DU16,
+				MOC_GNRL_UNDEFINED_STATE_DU16,
+				MOC_ROM_DOUBLEBITERR_DU16,
+				MOC_COM_SPI_MALFUNCTION_DU16,
+				MOC_PCP_CHECKSUMERR_DU16,
+				MOC_GPTA_TIMERERR_DU16,
+				MOF_VREF_PRE_EXIST_DU16,
+				MOF_V12V_PRE_EXIST_DU16,
+				MOF_VP_CUTOFF_3V3_DU16,
+				MOF_VP_CUTOFF_1V5_DU16,
+				MOF_VP_CUTOFF_SYSSETVP_DU16,
+				MOF_VP_CUTOFF_CPLD_DU16,
+				MOF_MM_STARTUP_DU16,
+				MOF_MM_SET_RESP_TIME_DU16,
+				MOF_EEPPAGE_SYSTEM_DU16,
+				MOF_EEPPAGE_API_DU16,
+				MOF_EEP_PRE_EXIST_DEFECTS_DU16,
+				MOF_EEPPAGE_ERRORS_DU16,
+				MOF_EEPPAGE_APPLICATION_DU16:
+					Mo_ErrorCheck_Stop_b8		:= TRUE;
+
+(* switch errors (эти ошибка запретит выполнение основного ПО*)
+				MOF_V3V3_EXT_DU16:
+					Mo_ErrorCheck_Switch_b8		:= TRUE;
+
+			ELSE
+				(* this state should never be reached *)
+				Mo_ErrorCheck_Stop_b8			:= TRUE;
+			END_CASE
+	END_WHILE
+END_ACTION
+
+ACTION	safout_init:
+(* configure safety output channels *)
+(*
+  safout_cfg(
+							UDINT_TO_UINT(IO_Chnl.SAFOUT_PUMP_L),
+							IO_Chnl.POH_PUMP_FORW_L,
+							IO_Chnl.POH_PUMP_REV_L,
+							0, 0, DEBOUNCE_FOR_SAVOUT, FALSE);
+
+  safout_cfg(
+							UDINT_TO_UINT(IO_Chnl.SAFOUT_PUMP_R),
+							IO_Chnl.POH_PUMP_FORW_R,
+							IO_Chnl.POH_PUMP_REV_R,
+							0, 0, DEBOUNCE_FOR_SAVOUT, FALSE);
+*)
+(*
+safout_ignoreError(IO_Chnl.SAFOUT_PUMP_L);
+safout_ignoreError(IO_Chnl.SAFOUT_PUMP_R);
+*)
+(*
+This function disables not only outs deactivation, but error indication also, so it is not useful
+*)
+
+(* VL, 25/05-2012: Pinging is off - because I need in case of "Forward" error - to be able to use Reverse solenoids.
+But as soon as I use the same safout channel for Forw and Reverse - the exsisting error will not to make possible 
+to activate opposite direction solenoid. One error exists - both solenoids are off. 
+
+There is a possibility of limited availability - needed to be checked!!! *)
+;
+END_ACTION
+
+ACTION	safout_status:
+(* check status of safout configuration *)
+	(*
+	0x00 	Full availability							-> FULL_AVAILABILITY_DU8
+	0x01 	Limited availability						-> LIMITED_AVAILABILITY_DU8
+	0x02 	No availability							-> NO_AVAILABILITY_DU8
+	0x10 	Max current limit exceeded				-> CURRENT_TIMEOUT_DU8
+	0x20 	Shut down test yet not finished		-> SHUT_DOWN_TEST_DU8
+	0x40 	Pinging is activ							-> PINGING_DU8
+	*)
+
+	(* set error flag for cable brake *)
+(*
+stSafout_PumpL_u16 := safout_getStatusxt(IO_Chnl.SAFOUT_PUMP_L, ADR(safout_L_s));
+stSafout_PumpR_u16 := safout_getStatusxt(IO_Chnl.SAFOUT_PUMP_R, ADR(safout_R_s));
+*)
+(*
+	IF (
+		( stSafout_PumpL_u16 = CURRENT_TIMEOUT_DU8) OR
+		(...)
+		)THEN
+		stSafoutCableBrake_b8 	:= TRUE;
+	ELSE
+		;
+	END_IF
+*)
+
+	(* set error flag for short circuit *)
+(*
+	IF (
+		(safout_getStatus(SAFOUT_37_POH) = SHUT_DOWN_TEST_DU8) OR
+		(...)
+		)THEN
+		stSafoutShortCircuit_b8	:= TRUE;
+	ELSE
+		;
+	END_IF  *)
+
+
+	(* set flag for safout check finished *)
+
+	IF ((* TR VL 25/05-2012 - I think - there is wrong PINGING constant in the current API -
+																			a real pinging status is 16#20!!!    *)
+	(stSafout_PumpL_u16 = FULL_AVAILABILITY_DU8 OR stSafout_PumpL_u16 = 16#20(*PINGING_DU8*) ) AND
+	(stSafout_PumpR_u16 = FULL_AVAILABILITY_DU8 OR stSafout_PumpR_u16 = 16#20(*PINGING_DU8*) )
+		) THEN
+		stSafoutFinished_b8	:= TRUE;
+	ELSE
+		stSafoutFinished_b8	:= FALSE;
+	END_IF
+END_ACTION
+

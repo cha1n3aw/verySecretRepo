@@ -1,0 +1,16 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/60_Error handling\/Process Errors' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+PROGRAM proc_Err_Sensors
+VAR
+	ProcessErr1_fb				: handleError;
+
+END_VAR
+VAR CONSTANT
+
+END_VAR
+(* @END_DECLARATION := '0' *)
+;
+END_PROGRAM

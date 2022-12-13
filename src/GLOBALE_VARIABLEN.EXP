@@ -1,0 +1,37 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @GLOBAL_VARIABLE_LIST := 'Globale_Variablen' *)
+(* @PATH := '' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+VAR_GLOBAL
+	para_s	: para_ts;				(* structure for the storage of the parameter *)
+	err		: applError_ts;		(* structure for the error management *)
+	CAN_s		: struc_Can;			(* structure for the CAN bus management *)
+	J1939_s	: struc_J1939;
+	IO_Chnl	: struc_IO_Chnl;		(* structure for the channels of the inputs and the outputs *)
+	output	: struc_outputs;
+	input		: struc_inputs;
+
+
+(***********************************************************************************)
+	j1939_DIESEL_DM1_s 	: j1939_dtcList_ts;
+	j1939_DIESEL_DM2_s 	: j1939_dtcList_ts;
+(***********************************************************************************)
+	hydroDist_debounce			: UINT;				(* debounce time [ms] for error detection *)
+	hydroDist_frequency			: UINT;				(* dither frequency [Hz]*)
+	hydroDist_resistance_min	: UDINT; 			(* min resistance of solenoid for error detection [mOhm]*)
+	hydroDist_resistance_max	: UDINT;				(* max resistance of solenoid for error detection[mOhm] *)
+	hydroDist_kp_1					: UINT;				(*Kp factor*)
+	hydroDist_kp_2					: UINT;				(*Kp factor*)
+	hydroDist_ki_1					: UINT;				(*Ki factor*)
+	hydroDist_ki_2					: UINT;				(*Ki factor*)
+
+END_VAR
+
+(* @OBJECT_END := 'Globale_Variablen' *)
+(* @CONNECTIONS := Globale_Variablen
+FILENAME : ''
+FILETIME : 0
+EXPORT : 0
+NUMOFCONNECTIONS : 0
+*)

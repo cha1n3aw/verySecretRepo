@@ -1,0 +1,19 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/20_CAN\/10_General CAN' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE struc_Can_Chnl :
+	STRUCT
+		(* can bus interfaces *)
+		BODAS_SERVICE_u8		: USINT		:= CAN_1;  	(* Bodas Service, Should not be changed - always CAN1  !!! *)
+		CANALYZER_u8			: USINT		:= CAN_1;	(*CAN bus used for the communication with BODAS-service*)
+		J1939_DIESEL_u8		: USINT		:= CAN_1;	(* CAN bus used for communication with diesel engine*)
+		JOYSTICKS_u8			: USINT		:= CAN_1;	(* CAN bus used for communication with HG405 joystick*)
+		CAN_modem_u8			: USINT		:=	CAN_1;	(* CAN bus used for communication with CAN_modem *)
+		Remote_Control_u8		: USINT		:=	CAN_1;	(* Пульт дистанционного управления *)
+		Attachments_KVG_u8	: USINT		:=	CAN_1;	(* Плата управления навесным оборудованием КВГ *)
+		AZK_u8					: USINT		:=	CAN_1;	(* Прием посылок от АЗК - монитор Bosch *)
+		ELOBAU_u8				: USINT		:= CAN_1;	(*  *)
+		Position_Sensors		: USINT		:= CAN_1;
+	END_STRUCT
+END_TYPE
+(* @END_DECLARATION := '0' *)

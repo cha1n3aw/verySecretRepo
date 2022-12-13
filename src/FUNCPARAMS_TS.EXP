@@ -1,0 +1,10 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/Diag\/Other' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE FuncParams_ts :
+STRUCT
+	Description_as8		: STRING(32);
+(*	Description_as8		: ARRAY [1..4] OF STRING(32);*)
+END_STRUCT
+END_TYPE
+(* @END_DECLARATION := '0' *)

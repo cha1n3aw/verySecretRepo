@@ -1,0 +1,10 @@
+MACRO
+MacroName: 'CompileAndExport'
+MacroMenu: 'CompileAndExport'
+MacroCmd: 'project build'
+MacroCmd: 'replace yesall'
+MacroCmd: 'project expmul src\'
+MacroCmd: 'replace query'
+END_MACRO
+
+

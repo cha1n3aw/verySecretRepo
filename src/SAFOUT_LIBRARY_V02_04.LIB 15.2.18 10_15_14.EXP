@@ -1,0 +1,17 @@
+LIBRARY
+SAFOUT_Library_V02_04.lib 15.2.18 10:15:14
+(* @LIBRARYSYMFILEINFO := '0' *)
+NumOfPOUs: 10
+safout: 2048
+safout_cfg: 2048
+safout_cfgDiag: 2048
+safout_getStatus: 2048
+safout_getStatusxt: 2048
+safout_ignoreError: 2048
+safout_resetError: 2048
+safout_restartChnlSDT: 2048
+safout_restartSDT: 2048
+safout_setPinging: 2048
+NumOfGVLs: 1
+Globale_Variablen: 2048
+END_LIBRARY

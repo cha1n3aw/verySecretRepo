@@ -1,0 +1,68 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/30_Outputs' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+PROGRAM out_Status
+VAR
+
+	out_as: ARRAY [1..75] OF out_ts;	(* Structure with the extended output information *)
+
+END_VAR
+(* @END_DECLARATION := '0' *)
+out_getStatusxt(OUT_1_POH,		ADR(out_as[1]));
+out_getStatusxt(OUT_2_POH,		ADR(out_as[2]));
+out_getStatusxt(OUT_3_POH, 	ADR(out_as[3]));
+out_getStatusxt(OUT_4_POH, 	ADR(out_as[4]));
+out_getStatusxt(OUT_5_POH, 	ADR(out_as[5]));
+out_getStatusxt(OUT_6_POH, 	ADR(out_as[6]));
+out_getStatusxt(OUT_7_POH, 	ADR(out_as[7]));
+out_getStatusxt(OUT_8_POH, 	ADR(out_as[8]));
+out_getStatusxt(OUT_9_POH, 	ADR(out_as[9]));
+out_getStatusxt(OUT_10_POH, 	ADR(out_as[10]));
+out_getStatusxt(OUT_11_POH, 	ADR(out_as[11]));
+out_getStatusxt(OUT_12_POH, 	ADR(out_as[12]));
+out_getStatusxt(OUT_13_POH, 	ADR(out_as[13]));
+out_getStatusxt(OUT_14_POH,	ADR(out_as[14]));
+out_getStatusxt(OUT_15_POH,	ADR(out_as[15]));
+out_getStatusxt(OUT_16_POH, 	ADR(out_as[16]));
+out_getStatusxt(OUT_17_POH,	ADR(out_as[17]));
+out_getStatusxt(OUT_18_POH,	ADR(out_as[18]));
+out_getStatusxt(OUT_19_DOH,	ADR(out_as[19]));
+out_getStatusxt(OUT_20_DOH,	ADR(out_as[20]));
+out_getStatusxt(OUT_21_DOH,	ADR(out_as[21]));
+out_getStatusxt(OUT_22_DOH,	ADR(out_as[22]));
+out_getStatusxt(OUT_23_DOH,	ADR(out_as[23]));
+out_getStatusxt(OUT_24_DOH,	ADR(out_as[24]));
+out_getStatusxt(OUT_25_DOH,	ADR(out_as[25]));
+out_getStatusxt(OUT_26_DOH,	ADR(out_as[26]));
+out_getStatusxt(OUT_27_DOH,	ADR(out_as[27]));
+out_getStatusxt(OUT_28_DOH,	ADR(out_as[28]));
+out_getStatusxt(OUT_29_DOH,	ADR(out_as[29]));
+out_getStatusxt(OUT_30_DOH,	ADR(out_as[30]));
+out_getStatusxt(OUT_31_DOH,	ADR(out_as[31]));
+out_getStatusxt(OUT_32_DOH,	ADR(out_as[32]));
+out_getStatusxt(OUT_33_POH,	ADR(out_as[33]));
+out_getStatusxt(OUT_34_POH,	ADR(out_as[34]));
+out_getStatusxt(OUT_35_POH,	ADR(out_as[35]));
+out_getStatusxt(OUT_36_POH,	ADR(out_as[36]));
+out_getStatusxt(OUT_37_POL,	ADR(out_as[37]));
+out_getStatusxt(OUT_38_POL,	ADR(out_as[38]));
+out_getStatusxt(OUT_39_POL,	ADR(out_as[39]));
+out_getStatusxt(OUT_40_POL,	ADR(out_as[40]));
+out_getStatusxt(OUT_41_POL,	ADR(out_as[41]));
+out_getStatusxt(OUT_42_POL,	ADR(out_as[42]));
+out_getStatusxt(OUT_43_POL,	ADR(out_as[43]));
+out_getStatusxt(OUT_44_POL,	ADR(out_as[44]));
+out_getStatusxt(OUT_45_POL,	ADR(out_as[45]));
+out_getStatusxt(OUT_46_POL,	ADR(out_as[46]));
+out_getStatusxt(OUT_47_AOV,	ADR(out_as[47]));
+
+(* test code *)
+out_getStatusxt(OUT_42_POL,	ADR(out_as[42]));
+out_getStatusxt(OUT_43_POL,	ADR(out_as[43]));
+out_getStatusxt(OUT_44_POL,	ADR(out_as[44]));
+out_getStatusxt(OUT_45_POL,	ADR(out_as[45]));
+out_getStatusxt(OUT_46_POL,	ADR(out_as[46]));
+out_getStatusxt(OUT_47_AOV,	ADR(out_as[47]));
+END_PROGRAM

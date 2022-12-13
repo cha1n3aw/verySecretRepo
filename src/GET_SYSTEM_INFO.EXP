@@ -1,0 +1,76 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/10_Inputs\/General Parameters' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+PROGRAM Get_System_Info
+VAR
+	stSupplyVP1_b8			: BOOL;	(*state of the supply VP1*)
+	stSupplyVP2_b8			: BOOL;	(*state of the supply VP2*)
+
+	tiSysRunTime_s32		: DINT;	(*duration of the task*)
+	etaSysTaskLoad_s16	: INT;	(*load of the main task*)
+
+	stSysEMCY_b8			: BOOL; (*State of the emergency switch*)
+	stSysINH_b8				: BOOL;	(*State of INH (pin228)*)
+
+	PCB_temp_s16			: INT;  (*temperature of the RC*)
+
+	error_u16				: UINT;	(* ECU info error *)
+	EcuInfo_s				: EcuInfo_ts;
+   errors_u16				: ARRAY [1..19] OF UINT;
+   BufferAPPL_au8			: ARRAY [1..32] OF USINT;
+   BufferSB_au8			: ARRAY [1..6] OF USINT;
+   BufferCB_au8			: ARRAY [1..6] OF USINT;
+   BufferAPI_au8			: ARRAY [1..1024] OF USINT;
+   BufferAPs_au8			: ARRAY [1..19] OF ARRAY [1..16] OF USINT;
+   copiedBytes_u16		: ARRAY [1..19] OF UINT;
+END_VAR
+(* @END_DECLARATION := '0' *)
+(********************************************************************************************)
+(******************** Checkt:INH / EMCY state  **********************************************)
+(********************************************************************************************)
+(*check the state OF 'INH': excepted value: OFF*)
+stSysINH_b8		:= USINT_TO_BOOL(sys_getINH());
+stSysEMCY_b8	:= emcy_getStatus( );
+(******************************************************************************)
+(******************** Read Supply Voltage  ************************************)
+(******************************************************************************)
+(* check VP switches *)
+stSupplyVP1_b8		:= sys_getVP( VP_1 );			(* State of the supply VP1 *)
+stSupplyVP2_b8		:= sys_getVP( VP_2 );			(* State of the supply VP2 *)
+(******************************************************************************)
+(******************** Read Task data  *****************************************)
+(******************************************************************************)
+tiSysRunTime_s32 		:= sys_getTaskRunTime( PLC_PRG.MAIN_Task_Handle_u8, PTIME_AVERAGE_INCL );
+etaSysTaskLoad_s16 	:= sys_getTaskLoad(PTIME_AVERAGE_INCL);
+(******************************************************************************)
+(******************** Reads the PCB (Printed circuit board) temperature in °C**)
+(******************************************************************************)
+PCB_temp_s16 := sys_getHwTemp(AIT_HW_1);
+
+(* Get information of the electronic circuit unit (ECU) *)
+error_u16 := sys_getEcuInfo(ADR(EcuInfo_s));
+
+(*
+errors_u16[1] 	:= sys_getVersion(VERSION_SW_PART_APPL_DU8 					, ADR(BufferAPPL_au8[1]), 	32,	ADR(copiedBytes_u16[1]));
+errors_u16[2] 	:= sys_getVersion(VERSION_SW_PART_SB_DU8						, ADR(BufferSB_au8[1]), 	6, 	ADR(copiedBytes_u16[2]));
+errors_u16[3] 	:= sys_getVersion(VERSION_SW_PART_CB_DU8						, ADR(BufferCB_au8[1]), 	6, 	ADR(copiedBytes_u16[3]));
+errors_u16[4] 	:= sys_getVersion(VERSION_SW_PART_API_ALL_DU8 				, ADR(BufferAPI_au8[1]), 	1024,	ADR(copiedBytes_u16[4]));
+errors_u16[5] 	:= sys_getVersion(VERSION_SW_PART_API_BASIC_DU8 			, ADR(BufferAPs_au8[5]), 	16,	ADR(copiedBytes_u16[5]));
+errors_u16[6] 	:= sys_getVersion(VERSION_SW_PART_API_SRC_RC_BASIC_DU8 	, ADR(BufferAPs_au8[6]), 	16,	ADR(copiedBytes_u16[6]));
+errors_u16[7] 	:= sys_getVersion(VERSION_SW_PART_API_EEPROM_DU8 			, ADR(BufferAPs_au8[7]), 	16,	ADR(copiedBytes_u16[7]));
+errors_u16[8] 	:= sys_getVersion(VERSION_SW_PART_API_DIAG_DU8 				, ADR(BufferAPs_au8[8]), 	16,	ADR(copiedBytes_u16[8]));
+errors_u16[9] 	:= sys_getVersion(VERSION_SW_PART_API_INEXT_DU8 			, ADR(BufferAPs_au8[9]), 	16,	ADR(copiedBytes_u16[9]));
+errors_u16[10] := sys_getVersion(VERSION_SW_PART_API_STM_DU8	 			, ADR(BufferAPs_au8[10]), 	16,	ADR(copiedBytes_u16[10]));
+errors_u16[11] := sys_getVersion(VERSION_SW_PART_API_CANOPEN_DU8 			, ADR(BufferAPs_au8[11]), 	16,	ADR(copiedBytes_u16[11]));
+errors_u16[12] := sys_getVersion(VERSION_SW_PART_API_J1939_DU8 			, ADR(BufferAPs_au8[12]), 	16,	ADR(copiedBytes_u16[12]));
+errors_u16[13] := sys_getVersion(VERSION_SW_PART_API_RTS_DU8	 			, ADR(BufferAPs_au8[13]), 	16,	ADR(copiedBytes_u16[13]));
+errors_u16[14] := sys_getVersion(VERSION_SW_PART_API_CANOPEN_RCE_DU8		, ADR(BufferAPs_au8[14]), 	16,	ADR(copiedBytes_u16[14]));
+errors_u16[15] := sys_getVersion(VERSION_SW_PART_API_UDS_DU8	 			, ADR(BufferAPs_au8[15]), 	16,	ADR(copiedBytes_u16[15]));
+errors_u16[16] := sys_getVersion(VERSION_SW_PART_API_OUTEXT_DU8 			, ADR(BufferAPs_au8[16]), 	16,	ADR(copiedBytes_u16[16]));
+errors_u16[17] := sys_getVersion(VERSION_SW_PART_API_ACOM_DU8	 			, ADR(BufferAPs_au8[17]), 	16,	ADR(copiedBytes_u16[17]));
+errors_u16[18]	:= sys_getVersion(VERSION_SW_PART_API_RTM_DU8	 			, ADR(BufferAPs_au8[18]), 	16,	ADR(copiedBytes_u16[18]));
+errors_u16[19]	:= sys_getVersion(VERSION_SW_PART_API_CCP_DU8	 			, ADR(BufferAPs_au8[19]), 	16,	ADR(copiedBytes_u16[19]));
+*)
+END_PROGRAM

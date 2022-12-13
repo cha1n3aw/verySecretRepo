@@ -1,0 +1,47 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/20_CAN\/20_J1939' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE struc_J1939_DataLength :
+	STRUCT
+		J1939_STD_MSG_LEN	: 	UINT	:= 8;
+		(* Нужно проверить можно ли использовать одну переменную вместо следующих *)
+		EEC1					: 	UINT	:= 8;
+		(*EEC2					:	UINT	:= 8;
+ 		EEC3					: 	UINT	:= 8;*)
+		EFL_u16				:	UINT	:= 8;
+		ET1_u16				:	UINT	:= 8;
+		IC1_u16				:	UINT	:= 8;
+
+		OFFSET_0				:	UINT	:= 0;
+		OFFSET_10			:	UINT	:= 10;
+		OFFSET_20			:	UINT	:= 20;
+
+		PRIOR_DEFAULT		:	USINT	:= 6;
+		PRIOR_3				:	USINT	:= 3;
+
+		CYCLE_TSC1			:	UINT	:= 10;
+		CYCLE_TFAC			:	UINT	:= 50;
+		CYCLE_DEFAULT		:	UINT	:= 100;
+		CYCLE_LOCARUS		:	UINT	:= 200;
+		CYCLE_DM1			:	UINT	:= 1000;
+
+		SA_Req_PGN			:	DWORD;					(* Source Address для запроса PGN *)
+		SA_DM2_DM3_YAMZ	:	DWORD := 16#21;		(* Source Address для запроса PGN у двигателя ЯМЗ *)
+		SA_DM2_CUMMINS		:	DWORD := 16#FF;		(* Source Address для запроса сохраненных ошибок у двигателя Cummins *)
+		SA_DM3_CUMMINS		:	DWORD := 16#27;		(* Source Address для запроса на удаление сохраненных ошибок у двигателя Cummins *)
+
+		Rx_DM1_Diesel_u16	:	UINT	;
+		Rx_DM2_Diesel_u16	:	UINT	;
+
+	(*	TFAC				: 	UINT	:= 8;
+		BJM1				:	UINT	:= 8;
+		AV00MF			:	UINT	:= 8;
+		AV01MF			:	UINT	:= 8;
+		VF					:	UINT	:= 8;
+		TRF2				:	UINT	:= 8;
+		CCVS				:	UINT	:= 8;
+		MP					:	UINT	:= 8;
+		ESSI				:	UINT	:= 8;*)
+	END_STRUCT
+END_TYPE
+(* @END_DECLARATION := '0' *)

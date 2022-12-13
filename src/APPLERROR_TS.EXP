@@ -1,0 +1,35 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/Structures' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE applError_ts:
+(***********************************************)
+(*  DON'T MAKE ANY CHANGES TO THIS STRUCTURE!! *)
+(*      FILE WAS AUTOMATICALLY GENERATED!!     *)
+(***********************************************)
+STRUCT
+
+   First_code_b8                    : BOOL;
+   Can_diag_b8                      : BOOL;
+   Pwron_supply_vb_low_b8           : BOOL;
+   Pwron_supply_vss_b8              : BOOL;
+   Pwron_hwmonitor_1_b8             : BOOL;
+   Pwron_startcondition_1_b8        : BOOL;
+   Pwron_engine_speed_b8            : BOOL;
+   Pwron_hwmonitor_2_b8             : BOOL;
+   Pwron_startcondition_2_b8        : BOOL;
+   Pwron_safout_cable_brake_b8      : BOOL;
+   Pwron_safout_short_circuit_b8    : BOOL;
+   Pwron_powerswitch_1_b8           : BOOL;
+   Pwron_powersupply_b8             : BOOL;
+   Pwron_powerswitch_2_b8           : BOOL;
+   Pwron_reverse_power_b8           : BOOL;
+   Pwron_emergency_stop_b8          : BOOL;
+   Supply_vb_high_b8                : BOOL;
+   Supply_vb_low_b8                 : BOOL;
+   Supply_vss1_b8                   : BOOL;
+   Supply_vss2_b8                   : BOOL;
+   Last_code_b8                     : BOOL;
+
+END_STRUCT
+END_TYPE
+(* @END_DECLARATION := '0' *)

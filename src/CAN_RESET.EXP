@@ -1,0 +1,64 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/40_CAN' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+(*************************************************************************************
+FUNCTION_BLOCK: Can_reset
+
+BRIEF: Reset of the CAN bus after a bus-off detection
+
+
+PARAM[IN]	stCAN_BusOFF_b8	 				flag for the reset of the CAN bus [0/1]
+
+*************************************************************************************
+ (c) Copyright by BOSCH REXROTH AG, all rights reserved 
+*************************************************************************************
+
+VERSION INFORMATION
+	V1.0 	Benez Fabien, DC-MA/EMF2
+		- initial release	
+_____________________________________
+|Best to read using Courrier new 8pt |
+|tab-width=3 				             |   	
+|____________________________________|
+see  [Project] [Options] [Editor] [Fonts]
+**************************************************************************************)
+FUNCTION_BLOCK Can_reset
+
+VAR_INPUT
+	stCAN_BusOFF_b8	: BOOL;			(*flag for the reset*)
+	Can_Channel_u8		: BYTE;			(*channel of the CAN bus*)
+END_VAR
+
+VAR
+	stCan_Reset_s16	: INT		:=0;	(*flag used for the reset of the CAN bus *)
+	Can_reset_Ton		: TON;			(*TON for the reset of the CAN bus*)
+END_VAR
+
+
+(* @END_DECLARATION := '0' *)
+(*if a bus off is detected, the CAN bus have to be reset *)
+CASE stCan_Reset_s16 OF
+
+CAN_RESET_STOP:
+	IF ( stCAN_BusOFF_b8 = 1 ) THEN
+		stCan_Reset_s16 := CAN_RESET_START;
+	END_IF
+
+CAN_RESET_START:
+	can_init( 	Can_Channel_u8,
+					BAUD_250K );
+	stCan_Reset_s16 := CAN_RESET_WAIT;
+	Can_reset_Ton(in := 0, PT := T#500ms);
+
+CAN_RESET_WAIT:
+	Can_reset_Ton(in := 1, PT := T#500ms);
+	IF ( Can_reset_Ton.Q ) THEN
+		stCan_Reset_s16 := CAN_RESET_STOP;
+	END_IF
+
+ELSE
+	stCan_Reset_s16 := CAN_RESET_STOP;
+END_CASE;
+END_FUNCTION_BLOCK

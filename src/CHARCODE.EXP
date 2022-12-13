@@ -1,0 +1,19 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/05_Basic_Calc' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION CHARCODE : BYTE
+(* Функция получает код (char) для текстового символа *)
+VAR_INPUT
+	STR : STRING(1);
+END_VAR
+VAR
+	PT : POINTER TO BYTE;
+END_VAR
+
+
+(* @END_DECLARATION := '0' *)
+PT := ADR(STR);
+CHARCODE := PT^;
+END_FUNCTION

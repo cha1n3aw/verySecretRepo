@@ -1,0 +1,17 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/20_CAN\/20_J1939' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE struc_J1939_Timeout :
+	STRUCT
+		EEC1				:	UINT	:= 1000;		(*J1939 timeout, ms*)
+		(*EEC2				:	UINT	:= 1000;
+		EEC3				:	UINT	:= 1000;*)
+		ET1_u16			:	UINT	:= 1000;
+		IC1_u16			:	UINT	:= 1000;
+		TFAC				:	UINT	:= 50;
+		TSC1				:	UINT	:= 50;
+		EFL_u16			:	UINT	:= 1000;
+		DD_timeout		:	UINT	:= 1000;
+	END_STRUCT
+END_TYPE
+(* @END_DECLARATION := '0' *)

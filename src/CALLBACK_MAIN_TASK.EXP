@@ -1,0 +1,438 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+	PROGRAM Callback_MAIN_Task
+VAR
+	Mo_ErrorCheck_Ignore_b8				: BOOL;
+	Mo_ErrorCheck_LimpHome_b8			: BOOL;
+	Mo_ErrorCheck_Stop_b8				: BOOL;
+	Mo_ErrorCheck_Switch_b8				: BOOL;
+(*	stError_dw: DWORD;*)  (*VL: all start errors are in "err" structure*)
+	stCase_u16								: UINT; (* Statemachine of the Startlock *)
+	LC_Done_b8								: BOOL := FALSE;
+	FirstCycle_b8							: BOOL := TRUE;
+	calc_Diesel_Poti_Ramp_fb			: mat_calcRamp;
+	counter									: INT				:= 0;
+	VAR1										: DINT := 17;
+	VAR2										: DINT := 16#1A;
+END_VAR
+
+(* @END_DECLARATION := '0' *)
+
+INITIAL_STEP _Init:
+sys_triggerTC(PLC_PRG.MAIN_Task_Handle_u8);
+
+END_STEP
+(* @SFCMAXTIME := '' *)
+(* @SFCMINTIME := '' *)
+(* @SFCCOMMENT := '' *)
+TRANSITION FROM _Init TO (_Input_Part,_Start,_Error_Handler,_Output_Part,_Process_values,_CAN_bus):= 
+TRUE
+
+
+END_TRANSITION
+STEP _Input_Part:
+sys_triggerTC(PLC_PRG.MAIN_Task_Handle_u8);
+
+
+Get_System_Info();			(* *)
+(*Get_Dig_Freq_Inputs();		(* *)*)
+
+get_Status();
+
+END_STEP
+(* @SFCMAXTIME := '' *)
+(* @SFCMINTIME := '' *)
+(* @SFCCOMMENT := '' *)
+STEP _Start:
+(***********************************************************************************)
+(******************** Start lock  **************************************************)
+(***********************************************************************************)
+
+Startlock_RC28_14(
+	StartconditionAppl_I_b8		:= TRUE,
+	StartconditionAppl_II_b8	:= TRUE,
+	StartconditionEngine_b8		:= TRUE,
+(* All appl. start conditions after Learning Curve action *)
+	EnableSafout_b8				:= TRUE,
+	tiCycle_s16						:= CYCLE,
+	Mo_ErrorCheck_Ignore_b8		=> Mo_ErrorCheck_Ignore_b8,
+	Mo_ErrorCheck_LimpHome_b8	=> Mo_ErrorCheck_LimpHome_b8,
+	Mo_ErrorCheck_Stop_b8		=> Mo_ErrorCheck_Stop_b8,
+	Mo_ErrorCheck_Switch_b8		=> Mo_ErrorCheck_Switch_b8,
+	stCase_u16 						=> stCase_u16
+);
+
+	stStartlock_b8 := Startlock_RC28_14.StartEnable_b8;
+
+END_STEP
+(* @SFCMAXTIME := '' *)
+(* @SFCMINTIME := '' *)
+(* @SFCCOMMENT := '' *)
+TRANSITION FROM _Start TO _StartAppl:= 
+LC_Done_b8
+
+
+END_TRANSITION
+STEP _StartAppl:
+stStartAppl_b8 := TRUE;
+
+END_STEP
+(* @SFCMAXTIME := '' *)
+(* @SFCMINTIME := '' *)
+(* @SFCCOMMENT := '' *)
+STEP _Error_Handler:
+proc_Err_CAN();
+proc_Err_DIG_outs();
+proc_Err_Inputs();
+proc_Err_Power();
+proc_Err_PWM();
+proc_Err_Sensors();
+proc_Err_Status();
+proc_Err_Parameters();
+
+review_Errors(
+	Saved_Err_b8:= FALSE,
+	Last_Error_Shown_b8:= flash_Error_Code.Error_Indication_Completed_b8,
+	Displayed_Err_Code_s16 => );
+
+flash_Error_Code(
+	BlinkCode_s16:= review_Errors.Displayed_Err_Code_s16,
+	tiBlink10H_u32:= t#1s,
+	tiBlink10L_u32:= t#500ms,
+	tiBlinkPause_10_1_u32:= t#500ms,
+	tiBlink1_H_u32:= t#500ms,
+	tiBlink1_L_u32:= t#500ms,
+	tiPauseLong_u32:= t#500ms,
+	ErrLamp_b8=> (*output.set_lamp_Error_b8*),
+	Error_Indication_Completed_b8=> );
+
+END_STEP
+(* @SFCMAXTIME := '' *)
+(* @SFCMINTIME := '' *)
+(* @SFCCOMMENT := '' *)
+STEP _Output_Part:
+out_DIG();
+out_Current();
+out_Status();
+out_Control();
+
+END_STEP
+(* @SFCMAXTIME := '' *)
+(* @SFCMINTIME := '' *)
+(* @SFCCOMMENT := '' *)
+STEP _Process_values:
+diag_setProcessVar(0, 0, VAR1);
+diag_setProcessVar(0, 1, 0);
+diag_setProcessVar(0, 2, 0);
+diag_setProcessVar(0, 3, 0);
+diag_setProcessVar(0, 4, SW_Version.SW_Git_Commit_s32);
+diag_setProcessVar(0, 5, SW_Version.SW_Git_Commit_s32);
+diag_setProcessVar(0, 6, SW_Version.SW_Git_Commit_s32);
+diag_setProcessVar(0, 7, SW_Version.SW_Git_Commit_s32);
+
+diag_setProcessVar(1, 0, VAR1);
+diag_setProcessVar(1, 1, VAR2);
+diag_setProcessVar(1, 2, 0);
+diag_setProcessVar(1, 3, 0);
+diag_setProcessVar(1, 4, 0);
+diag_setProcessVar(1, 5, 0);
+diag_setProcessVar(1, 6, 0);
+diag_setProcessVar(1, 7, 0);
+
+diag_setProcessVar(2, 0, 0);
+diag_setProcessVar(2, 1, 0);
+diag_setProcessVar(2, 2, 0);
+diag_setProcessVar(2, 3, 0);
+diag_setProcessVar(2, 4, 0);
+diag_setProcessVar(2, 5, 0);
+diag_setProcessVar(2, 6, 0);
+diag_setProcessVar(2, 7, 0);
+
+diag_setProcessVar(3, 0, 0);
+diag_setProcessVar(3, 1, 0);
+diag_setProcessVar(3, 2, 0);
+diag_setProcessVar(3, 3, 0);
+diag_setProcessVar(3, 4, 0);
+diag_setProcessVar(3, 5, 0);
+diag_setProcessVar(3, 6, 0);
+diag_setProcessVar(3, 7, 0);
+
+diag_setProcessVar(4, 0, 0);
+diag_setProcessVar(4, 1, 0);
+diag_setProcessVar(4, 2, 0);
+diag_setProcessVar(4, 3, 0);
+diag_setProcessVar(4, 4, 0);
+diag_setProcessVar(4, 5, 0);
+diag_setProcessVar(4, 6, 0);
+diag_setProcessVar(4, 7, 0);
+
+(*****************************************************************************)
+diag_setProcessVar(5, 0, 0);
+diag_setProcessVar(5, 1, 0);
+diag_setProcessVar(5, 2, 0);
+diag_setProcessVar(5, 3, 0);
+diag_setProcessVar(5, 4, 0);
+diag_setProcessVar(5, 5, 0);
+diag_setProcessVar(5, 6, 0);
+diag_setProcessVar(5, 7, 0);
+
+diag_setProcessVar(6, 0, 0);
+diag_setProcessVar(6, 1, 0);
+diag_setProcessVar(6, 2, 0);
+diag_setProcessVar(6, 3, 0);
+diag_setProcessVar(6, 4, 0);
+diag_setProcessVar(6, 5, 0);
+diag_setProcessVar(6, 6, 0);
+diag_setProcessVar(6, 7, 0);
+
+diag_setProcessVar(7, 0, 0);
+diag_setProcessVar(7, 1, 0);
+diag_setProcessVar(7, 2, 0);
+diag_setProcessVar(7, 3, 0);
+diag_setProcessVar(7, 4, 0);
+diag_setProcessVar(7, 5, 0);
+diag_setProcessVar(7, 6, 0);
+diag_setProcessVar(7, 7, 0);
+
+diag_setProcessVar(8, 0, 0);
+diag_setProcessVar(8, 1, 0);
+diag_setProcessVar(8, 2, 0);
+diag_setProcessVar(8, 3, 0);
+diag_setProcessVar(8, 4, 0);
+diag_setProcessVar(8, 5, 0);
+diag_setProcessVar(8, 6, 0);
+diag_setProcessVar(8, 7, 0);
+
+diag_setProcessVar(9, 0, 0);
+diag_setProcessVar(9, 1, 0);
+diag_setProcessVar(9, 2, 0);
+diag_setProcessVar(9, 3, 0);
+diag_setProcessVar(9, 4, 0);
+diag_setProcessVar(9, 5, 0);
+diag_setProcessVar(9, 6, 0);
+diag_setProcessVar(9, 7, 0);
+(*****************************************************************************)
+(*****************************************************************************)
+(*****************************************************************************)
+diag_setProcessVar(10, 0, 0);	(* input.tOil_degC_s16); 			*)
+diag_setProcessVar(10, 1, 0);	(* input.tCoolant_DegC_s16);	*)
+diag_setProcessVar(10, 2, 0);
+diag_setProcessVar(10, 3, 0);
+diag_setProcessVar(10, 4, 0);
+diag_setProcessVar(10, 5, 0);
+diag_setProcessVar(10, 6, 0);
+diag_setProcessVar(10, 7, 0);
+
+
+diag_setProcessVar(23, 0, get_Status.in_as[1].in_aiv_s.u_mV_u16);	(* input.tOil_degC_s16); 			*)
+diag_setProcessVar(23, 1, get_Status.in_as[1].in_aiv_s.diag_u8);	(* input.tCoolant_DegC_s16);	*)
+diag_setProcessVar(23, 2, get_Status.in_as[1].in_aiv_s.diagDebounced_u8);
+diag_setProcessVar(23, 3, get_Status.in_as[1].in_aiv_s.digits_u16);
+diag_setProcessVar(23, 4, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.state_l));
+diag_setProcessVar(23, 5, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.stateDebounced_l));
+diag_setProcessVar(23, 6, get_Status.in_as[1].in_aiv_s.status_b16);
+diag_setProcessVar(23, 7, para_s.Out_Val_01_s16);
+
+
+diag_setProcessVar(31, 0, get_Status.in_as[1].in_aiv_s.u_mV_u16);	(* input.tOil_degC_s16); 			*)
+diag_setProcessVar(31, 1, get_Status.in_as[1].in_aiv_s.diag_u8);	(* input.tCoolant_DegC_s16);	*)
+diag_setProcessVar(31, 2, get_Status.in_as[1].in_aiv_s.diagDebounced_u8);
+diag_setProcessVar(31, 3, get_Status.in_as[1].in_aiv_s.digits_u16);
+diag_setProcessVar(31, 4, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.state_l));
+diag_setProcessVar(31, 5, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.stateDebounced_l));
+diag_setProcessVar(31, 6, get_Status.in_as[1].in_aiv_s.status_b16);
+diag_setProcessVar(31, 7, para_s.Out_Val_01_s16);
+
+diag_setProcessVar(32, 0, get_Status.in_as[1].in_aiv_s.u_mV_u16);	(* input.tOil_degC_s16); 			*)
+diag_setProcessVar(32, 1, get_Status.in_as[1].in_aiv_s.diag_u8);	(* input.tCoolant_DegC_s16);	*)
+diag_setProcessVar(32, 2, get_Status.in_as[1].in_aiv_s.diagDebounced_u8);
+diag_setProcessVar(32, 3, get_Status.in_as[1].in_aiv_s.digits_u16);
+diag_setProcessVar(32, 4, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.state_l));
+diag_setProcessVar(32, 5, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.stateDebounced_l));
+diag_setProcessVar(32, 6, get_Status.in_as[1].in_aiv_s.status_b16);
+diag_setProcessVar(32, 7, para_s.Out_Val_01_s16);
+
+diag_setProcessVar(33, 0, get_Status.in_as[1].in_aiv_s.u_mV_u16);	(* input.tOil_degC_s16); 			*)
+diag_setProcessVar(33, 1, get_Status.in_as[1].in_aiv_s.diag_u8);	(* input.tCoolant_DegC_s16);	*)
+diag_setProcessVar(33, 2, get_Status.in_as[1].in_aiv_s.diagDebounced_u8);
+diag_setProcessVar(33, 3, get_Status.in_as[1].in_aiv_s.digits_u16);
+diag_setProcessVar(33, 4, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.state_l));
+diag_setProcessVar(33, 5, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.stateDebounced_l));
+diag_setProcessVar(33, 6, get_Status.in_as[1].in_aiv_s.status_b16);
+diag_setProcessVar(33, 7, para_s.Out_Val_01_s16);
+
+diag_setProcessVar(34, 0, get_Status.in_as[1].in_aiv_s.u_mV_u16);	(* input.tOil_degC_s16); 			*)
+diag_setProcessVar(34, 1, get_Status.in_as[1].in_aiv_s.diag_u8);	(* input.tCoolant_DegC_s16);	*)
+diag_setProcessVar(34, 2, get_Status.in_as[1].in_aiv_s.diagDebounced_u8);
+diag_setProcessVar(34, 3, get_Status.in_as[1].in_aiv_s.digits_u16);
+diag_setProcessVar(34, 4, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.state_l));
+diag_setProcessVar(34, 5, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.stateDebounced_l));
+diag_setProcessVar(34, 6, get_Status.in_as[1].in_aiv_s.status_b16);
+diag_setProcessVar(34, 7, para_s.Out_Val_01_s16);
+
+diag_setProcessVar(35, 0, get_Status.in_as[1].in_aiv_s.u_mV_u16);	(* input.tOil_degC_s16); 			*)
+diag_setProcessVar(35, 1, get_Status.in_as[1].in_aiv_s.diag_u8);	(* input.tCoolant_DegC_s16);	*)
+diag_setProcessVar(35, 2, get_Status.in_as[1].in_aiv_s.diagDebounced_u8);
+diag_setProcessVar(35, 3, get_Status.in_as[1].in_aiv_s.digits_u16);
+diag_setProcessVar(35, 4, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.state_l));
+diag_setProcessVar(35, 5, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.stateDebounced_l));
+diag_setProcessVar(35, 6, get_Status.in_as[1].in_aiv_s.status_b16);
+diag_setProcessVar(35, 7, para_s.Out_Val_01_s16);
+
+diag_setProcessVar(36, 0, get_Status.in_as[1].in_aiv_s.u_mV_u16);	(* input.tOil_degC_s16); 			*)
+diag_setProcessVar(36, 1, get_Status.in_as[1].in_aiv_s.diag_u8);	(* input.tCoolant_DegC_s16);	*)
+diag_setProcessVar(36, 2, get_Status.in_as[1].in_aiv_s.diagDebounced_u8);
+diag_setProcessVar(36, 3, get_Status.in_as[1].in_aiv_s.digits_u16);
+diag_setProcessVar(36, 4, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.state_l));
+diag_setProcessVar(36, 5, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.stateDebounced_l));
+diag_setProcessVar(36, 6, get_Status.in_as[1].in_aiv_s.status_b16);
+diag_setProcessVar(36, 7, para_s.Out_Val_01_s16);
+
+diag_setProcessVar(37, 0, get_Status.in_as[1].in_aiv_s.u_mV_u16);	(* input.tOil_degC_s16); 			*)
+diag_setProcessVar(37, 1, get_Status.in_as[1].in_aiv_s.diag_u8);	(* input.tCoolant_DegC_s16);	*)
+diag_setProcessVar(37, 2, get_Status.in_as[1].in_aiv_s.diagDebounced_u8);
+diag_setProcessVar(37, 3, get_Status.in_as[1].in_aiv_s.digits_u16);
+diag_setProcessVar(37, 4, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.state_l));
+diag_setProcessVar(37, 5, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.stateDebounced_l));
+diag_setProcessVar(37, 6, get_Status.in_as[1].in_aiv_s.status_b16);
+diag_setProcessVar(37, 7, para_s.Out_Val_01_s16);
+
+diag_setProcessVar(38, 0, get_Status.in_as[1].in_aiv_s.u_mV_u16);	(* input.tOil_degC_s16); 			*)
+diag_setProcessVar(38, 1, get_Status.in_as[1].in_aiv_s.diag_u8);	(* input.tCoolant_DegC_s16);	*)
+diag_setProcessVar(38, 2, get_Status.in_as[1].in_aiv_s.diagDebounced_u8);
+diag_setProcessVar(38, 3, get_Status.in_as[1].in_aiv_s.digits_u16);
+diag_setProcessVar(38, 4, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.state_l));
+diag_setProcessVar(38, 5, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.stateDebounced_l));
+diag_setProcessVar(38, 6, get_Status.in_as[1].in_aiv_s.status_b16);
+diag_setProcessVar(38, 7, para_s.Out_Val_01_s16);
+
+diag_setProcessVar(39, 0, get_Status.in_as[1].in_aiv_s.u_mV_u16);	(* input.tOil_degC_s16); 			*)
+diag_setProcessVar(39, 1, get_Status.in_as[1].in_aiv_s.diag_u8);	(* input.tCoolant_DegC_s16);	*)
+diag_setProcessVar(39, 2, get_Status.in_as[1].in_aiv_s.diagDebounced_u8);
+diag_setProcessVar(39, 3, get_Status.in_as[1].in_aiv_s.digits_u16);
+diag_setProcessVar(39, 4, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.state_l));
+diag_setProcessVar(39, 5, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.stateDebounced_l));
+diag_setProcessVar(39, 6, get_Status.in_as[1].in_aiv_s.status_b16);
+diag_setProcessVar(39, 7, para_s.Out_Val_01_s16);
+
+diag_setProcessVar(40, 0, get_Status.in_as[1].in_aiv_s.u_mV_u16);	(* input.tOil_degC_s16); 			*)
+diag_setProcessVar(40, 1, get_Status.in_as[1].in_aiv_s.diag_u8);	(* input.tCoolant_DegC_s16);	*)
+diag_setProcessVar(40, 2, get_Status.in_as[1].in_aiv_s.diagDebounced_u8);
+diag_setProcessVar(40, 3, get_Status.in_as[1].in_aiv_s.digits_u16);
+diag_setProcessVar(40, 4, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.state_l));
+diag_setProcessVar(40, 5, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.stateDebounced_l));
+diag_setProcessVar(40, 6, get_Status.in_as[1].in_aiv_s.status_b16);
+diag_setProcessVar(40, 7, para_s.Out_Val_01_s16);
+
+diag_setProcessVar(41, 0, get_Status.in_as[1].in_aiv_s.u_mV_u16);	(* input.tOil_degC_s16); 			*)
+diag_setProcessVar(41, 1, get_Status.in_as[1].in_aiv_s.diag_u8);	(* input.tCoolant_DegC_s16);	*)
+diag_setProcessVar(41, 2, get_Status.in_as[1].in_aiv_s.diagDebounced_u8);
+diag_setProcessVar(41, 3, get_Status.in_as[1].in_aiv_s.digits_u16);
+diag_setProcessVar(41, 4, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.state_l));
+diag_setProcessVar(41, 5, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.stateDebounced_l));
+diag_setProcessVar(41, 6, get_Status.in_as[1].in_aiv_s.status_b16);
+diag_setProcessVar(41, 7, para_s.Out_Val_01_s16);
+
+diag_setProcessVar(42, 0, get_Status.in_as[1].in_aiv_s.u_mV_u16);	(* input.tOil_degC_s16); 			*)
+diag_setProcessVar(42, 1, get_Status.in_as[1].in_aiv_s.diag_u8);	(* input.tCoolant_DegC_s16);	*)
+diag_setProcessVar(42, 2, get_Status.in_as[1].in_aiv_s.diagDebounced_u8);
+diag_setProcessVar(42, 3, get_Status.in_as[1].in_aiv_s.digits_u16);
+diag_setProcessVar(42, 4, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.state_l));
+diag_setProcessVar(42, 5, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.stateDebounced_l));
+diag_setProcessVar(42, 6, get_Status.in_as[1].in_aiv_s.status_b16);
+diag_setProcessVar(42, 7, para_s.Out_Val_01_s16);
+
+diag_setProcessVar(43, 0, get_Status.in_as[1].in_aiv_s.u_mV_u16);	(* input.tOil_degC_s16); 			*)
+diag_setProcessVar(43, 1, get_Status.in_as[1].in_aiv_s.diag_u8);	(* input.tCoolant_DegC_s16);	*)
+diag_setProcessVar(43, 2, get_Status.in_as[1].in_aiv_s.diagDebounced_u8);
+diag_setProcessVar(43, 3, get_Status.in_as[1].in_aiv_s.digits_u16);
+diag_setProcessVar(43, 4, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.state_l));
+diag_setProcessVar(43, 5, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.stateDebounced_l));
+diag_setProcessVar(43, 6, get_Status.in_as[1].in_aiv_s.status_b16);
+diag_setProcessVar(43, 7, para_s.Out_Val_01_s16);
+
+diag_setProcessVar(44, 0, get_Status.in_as[1].in_aiv_s.u_mV_u16);	(* input.tOil_degC_s16); 			*)
+diag_setProcessVar(44, 1, get_Status.in_as[1].in_aiv_s.diag_u8);	(* input.tCoolant_DegC_s16);	*)
+diag_setProcessVar(44, 2, get_Status.in_as[1].in_aiv_s.diagDebounced_u8);
+diag_setProcessVar(44, 3, get_Status.in_as[1].in_aiv_s.digits_u16);
+diag_setProcessVar(44, 4, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.state_l));
+diag_setProcessVar(44, 5, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.stateDebounced_l));
+diag_setProcessVar(44, 6, get_Status.in_as[1].in_aiv_s.status_b16);
+diag_setProcessVar(44, 7, para_s.Out_Val_01_s16);
+
+diag_setProcessVar(45, 0, get_Status.in_as[1].in_aiv_s.u_mV_u16);	(* input.tOil_degC_s16); 			*)
+diag_setProcessVar(45, 1, get_Status.in_as[1].in_aiv_s.diag_u8);	(* input.tCoolant_DegC_s16);	*)
+diag_setProcessVar(45, 2, get_Status.in_as[1].in_aiv_s.diagDebounced_u8);
+diag_setProcessVar(45, 3, get_Status.in_as[1].in_aiv_s.digits_u16);
+diag_setProcessVar(45, 4, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.state_l));
+diag_setProcessVar(45, 5, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.stateDebounced_l));
+diag_setProcessVar(45, 6, get_Status.in_as[1].in_aiv_s.status_b16);
+diag_setProcessVar(45, 7, para_s.Out_Val_01_s16);
+
+diag_setProcessVar(46, 0, get_Status.in_as[1].in_aiv_s.u_mV_u16);	(* input.tOil_degC_s16); 			*)
+diag_setProcessVar(46, 1, get_Status.in_as[1].in_aiv_s.diag_u8);	(* input.tCoolant_DegC_s16);	*)
+diag_setProcessVar(46, 2, get_Status.in_as[1].in_aiv_s.diagDebounced_u8);
+diag_setProcessVar(46, 3, get_Status.in_as[1].in_aiv_s.digits_u16);
+diag_setProcessVar(46, 4, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.state_l));
+diag_setProcessVar(46, 5, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.stateDebounced_l));
+diag_setProcessVar(46, 6, get_Status.in_as[1].in_aiv_s.status_b16);
+diag_setProcessVar(46, 7, para_s.Out_Val_01_s16);
+
+diag_setProcessVar(47, 0, get_Status.in_as[1].in_aiv_s.u_mV_u16);	(* input.tOil_degC_s16); 			*)
+diag_setProcessVar(47, 1, get_Status.in_as[1].in_aiv_s.diag_u8);	(* input.tCoolant_DegC_s16);	*)
+diag_setProcessVar(47, 2, get_Status.in_as[1].in_aiv_s.diagDebounced_u8);
+diag_setProcessVar(47, 3, get_Status.in_as[1].in_aiv_s.digits_u16);
+diag_setProcessVar(47, 4, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.state_l));
+diag_setProcessVar(47, 5, BOOL_TO_INT(get_Status.in_as[1].in_aiv_s.stateDebounced_l));
+diag_setProcessVar(47, 6, get_Status.in_as[1].in_aiv_s.status_b16);
+diag_setProcessVar(47, 7, para_s.Out_Val_01_s16);
+
+END_STEP
+(* @SFCMAXTIME := '' *)
+(* @SFCMINTIME := '' *)
+(* @SFCCOMMENT := '' *)
+STEP _CAN_bus:
+(* status of CAN channel CAN_1 *)
+CAN_s.Status.Channel_CAN_1 := can_getStatus(CAN_1);
+
+CAN_s.Data.Databox_data_1[1] := INT_TO_USINT(counter);
+CAN_s.Data.Databox_data_2[2] := INT_TO_USINT(counter);
+CAN_s.Data.Databox_data_3[3] := INT_TO_USINT(counter);
+CAN_s.Data.Databox_data_4[4] := INT_TO_USINT(counter);
+
+IF counter = CYCLES_FOR_CAN_SEND THEN
+	counter	:= 0;
+	IF CAN_s.Status.Channel_CAN_1 <> 0 THEN
+		can_start(CAN_1);
+	END_IF
+END_IF
+CASE counter OF
+	0:	can_sendDatabox(CAN_1, 3, 8, ADR(CAN_s.Data.Databox_data_1) );
+	1:	can_sendDatabox(CAN_2, 3, 8, ADR(CAN_s.Data.Databox_data_2) );
+	2: can_sendDatabox(CAN_3, 3, 8, ADR(CAN_s.Data.Databox_data_3) );
+	3: can_sendDatabox(CAN_4, 3, 8, ADR(CAN_s.Data.Databox_data_4) );
+	4:	;
+	5:	;
+	6: ;
+	7:	;
+	8: ;
+	9: ;
+	ELSE
+;
+END_CASE
+counter	:= counter + 1;
+
+END_STEP
+(* @SFCMAXTIME := '' *)
+(* @SFCMINTIME := '' *)
+(* @SFCCOMMENT := '' *)
+TRANSITION FROM (_Input_Part,_StartAppl,_Error_Handler,_Output_Part,_Process_values,_CAN_bus) TO _Init:= 
+FALSE
+
+
+END_TRANSITION
+
+END_PROGRAM

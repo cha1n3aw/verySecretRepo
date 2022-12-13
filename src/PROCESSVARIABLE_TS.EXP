@@ -1,0 +1,17 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/Diag\/ProcessValues' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE ProcessVariable_ts :
+STRUCT
+	ProcessVarName_as8	: STRING(32);
+(*	ProcessVarName_as8	: ARRAY [1..4] OF STRING(32);*)
+	ProcVarType_u8			: USINT;
+	UnitCode_au8			: USINT;
+(*	UnitCode_au8			: ARRAY [1..4] OF USINT;*)
+	Multiplier_s16			: INT;
+	Divisor_s16				: INT;
+	attr_u					: UINT;		(* attr_u; 		NumberOfDigits_u16	: UINT;	*)
+	AccesslevelCode_u8	: USINT;
+END_STRUCT
+END_TYPE
+(* @END_DECLARATION := '0' *)

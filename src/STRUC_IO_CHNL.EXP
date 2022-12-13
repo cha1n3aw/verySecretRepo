@@ -1,0 +1,127 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/10_IO' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE struc_IO_Chnl :
+STRUCT
+(******************** Definition: Input channel *************************************)
+
+(******************** 	Frequency Inputs 					*************************************)
+	FI_IDR_DIESEL				:	UDINT	:=	IN_69_FI;			(* Обороты вращения дизеля 		*)
+
+	FI_HDD_MOTOR_L				:	UDINT	:=	IN_66_FI;			(* 3х-проводный датчик скорости 	*)
+	FI_HDD_MOTOR_R				:	UDINT	:=	IN_67_FI;			(* 3х-проводный датчик скорости 	*)
+	FI_DSM_MOTOR_L				:	UDINT	:=	IN_71_FI;			(* 2х-проводный датчик скорости 	*)
+	FI_DSM_MOTOR_R				:	UDINT	:=	IN_72_FI;			(* 2х-проводный датчик скорости	*)
+(******************** 	Digital Inputs 						*************************************)
+	AID_EQUIP_MODE				:	UDINT	:=	IN_1_AIV;			(* Выбор режима оборудования 			*)
+	AID_SWIM_MODE				:	UDINT	:=	IN_2_AIV;			(* Включение "плавающего" 				*)
+	AID_BUTTON_B				:	UDINT	:=	IN_3_AIV;			(* Доп. функционал на кнопке B	 	*)
+	AID_BUTTON_A				:	UDINT	:=	IN_5_AIV;			(* Доп. функционал на кнопке A 		*)
+
+	AID_NON_SIGNAL				:	UDINT := IN_4_AIV;			(* Выключение сигнала заднего хода	*)
+	AID_OPERATOR_SENS			:	UDINT := IN_6_AIV;			(* Датчик присутствия оператора		*)
+	AID_PARKING_SWT			:	UDINT	:= IN_7_AIV;			(* Включатель парковочного режима	*)
+	AID_SAFETY					:	UDINT	:=	IN_10_AIV; 			(* Выключатель безопасности 			*)
+	AID_TOWING 					:	UDINT	:= IN_11_AIV;			(* Включение транспортирования 		*)
+	AID_BOM_SWITCH				:	UDINT := IN_12_AIV;			(* Включение режима ВОМ 				*)
+	AID_FAN_SWITCH				:	UDINT := IN_13_AIV;			(* Переключение режима FANDrive 		*)
+	AID_BOM_REV					:	UDINT	:=	IN_14_AIV;			(* Реверс ВОМ 								*)
+	AID_FAN_REV					:	UDINT :=	IN_16_AIV;			(* Включение реверса FANDrive 		*)
+	AID_PEDAL_MODE				:	UDINT	:= IN_20_AIV;			(* Переключение режима инч-педали	*)
+	AID_START_DIESEL			:	UDINT	:=	IN_23_AIV;			(* Запуск дизеля 							*)
+	AID_CLOSE_CRANE			:	UDINT	:=	IN_24_AIV;			(* Датчик крана гидробака				*)
+(******************** 	Analog Inputs 						*************************************)
+	AI_TEMP_ENVIR				:	UDINT	:=	IN_15_AIV;			(* Темп-ра окружающей среды 			*)
+
+	AI_HYD_PUMP_L				:	UDINT	:=	IN_25_AIV;			(* Датчик давления левого борта					*)
+	AI_HYD_PUMP_R				:	UDINT	:=	IN_26_AIV;			(* Датчик давления правого борта 				*)
+	AI_HYD_BRAKE				:	UDINT	:=	IN_27_AIV;			(* Давление растормаживания						*)
+	AI_HYD_ATT_PUMP			:	UDINT	:=	IN_28_AIV;			(* Давление в контуре навесного оборудования	*)
+	AI_HYD_FAN_PUMP			:	UDINT	:=	IN_29_AIV;			(* Давление в контуре FAN-drive					*)
+
+	AI_BRAKE_PEDAL				:	UDINT	:=	IN_33_AIV;			(* Датчик педали дисселератора 		*)
+	AI_TEMP_AIR					:	UDINT	:=	IN_34_AIV;			(* Темп-ра воздуха турбины 			*)
+	AI_BOM_SPEED				:	UDINT	:=	IN_37_AIV;			(* Обороты вращения ВОМ 				*)
+	AI_POTI_DIESEL				:	UDINT	:=	IN_39_AIV;			(* Датчик положения рейки 				*)
+	AI_TEMP_OIL					:	UDINT	:=	IN_40_AIV;			(* Темп-ра масла трансмиссии 			*)
+	AI_TEMP_COOLANT			:	UDINT	:=	IN_41_AIV;			(* Темп-ра охлаждающей жидкости		*)
+
+	AI_JOY_DRIVE				:	UDINT	:=	IN_52_AIV;			(* Потенциометр движения				*)
+	AI_JOY_STEER				:	UDINT	:=	IN_53_AIV;			(* Потенциометр руления 				*)
+	AI_JOY_DRIVE_CM			:	UDINT	:=	IN_54_AIC;
+	AI_JOY_STEER_CM			:	UDINT	:=	IN_55_AIC;
+
+	(*AI_JOY_DIRECTION_CM 		:	UDINT := IN_56_AIC;			(* Токовый вход джойстик навесного  *)
+	AI_JOY_SIDE_CM				:	UDINT :=	IN_57_AIC;			(* Токовый вход джойстик навесного  *)*)
+	AI_JOY_DIRECTION			:	UDINT	:=	IN_58_AIV;			(* Джойстик Вперед/Назад навесного	*)
+	AI_JOY_SIDE					:	UDINT	:=	IN_59_AIV;			(* Джойстик Влево/Вправо навесного	*)
+(********************		Sensors Inputs 						*************************************)
+	DI_SENS_1					:	UDINT	:=	IN_43_DI;			(* Датчик низкого давления масла ДВС - 86	 *)
+	DI_SENS_2					:	UDINT	:=	IN_44_DI;			(* Датчик перегрева масла в баке 	 -	T°	 *)
+	DI_SENS_3					:	UDINT	:=	IN_45_DI;			(* Датчик засора топливного фильтра  - 16	 *)
+	DI_SENS_4					:	UDINT	:=	IN_46_DI;			(* Датчик неисправности НШ 			 - НШ	 *)
+	DI_SENS_5					:	UDINT	:=	IN_47_DI;			(* Датчик засора фильтра навесного	 - ЗФН *)
+	DI_SENS_6					:	UDINT	:=	IN_48_DI;			(* Датчик засор фильтра насосов ГСТ	 - 106 *)
+	DI_SENS_7					:	UDINT	:=	IN_49_DI;			(* Датчик засор воздушного фильтра	 - ЗФВ *)
+	DI_SENS_8					:	UDINT	:=	IN_50_DI;			(* Датчик низкий уровень гидробака	 - 213 *)
+	DI_SENS_9					:	UDINT	:=	IN_51_DI;			(* Датчик низкий уровень топлива		 - 125 *)
+(******************** 	Definition: Output channel ************************************)
+	POH_PUMP_FORW_L			:	UDINT	:=	OUT_1_POH_CL;		(* Левый борт Вперед		*)
+	PIC_PUMP_FORW_L			:	UDINT	:=	OUT_1_PIC;			(* Левый борт Вперед		*)
+	POH_PUMP_REV_L				:	UDINT	:=	OUT_2_POH_CL;		(* Левый борт Назад		*)
+	PIC_PUMP_REV_L				:	UDINT	:=	OUT_2_PIC;			(* Левый борт Назад		*)
+	POH_PUMP_FORW_R			:	UDINT	:=	OUT_3_POH_CL;		(* Правый борт Вперед	*)
+	PIC_PUMP_FORW_R			:	UDINT	:=	OUT_3_PIC;			(* Правый борт Вперед	*)
+	POH_PUMP_REV_R				:	UDINT	:=	OUT_4_POH_CL;		(* Правый борт Назад 	*)
+	PIC_PUMP_REV_R				:	UDINT	:=	OUT_4_PIC;			(* Правый борт Назад 	*)
+	POH_MOTOR_L					:	UDINT	:=	OUT_5_POH_CL;		(* Левый мотор 			*)
+	PIC_MOTOR_L					:	UDINT	:=	OUT_5_PIC;			(* Левый мотор 			*)
+	POH_MOTOR_R					:	UDINT	:=	OUT_6_POH_CL;		(* Правый мотор 			*)
+	PIC_MOTOR_R					:	UDINT	:=	OUT_6_PIC;			(* Правый мотор 			*)
+
+	POL_GIDRO_FWD				:	UDINT	:=	OUT_37_POL_CL;		(* Навесное оборудование. Вперед.*)
+	PIC_GIDRO_FWD				:	UDINT	:=	OUT_37_PIC;			(* Навесное оборудование. Вперед.*)
+	POL_GIDRO_REV				:	UDINT	:=	OUT_38_POL_CL;		(* Навесное оборудование. Назад 	*)
+	PIC_GIDRO_REV				:	UDINT	:=	OUT_38_PIC;			(* Навесное оборудование. Назад 	*)
+	POL_GIDRO_L					:	UDINT	:=	OUT_41_POL_CL;		(* Навесное оборудование. Влево 	*)
+	PIC_GIDRO_L					:	UDINT	:=	OUT_41_PIC;			(* Навесное оборудование. Влево 	*)
+	POL_GIDRO_R					:	UDINT	:=	OUT_42_POL_CL;		(* Навесное оборудование. Вправо *)
+	PIC_GIDRO_R					:	UDINT	:=	OUT_42_PIC;			(* Навесное оборудование. Вправо *)
+
+	DOH_WORK_MODE_1			:	UDINT	:= OUT_19_DOH;			(* Режим "Бульдозер" 					*)
+	DOH_WORK_MODE_2			:	UDINT	:= OUT_20_DOH;			(* Режим "Рыхлитель" 					*)
+
+	DOH_BRAKES					:	UDINT	:= OUT_23_DOH;			(* Клапан растормаживания 				*)
+	PIC_BRAKES					:	UDINT	:= OUT_23_PIC;			(* Клапан растормаживания 				*)
+
+	DOH_IND_REVERS				:	UDINT	:= OUT_26_DOH;			(* Индикатор движения задним ходом	*)
+	DOH_START_DIESEL			:	UDINT	:=	OUT_28_DOH;			(* Выход запуска дизеля 				*)
+	DOH_FLASHING_BEACON		:	UDINT := OUT_29_DOH;			(* Маяк 										*)
+	DOH_CONT_BAL_VALVE		:	UDINT	:= OUT_30_DOH;			(* Клапан блокировки контргруза *)
+
+	POL_FAN_DRIVE				:	UDINT	:=	OUT_39_POL_CL;		(* Клапан FANdrive 						*)
+	PIC_FAN_DRIVE				:	UDINT	:=	OUT_39_PIC;			(* Клапан FANdrive 						*)
+
+	POL_OPTION_BOM				:	UDINT	:=	OUT_40_POL_CL;		(* ВОМ или другая опция 				*)
+	PIC_OPTION_BOM				:	UDINT	:=	OUT_40_PIC;			(* ВОМ или другая опция 				*)
+(***************************************************************************************)
+(*Сейчас не реализован вариант установки трехпозиционного отвала на старую кабину*)
+
+	DOH_REV_FANDRV				:	UDINT	:= OUT_21_DOH;			(* Клапан реверса FAN Drive			*)
+	DOH_IDLE_FANDRV			:	UDINT	:= OUT_22_DOH;			(* Клапан софт-стоп FAN Drive	МИ-3	*)
+	(*DOH_STOP_DIESEL			:	UDINT	:= OUT_24_DOH;			(* Глушение дизеля 						*)*)
+	DOH_WORK_MODE_3			:	UDINT :=	OUT_25_DOH;			(* Управление планированием	в режиме бульдозера МИ-3*)
+
+
+	DOH_Swim_Lamp				:	UDINT	:= OUT_21_DOH;			(* Лампа "Плавающего" режима			МИ-2*)
+	DOH_FAN_Lamp				:	UDINT	:=	OUT_22_DOH;			(* Лампа режима FAN Drive 				МИ-2*)
+	DOH_LOW_PRESS				:	UDINT	:= OUT_24_DOH;			(* Низкое давления растормаживания	МИ-2*)
+	DOH_ERR_LAMP				:	UDINT	:= OUT_25_DOH;			(* Лампа "Ошибка" трансмиссии 		МИ-2*)
+(*END_IF*)
+(******************** 	Analog Outputs 				*************************************)
+	AOV_KAD_RPM					:	UDINT := OUT_47_AOV;			(* Сигнал о требуемых оборотах для КАД *)
+
+
+END_STRUCT
+END_TYPE
+(* @END_DECLARATION := '0' *)

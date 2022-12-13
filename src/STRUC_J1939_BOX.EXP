@@ -1,0 +1,41 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/20_CAN\/20_J1939' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE struc_J1939_Box :
+	STRUCT
+		Tx_TSC1_u16			:	UINT	:= 2;
+		Tx_VF					:	UINT	:= 3;		(* *)
+		Tx_TRF2				:	UINT	:= 4;		(* *)
+		Tx_MP					:	UINT	:= 5;		(*	*)
+		Tx_ESSI				:	UINT	:= 6;		(* *)
+		Tx_HOURS				:	UINT	:= 7;
+		Tx_EEC1				:	UINT	:= 8;
+		Tx_BJM1				:	UINT	:= 9;		(* *)
+ 		Tx_TF_u16			:	UINT	:= 10;
+ 		Tx_ETC2_u16			:	UINT	:= 11;
+		Tx_TFAC_u16			:	UINT	:= 12;
+		Tx_RHS				:	UINT	:= 13;		(* *)
+		Tx_LOI				:	UINT	:= 14;		(* *)
+		Tx_ET1				:	UINT	:= 15;
+		Tx_AV00MF			:	UINT	:= 16;		(* *)
+		Tx_AV01MF			:	UINT	:= 17;		(* *)
+		Tx_AV02MF			:	UINT	:= 18;		(* *)
+		Tx_AV03MF			:	UINT	:= 19;		(* *)
+		Tx_AV04MF			:	UINT	:= 20;		(* *)
+(******************************************************************************)
+(******************** Definition: databoxes Rx J1939*************************)
+(******************************************************************************)
+		Rx_EEC1_u16			:	UINT	:= 2;	(*databox to receive values from the customer*)
+ 		(*Rx_EEC2_u16			:	UINT	:= 3;	(*databox to receive values from the customer*)
+ 		Rx_EEC3_u16			:	UINT	:= 4;	(*databox to receive values from the customer*)*)
+ 		Rx_ET1_u16			:	UINT	:= 3;	(*databox to receive values from the customer*)
+ 		Rx_IC1_u16			:	UINT	:= 4;	(*databox to receive values from the customer*)
+		Rx_EFL_u16			:	UINT	:= 5;
+		Rx_DD_u16			:	UINT	:= 6;	(* Dash Display *)
+		Rx_DIESEL_DM1_u16	:	UINT	:=	7;	(* сообщение DM1 контроллера двигателя *)
+		Rx_DIESEL_DM2_u16	:	UINT	:=	8;	(* сообщение DM2 контроллера двигателя *)
+	END_STRUCT
+END_TYPE
+		(*Tx_DM1_u16			:	UINT	:= 12;*)
+ 		(*Tx_StTransm_u16		:	UINT	:= 15;*)
+(* @END_DECLARATION := '0' *)

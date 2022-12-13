@@ -1,0 +1,112 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/60_Error handling' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+(*************************************************************************************
+* PROGRAM displayErrorCode
+*/
+* Provide cyclically changed Active or Saved error code - for i.e. indication on display or for flash code indication.
+*Error codes retrieved from the RunTime system, from the "ErrorData_ts" structure.
+**************************************************************************************************
+**************************************************************************************************
+*
+**************************************************************************************************
+* (c) Copyright by BOSCH REXROTH AG, all rights reserved *
+**************************************************************************************************
+**************************************************************************************************
+Used following user defined type:
+
+TYPE ErrorData_ts :
+STRUCT
+  Code_u16: UINT;   (* Error code (module + function + type). *)
+  Param_u8: USINT;      (* Error parameter. *)
+  Occurrence_u8: USINT;  (* Error occurrence counter. *)
+  Timestamp_u32: UDINT; (* Timestamp of the last occurrence in minutes (value of the operating time counter). *)
+END_STRUCT
+END_TYPE
+***************************************************************************************************
+***************************************************************************************************
+* PROJECT:	 Universal
+* VERSION INFORMATION: 
+*	v1.00, 27.03.2012, Vitaly Lewitan, DCRU-MA/SMC
+*  v1.01, 03/05-2012, Vitaly Lewitan, DCRU-MA/SMC. System errors are not displayed!!!
+*  v1.02, 03/05-2012, Vitaly Lewitan, DCRU-MA/SMC. Module adapted for flash code (instead of timer, 
+				"error indication comlete" flag is used for switching to the next error 
+* REVISION HISTORY:
+* no revision so far
+*
+*
+*)
+
+PROGRAM review_Errors
+VAR
+	numErr_s16: INT;
+	stErr_indication_s16: INT;
+	idxError_s16: INT;
+	errors_as: ARRAY [1..200] OF ErrorData_ts;
+	Error_Code_u16: UINT;
+	Error_Code_s16: INT;
+END_VAR
+VAR_OUTPUT
+	Displayed_Err_Code_s16: INT;
+END_VAR
+VAR_INPUT
+	Saved_Err_b8: BOOL;
+	Last_Error_Shown_b8: BOOL;
+END_VAR
+VAR CONSTANT
+	CHECK_FOR_ERRORS: INT := 0;
+	DISPLAY_ERROR_PREP: INT := 2;
+	DISPLAY_ERROR: INT := 1;
+END_VAR
+(* @END_DECLARATION := '0' *)
+IF Saved_Err_b8 THEN
+numErr_s16 := UINT_TO_INT(sys_getNumSavedErrors());
+sys_getSavedErrors(ADR(errors_as[1]), 0, 200 );
+ELSE
+numErr_s16 := UINT_TO_INT(sys_getNumActiveErrors());
+sys_getActiveErrors(ADR(errors_as[1]), 0, 200 );
+END_IF
+
+CASE stErr_indication_s16 OF
+
+CHECK_FOR_ERRORS:
+
+			IF numErr_s16 <= 0 THEN
+					Displayed_Err_Code_s16 := 0;
+					idxError_s16 := 0;
+			ELSIF idxError_s16 >= numErr_s16 THEN (* all active errors were displayed *)
+					idxError_s16 := 0;
+			ELSE  (* Display the next error *)
+						idxError_s16 := idxError_s16 + 1; (* Next error  *)
+						Error_Code_u16 := errors_as[idxError_s16].Code_u16;
+															IF Error_Code_u16 >= 16#8000  (* application error *)
+																THEN
+															Error_Code_s16 := UINT_TO_INT(Error_Code_u16 - 16#8000);
+															stErr_indication_s16 := DISPLAY_ERROR_PREP;
+															ELSE  (* system error, no indication *)
+															stErr_indication_s16 := CHECK_FOR_ERRORS;
+															Displayed_Err_Code_s16 := 0;
+															END_IF
+			END_IF
+
+DISPLAY_ERROR_PREP:
+			IF NOT Last_Error_Shown_b8 THEN (* previous error indication completed *)
+				stErr_indication_s16 := DISPLAY_ERROR;
+			ELSE
+				stErr_indication_s16 := DISPLAY_ERROR_PREP;(* keep found error till the long pause of the prev. error completed *)
+			END_IF
+
+DISPLAY_ERROR:
+
+   Displayed_Err_Code_s16 := Error_Code_s16;
+
+			IF Last_Error_Shown_b8 THEN  (* indication of the current error completed, look for the next error *)
+					stErr_indication_s16 := CHECK_FOR_ERRORS ;
+			ELSE;
+			END_IF
+ELSE
+  stErr_indication_s16 := CHECK_FOR_ERRORS ;
+END_CASE
+END_PROGRAM

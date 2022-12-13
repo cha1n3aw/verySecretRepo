@@ -1,0 +1,65 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+PROGRAM SwInfo
+VAR
+
+	SwInfo_lenString_DU32	: INT := 255;
+	Eep_sizePage_16bit_D		: INT := 256;
+
+	SwInfo_strSep_DAS8		: STRING := ' |-| \n\r';
+	SwInfo_dataString_as8	: STRING(255);
+
+	idx_u16						: INT := 1;
+
+	flgCompRes_u8				: BOOL := FALSE;
+
+	SwInfo_dataEepromRd_as16 : ARRAY[1..256] OF INT := 0;
+	SwInfo_dataEepromWr_as16 : ARRAY[1..256] OF INT := 0;
+
+	Ecu_nrEepPageEcuInfo_D	: INT := 32;
+END_VAR
+
+(* @END_DECLARATION := '0' *)
+(* copy constant SW Name string to target *)
+SwInfo_dataString_as8 := 'Software Git Commit Hash: ';
+SwInfo_dataString_as8 := CONCAT(SwInfo_dataString_as8, SW_Version.SW_Git_Hash_as8);
+SwInfo_dataString_as8 := CONCAT(SwInfo_dataString_as8, ';');
+
+
+(* switch byte order in string *)
+(* Switch byte order of characters in string to prepare string for display in BODAS service *)
+FOR idx_u16 := 1 TO SwInfo_lenString_DU32 BY 1 DO
+	IF (idx_u16 MOD 2 = 0) THEN
+		(* odd byte position *)
+		SwInfo_dataEepromWr_as16[idx_u16/2] := WORD_TO_INT(INT_TO_WORD(SwInfo_dataEepromWr_as16[idx_u16/2]) OR (BYTE_TO_WORD(CHARCODE(MID(SwInfo_dataString_as8, 1, idx_u16)))  AND 16#00FF));
+	ELSE
+		(* even byte position *)
+		SwInfo_dataEepromWr_as16[idx_u16/2 + 1] :=  WORD_TO_INT(SHL(BYTE_TO_WORD(CHARCODE(MID(SwInfo_dataString_as8, 1, idx_u16))),8) AND 16#FF00);
+	END_IF
+END_FOR
+
+(* read current content of EEPROM RAM mirror page containing ECU information *)
+ree_getArray(Ecu_nrEepPageEcuInfo_D, 0, ADR(SwInfo_dataEepromRd_as16[1]), Eep_sizePage_16bit_D);
+
+(* create index for array comparison *)
+idx_u16 := 1;
+
+(* create flag holding array comparison result *)
+flgCompRes_u8 := FALSE;
+(* -------------------------------------------------------------------------------------------- *)
+
+(* compare actual content with intended content *)
+WHILE ((idx_u16 < Eep_sizePage_16bit_D) AND (NOT flgCompRes_u8)) DO
+	IF (SwInfo_dataEepromRd_as16[idx_u16] <> SwInfo_dataEepromWr_as16[idx_u16]) THEN
+		flgCompRes_u8 := TRUE;
+	END_IF
+	idx_u16 := idx_u16 + 1;
+END_WHILE
+
+IF (flgCompRes_u8) THEN
+	ee_saveArray(Ecu_nrEepPageEcuInfo_D, 0, ADR(SwInfo_dataEepromWr_as16[1]), Eep_sizePage_16bit_D);
+END_IF
+END_PROGRAM

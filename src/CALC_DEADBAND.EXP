@@ -1,0 +1,31 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/10_Inputs\/Function Blocks' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION calc_deadband : INT
+VAR_INPUT
+	iInput:			INT;	(* input setpoint (-1000..1000) *)
+	iDeadband:	INT;	(* deadband in % of poti range [0..100] *)
+END_VAR
+VAR
+	tmp:	INT;
+END_VAR
+(* @END_DECLARATION := '0' *)
+iInput := LIMIT(-1000, iInput, 1000);
+iDeadband := LIMIT(0, iDeadband, 100);
+
+(* convert from percent *)
+iDeadband := iDeadband * 10;
+
+(* calculation of deadband *)
+IF iInput > 0 THEN
+	tmp := iInput - iDeadband;
+	tmp := MAX(tmp, 0);
+ELSE
+	tmp := iInput + iDeadband;
+	tmp := MIN(tmp, 0);
+END_IF
+
+calc_deadband := LIMIT( -1000, DINT_TO_INT(INT_TO_DINT(tmp) * 1000 / (1000 - iDeadband)), 1000);
+END_FUNCTION

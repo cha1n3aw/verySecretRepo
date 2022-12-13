@@ -1,0 +1,32 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/10_Inputs\/Function Blocks' *)
+(* @OBJECTFLAGS := '8, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION_BLOCK Get_PR2_25
+(* V. Lewitan, DCRU, 08/08-2011, ver 1.0
+V. Lewitan, ver 2.0, adapted to RC30, 01/05-2012
+*)
+VAR_INPUT
+	Chn_u32: DWORD;
+END_VAR
+VAR_OUTPUT
+	p0p01bar_s16: INT;
+	stPR2_u8: BYTE;
+END_VAR
+VAR
+	v_mV_s16: INT;
+END_VAR
+(* @END_DECLARATION := '0' *)
+v_mV_s16 := DINT_TO_INT( in(Chn_u32));
+
+IF v_mV_s16 < 350 THEN
+stPR2_u8 := 2#011;
+ELSIF v_mV_s16 > 4650 THEN
+stPR2_u8 := 2#101;
+ELSE (* no error, fb initialized *)
+stPR2_u8 := 2#001;
+END_IF
+
+p0p01bar_s16 := Scale_fun_s16( v_mV_s16 , 500, 4500, 0, 2500);
+END_FUNCTION_BLOCK

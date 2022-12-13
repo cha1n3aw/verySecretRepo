@@ -1,0 +1,55 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/05_Basic_Calc' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION roundingTo5 : UINT 	(* ‘ункци€ окргул€ет число до ближайшего кратного (5 * order) числа *)
+VAR_INPUT
+	in_number_u16	: UINT;		(* „исло, которое нужно округлить *)
+	order				: UINT;		(* ѕор€док до которого округл€ть. 1 Ц до кратного 5ти, 10 Ц до кратного 50ти, и тд... *)
+END_VAR
+VAR
+	div_part			: REAL;		(* ÷елое число *)
+	aux_num			: UINT;		(* вспомогательна€ переменна€ дл€ отслеживани€ округлени€ до меньшего целого *)
+	dec_part			: REAL;		(* дес€та€ часть числа *)
+END_VAR
+VAR CONSTANT
+	LOW_ROUND		: REAL := 0.25;
+	HIGH_ROUND		: REAL := 0.75;
+END_VAR
+(* @END_DECLARATION := '0' *)
+IF order < 1 THEN
+	roundingTo5 := in_number_u16;
+ELSE
+	IF order < 10 THEN
+		order := 1;
+	ELSIF order < 100 THEN
+		order := 10;
+	ELSIF order < 1000 THEN
+		order := 100;
+	ELSIF order < 10000 THEN
+		order := 1000;
+	ELSE
+		order := 10000;
+	END_IF
+
+	div_part	:= UINT_TO_REAL(in_number_u16) / (order * 10);
+	aux_num	:= REAL_TO_UINT(div_part);
+	
+	IF UINT_TO_REAL(aux_num) > div_part THEN
+		aux_num := aux_num - 1;
+	END_IF
+
+	dec_part	:= ABS(div_part - UINT_TO_REAL(aux_num));
+
+	IF dec_part >= LOW_ROUND AND  dec_part < HIGH_ROUND THEN
+		dec_part := 0.5;
+	ELSIF dec_part < LOW_ROUND THEN
+		dec_part := 0.0;
+	ELSE
+		dec_part := 1.0;
+	END_IF
+
+	roundingTo5 := (aux_num * (order * 10) + REAL_TO_UINT(dec_part * (order * 10)));
+END_IF
+END_FUNCTION

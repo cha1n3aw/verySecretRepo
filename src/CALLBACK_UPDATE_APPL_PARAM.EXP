@@ -1,0 +1,30 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/Autocode' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+(*************************************************************************************
+BRIEF: read the whole parameters from the EEPROM
+*************************************************************************************
+ (c) Copyright by BOSCH REXROTH AG, all rights reserved 
+*************************************************************************************
+VERSION INFORMATION
+	V1.0 	Vitaly Lewitan, DC-MA/SMC
+- Call Autocode parameter assignment programm
+- Update (or Init) function block parameters
+
+REVISION HISTORY:
+	V1.0 	Vitaly Lewitan, DC-MA/SMC
+ - 23/03-2012 Initial Version
+**************************************************************************************)
+PROGRAM Callback_update_appl_param
+
+VAR
+   eep:  ARRAY [0..1280] OF INT;
+END_VAR
+(* @END_DECLARATION := '0' *)
+Callback_diag_getPara();
+(* Get_Aggregate_param(); *)
+
+
+END_PROGRAM

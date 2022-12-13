@@ -1,0 +1,12 @@
+MACRO
+MacroName: 'Import'
+MacroMenu: ''
+MacroCmd: 'system $$PROJECT_DRIVE$$\$$PROJECT_PATH$$\import\bin\UpdateSW.bat'
+MacroCmd: 'query off ok'
+MacroCmd: 'project import $$PROJECT_DRIVE$$\$$PROJECT_PATH$$\src\SW_VERSION.exp'
+MacroCmd: 'project import $$PROJECT_DRIVE$$\$$PROJECT_PATH$$\$$PROJECT_NAME$$_para.exp'
+MacroCmd: 'project import $$PROJECT_DRIVE$$\$$PROJECT_PATH$$\$$PROJECT_NAME$$_error.exp'
+MacroCmd: 'query on'
+END_MACRO
+
+

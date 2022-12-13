@@ -1,0 +1,12 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/Diag\/Error' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE ErrorEntry_ts :
+STRUCT
+	Code_u16					: UINT;
+	Param_u8					: USINT;
+	Frequency_u8			: USINT;
+	TimeStamp_u32			: UDINT;
+END_STRUCT
+END_TYPE
+(* @END_DECLARATION := '0' *)

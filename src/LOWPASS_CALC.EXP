@@ -1,0 +1,22 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/05_Basic_Calc' *)
+(* @OBJECTFLAGS := '8, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION_BLOCK Lowpass_calc
+VAR_INPUT
+	iDivisor: INT;
+	iInput: INT;
+END_VAR
+VAR_OUTPUT
+	iOutput: INT;
+END_VAR
+VAR
+	iY: DINT;
+END_VAR
+(* @END_DECLARATION := '0' *)
+(*The calculation of the divisor ( iTime:constant / iCycle_time) is done in the initialization function block "Lowpass_init" *)
+
+iY :=iY - (iY / iDivisor) + iInput;
+iOutput := DINT_TO_INT(iY / iDivisor);
+END_FUNCTION_BLOCK

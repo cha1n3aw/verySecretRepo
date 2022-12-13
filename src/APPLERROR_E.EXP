@@ -1,0 +1,36 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/Enums' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE applError_e:
+(*********************************************)
+(*  DON'T MAKE ANY CHANGES TO THIS ENUMS!!   *)
+(*     FILE WAS AUTOMATICALLY GENERATED!!    *)
+(*********************************************)
+(
+
+   ERR_FIRST_CODE                       := 16#8000,
+   ERR_CAN_DIAG                         := 16#8001,
+   ERR_PWRON_SUPPLY_VB_LOW              := 16#8036,
+   ERR_PWRON_SUPPLY_VSS                 := 16#8037,
+   ERR_PWRON_HWMONITOR_1                := 16#8038,
+   ERR_PWRON_STARTCONDITION_1           := 16#8039,
+   ERR_PWRON_ENGINE_SPEED               := 16#8040,
+   ERR_PWRON_HWMONITOR_2                := 16#8041,
+   ERR_PWRON_STARTCONDITION_2           := 16#8042,
+   ERR_PWRON_SAFOUT_CABLE_BRAKE         := 16#8043,
+   ERR_PWRON_SAFOUT_SHORT_CIRCUIT       := 16#8044,
+   ERR_PWRON_POWERSWITCH_1              := 16#8045,
+   ERR_PWRON_POWERSUPPLY                := 16#8046,
+   ERR_PWRON_POWERSWITCH_2              := 16#8047,
+   ERR_PWRON_REVERSE_POWER              := 16#8048,
+   ERR_PWRON_EMERGENCY_STOP             := 16#8049,
+   ERR_SUPPLY_VB_HIGH                   := 16#8031,
+   ERR_SUPPLY_VB_LOW                    := 16#8032,
+   ERR_SUPPLY_VSS1                      := 16#8033,
+   ERR_SUPPLY_VSS2                      := 16#8034,
+   ERR_LAST_CODE                        := 16#8099
+
+);
+END_TYPE
+
+(* @END_DECLARATION := '0' *)

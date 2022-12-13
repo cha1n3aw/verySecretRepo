@@ -1,0 +1,15 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/05_Basic_Calc\/eeprom_operations' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION getEEP_P3 : INT
+VAR_INPUT
+	EEP_num				: INT;
+END_VAR
+VAR
+	EEP_PAGE3_OFFSET	: INT		:= 768;
+END_VAR
+(* @END_DECLARATION := '0' *)
+getEEP_P3	:= EEP_num - EEP_PAGE3_OFFSET;
+END_FUNCTION

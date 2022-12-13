@@ -1,0 +1,14 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/20_CAN\/30_CAN_RAW' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE struc_Can :
+	STRUCT
+		Box			: struc_CAN_Box;   	(*structure to define the databox-numbers*)
+		Id				: struc_CAN_Id;		(*structure to define the ID *)
+		Chnl			: struc_CAN_Chnl;		(*structure to define the CAN channel used*)
+		Data			: struc_CAN_Data;		(*storage of the data related to the CAN communication*)
+		Status		: struc_CAN_Status;  (*structure to define the databox-numbers*)
+		ST_LENGTH	: USINT		:= 8;
+	END_STRUCT
+END_TYPE
+(* @END_DECLARATION := '0' *)

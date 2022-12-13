@@ -1,0 +1,1447 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+PROGRAM PLC_PRG
+VAR
+(* program name and version number *)
+	stSysInit_u16: 		UINT;											(* State of Sys_init(...) *)
+(* В названии ПО обязательно оставить формат '*v0.00.0' -> при изменении названия ПО ознакомиться с ограничениями в get_Software_name() *)
+	SW_Name_as8: 			STRING(32) := 'Laboratory_Stand';	(* Software Name *)
+(*	HW_Name_as8: 			STRING(32) := 'RC30-02D6';  *)		(* RC12-10/30 Hardware Name *)
+	HW_Name_as8: 			STRING(32) := 'RC30-00D6';  			(* RC28-14/30 Hardware Name *)
+
+(* task definition *)
+	MAIN_Task_Handle_u8:	USINT;		(* Task Handler for future reference e.g. checkpoint,duration, .. *)
+	stMAIN_Task_u16: 		UINT;			(* State of Sys_registerTask(...) *)
+	stEMCY_u16: 			UINT;
+	EcuInfo_s: 				EcuInfo_ts;	(* Информация о контроллере *)
+
+	POH_CL_RESISTANCE_MIN			: UDINT	:= 2000; 			(* min resistance of solenoid for error detection [mOhm]*)
+	POH_CL_RESISTANCE_MAX			: UDINT	:= 52000;			(* max resistance of solenoid for error detection[mOhm] *)
+	POL_CL_RESISTANCE_MIN			: UDINT	:= 2000; 			(* min resistance of solenoid for error detection [mOhm]*)
+	POL_CL_RESISTANCE_MAX			: UDINT	:= 52000;			(* max resistance of solenoid for error detection[mOhm] *)
+	DOH_RESISTANCE_MIN				: UDINT	:= 6000;				(* min resistance of solenoid for error detection [mOhm]*)
+	DOH_RESISTANCE_MAX				: UDINT	:= 44000;			(* max resistance of solenoid for error detection[mOhm] *)
+	AOV_RESISTANCE_MIN				: UDINT	:= 0; 				(* min resistance of solenoid for error detection [mOhm]*)
+	AOV_RESISTANCE_MAX				: UDINT	:= 0;					(* max resistance of solenoid for error detection[mOhm] *)
+	AOC_RESISTANCE_MIN				: UDINT	:= 0; 				(* min resistance of solenoid for error detection [mOhm]*)
+	AOC_RESISTANCE_MAX				: UDINT	:= 0;					(* max resistance of solenoid for error detection[mOhm] *)
+END_VAR
+
+VAR CONSTANT
+(******************************************************************************)
+(******************** Definition:   analog input 10 V  ************************)
+(******************************************************************************)
+	AIV_10V_LEVEL_LOW:	INT := 4000;	(* low *)
+	AIV_10V_LEVEL_HIGH:	INT := 6000;	(* high *)
+	AIV_10V_DELAY:			INT := 100;		(* delay *)
+	AIV_10V_ERROR_LOW:	INT := 1000;	(* low_error *)
+	AIV_10V_ERROR_HIGH:	INT := 9000;	(* high_error *)
+	AIV_10V_ERROR_DELAY:	INT := 100;		(* delay_error *)
+(******************************************************************************)
+(******************** Definition:   analog input 5V  **************************)
+(******************************************************************************)
+	AIV_5V_LEVEL_LOW:		INT := 2000;	(* low *)
+	AIV_5V_LEVEL_HIGH:	INT := 3000;	(* high *)
+	AIV_5V_DELAY:			INT := 100;		(* delay *)
+	AIV_5V_ERROR_LOW:		INT := 400;		(* low_error *)
+	AIV_5V_ERROR_HIGH:	INT := 4600;	(* high_error *)
+	AIV_5V_ERROR_DELAY:	INT := 100;		(* delay_error *)
+(******************************************************************************)
+(******************** Definition:   input group  ******************************)
+(******************************************************************************)
+	GRP_IN1_IN8: 				USINT := 1;
+	GRP_IN9_IN14: 				USINT := 2;
+	GRP_IN15_IN20: 			USINT := 3;
+(******************************************************************************)
+	HW_Type_RC12_10_30_u16: UINT	:= 16#02D6;
+END_VAR
+
+(* @END_DECLARATION := '0' *)
+(******************** definition: SW name and HW name *************************)
+stSysInit_u16 := sys_init( ADR( SW_Name_as8 ), ADR( HW_Name_as8 ) );
+
+(******************** definition: task   **************************************)
+(* main task *)
+stMAIN_Task_u16 := sys_registerTask( INDEXOF(Callback_MAIN_Task),
+											 MAIN_TASK_PRIO,
+											 CYCLE,
+											 0,
+											 ADR( MAIN_Task_Handle_u8 ));
+(* Set trigger checkpoint for above task *)
+sys_initTC(	MAIN_Task_Handle_u8, 	CYCLE );
+
+(* register callback function for parameters *)
+diag_setVarsCallBack( INDEXOF( Callback_update_appl_param ) );
+(* load all parameters when starting up *)
+Callback_update_appl_param();
+
+PrmData_Sample();
+(* Load SW information *)
+SW_Version();
+SwInfo();
+(******************** Configuration:Sensor supply  ****************************)
+(*By RC28-14 is VSS1 always ON*)
+sys_setVSS( VSS_2, ON );		(* 10 V @ RC12-10 *)
+sys_setVSS( VSS_3, ON );		(* 5V @ RC12-10 *)
+
+(* Получение информации о контроллере *)
+sys_getEcuInfo(ADR(EcuInfo_s));
+
+PLC_initCAN();
+PLC_initJ1939();
+PLC_cfgInputs();
+PLC_cfgOutputs();
+
+(* disable the software INHIBIT *)
+(* This command is necessary if pin 112 shall be used as input and not as software INH input *)
+stEMCY_u16 := emcy_disableInput(EMCY_DISABLE_KEY_DU32, NOT UDINT_TO_DWORD(EMCY_DISABLE_KEY_DU32));
+END_PROGRAM
+ACTION	PLC_cfgInputs:
+(*TO BE REMOVED******************************************************************************
+It is recommended to initialize all input channels
+This ensures that a possible change of the RTS will not affect the settings 
+
+The initialization of an input signal requires the following steps :
+- Configuration of the internal pullup/pulldown (in_setPullup)
+- Definition of the channel name (see  Global_Channels (CONSTANT) )
+- A monitoring process (in_cfgVoltageInput)
+- for a potentiometer: a definition of a voltage range (inext_cfgPoti)  
+********************************************************************************************)
+
+(*******************************************************************************************)
+(******************** @IN_PUMP: configuration of the desired swivel angle for the pump *****)
+(*******************************************************************************************)
+
+(**********************)
+(* With INEXT Library *)
+(**********************)
+ inext_cfgPoti(IO_Chnl.AI_JOY_DRIVE, MAX_VOLTAGE_FOR_JOY);			(* Define a 5 V maximum voltage in mV *)
+ inext_cfgPoti(IO_Chnl.AI_JOY_STEER, MAX_VOLTAGE_FOR_JOY);			(* Define a 5 V maximum voltage in mV *)
+ inext_cfgPoti(IO_Chnl.AI_POTI_DIESEL, 5000);							(* Define a 5 V maximum voltage in mV *)
+ inext_cfgPoti(IO_Chnl.AI_BRAKE_PEDAL, 5000);							(* Define a 5 V maximum voltage in mV *)
+
+ inext_cfgPoti(IO_Chnl.AI_BOM_SPEED, 5000);								(* Define a 5 V maximum voltage in mV *)
+
+ inext_cfgPoti(IO_Chnl.AI_JOY_DIRECTION, MAX_VOLTAGE_FOR_JOY);
+ inext_cfgPoti(IO_Chnl.AI_JOY_SIDE, MAX_VOLTAGE_FOR_JOY);
+
+(* Configure the inputs 54 - 61 for current mesurement *)
+in_setCurrentMeasurement(2, ON);
+(*in_setCurrentMeasurement(3, ON);*)
+
+in_cfgCurrentInput( IO_Chnl.AI_JOY_DRIVE_CM, DOH_DEBOUNCE);
+in_cfgCurrentInput( IO_Chnl.AI_JOY_STEER_CM, DOH_DEBOUNCE);
+(*in_cfgCurrentInput( IO_Chnl.AI_JOY_DIRECTION_CM, DOH_DEBOUNCE);
+in_cfgCurrentInput( IO_Chnl.AI_JOY_SIDE_CM, DOH_DEBOUNCE);*)
+
+(*
+in_cfgCurrentInput( IO_Chnl.AI_POTI_DIESEL_CM, DOH_DEBOUNCE);	(* Добавлено 23.10.15 Для работы бесконтактного датчика *)
+in_cfgCurrentInput( IO_Chnl.AI_BRAKE_PEDAL_CM, DOH_DEBOUNCE);	(* Добавлено 23.10.15 Для работы бесконтактного датчика *)
+*)
+(************************************************************)
+(*
+in_cfgTempSensorType(IO_Chnl.AIT_OIL_TEMP_TANK, 1);
+*)
+(*
+in_cfgVoltageInput( 	IO_Chnl.AI_BRAKE_PEDAL,				(*chnl*)
+							AIV_5V_LEVEL_LOW,				(*low*)
+							AIV_5V_LEVEL_HIGH,			(*high*)
+							AIV_5V_DELAY,					(*delay*)
+							AIV_5V_ERROR_LOW,				(*low_error*)
+							AIV_5V_ERROR_HIGH,			(*high_error*)
+							AIV_5V_ERROR_DELAY );		(*delay_error*)
+
+
+(*******************************************************************************************)
+(******************** @IN_INCH: configuration of the inch pedal signal (max voltage: 5V)****)
+(*******************************************************************************************)
+in_cfgVoltageInput( 	IO_Chnl.AI_MOTOR_R_SIMUL,				(*chnl*)
+							AIV_10V_LEVEL_LOW,			(*low*)
+							AIV_10V_LEVEL_HIGH,			(*high*)
+							AIV_10V_DELAY,					(*delay*)
+							AIV_10V_ERROR_LOW,			(*low_error*)
+							AIV_10V_ERROR_HIGH,			(*high_error*)
+							AIV_10V_ERROR_DELAY );		(*delay_error*)
+*)
+
+(*
+2nd alternative representation:
+-------------------------------
+*)  
+(*
+(* in_cfgVoltageInput ( chnl_u32, uLowerStateThreshold_s16, uUpperStateThreshold_s16,
+tiStateDebounce_s16, uLowerDiagThreshold_s16, uUpperDiagThreshold_s16, tiDiagDebounce_s16 ) *)
+in_cfgVoltageInput( 	IO_Chnl.AIV_INCH,	4000,	6000,	100,	1000,	9000,	100);
+in_cfgVoltageInput( 	IO_Chnl.AIV_PUMP,	2000,	3000,	100,	400,	4600,	100);
+*)
+
+(*******************************************************************************************)
+(******************** @IN_DIESEL: configuration of the actual speed of the diesel **********)
+(*******************************************************************************************)
+(*no initialisation expected*)
+
+(*******************************************************************************************)
+(************* @IN_DRIVE_SPEED_ACTUAL:  configuration of the actual speed of the vehicle **)
+(*******************************************************************************************)
+(*no initialisation expected*)
+
+(*******************************************************************************************)
+(******************** @IN_BRAKE: configuration of the parking brake switch *****************)
+(*******************************************************************************************)
+(*no initialisation expected*)
+END_ACTION
+
+ACTION	PLC_cfgOutputs:
+POH_CL_RESISTANCE_MIN			:= (para_s.POH_Res_Min_s16*1000);
+POH_CL_RESISTANCE_MAX			:= (para_s.POH_Res_Max_s16*1000);
+DOH_RESISTANCE_MIN				:= (para_s.DOH_Res_Min_s16*1000);
+DOH_RESISTANCE_MAX				:= (para_s.DOH_Res_Max_s16*1000);
+POL_CL_RESISTANCE_MIN			:= (para_s.POL_Res_Min_s16*1000);
+POL_CL_RESISTANCE_MAX			:= (para_s.POL_Res_Max_s16*1000);
+AOV_RESISTANCE_MIN				:= (para_s.AOV_Res_Min_s16*1000);
+AOV_RESISTANCE_MAX				:= (para_s.AOV_Res_Max_s16*1000);
+AOC_RESISTANCE_MIN				:= (para_s.AOC_Res_Min_s16*1000);
+AOC_RESISTANCE_MAX				:= (para_s.AOC_Res_Max_s16*1000);
+(******************************************************************************************************)
+(* Proportional Output High *)
+(******************************************************************************************************)
+
+IF para_s.Out_Cfg_01_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_1_POH,							(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+ELSIF para_s.Out_Cfg_01_s16 = PWM_CURRENT_MODE THEN
+	out_cfg	(	OUT_1_POH_CL,						(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_1_POH_CL,						(*Channel*)
+			      para_s.POH_Kp_s16,				(*Kp factor*)
+	      		para_s.POH_Ki_s16 );				(*Ki factor*)
+END_IF
+
+IF para_s.Out_Cfg_02_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_2_POH,							(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+ELSIF para_s.Out_Cfg_02_s16 = PWM_CURRENT_MODE THEN
+	out_cfg	(	OUT_2_POH_CL,						(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_2_POH_CL,						(*Channel*)
+			      para_s.POH_Kp_s16,				(*Kp factor*)
+	      		para_s.POH_Ki_s16 );				(*Ki factor*)
+END_IF
+
+IF para_s.Out_Cfg_03_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_3_POH,							(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+ELSIF para_s.Out_Cfg_03_s16 = PWM_CURRENT_MODE THEN
+	out_cfg	(	OUT_3_POH_CL,						(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_3_POH_CL,						(*Channel*)
+			      para_s.POH_Kp_s16,				(*Kp factor*)
+	      		para_s.POH_Ki_s16 );				(*Ki factor*)
+END_IF
+
+IF para_s.Out_Cfg_04_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_4_POH,							(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+ELSIF para_s.Out_Cfg_04_s16 = PWM_CURRENT_MODE THEN
+	out_cfg	(	OUT_4_POH_CL,						(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_4_POH_CL,						(*Channel*)
+			      para_s.POH_Kp_s16,				(*Kp factor*)
+	      		para_s.POH_Ki_s16 );				(*Ki factor*)
+END_IF
+
+IF para_s.Out_Cfg_05_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_5_POH,							(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+ELSIF para_s.Out_Cfg_05_s16 = PWM_CURRENT_MODE THEN
+	out_cfg	(	OUT_5_POH_CL,						(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_5_POH_CL,						(*Channel*)
+			      para_s.POH_Kp_s16,				(*Kp factor*)
+	      		para_s.POH_Ki_s16 );				(*Ki factor*)
+END_IF
+
+IF para_s.Out_Cfg_06_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_6_POH,							(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+ELSIF para_s.Out_Cfg_06_s16 = PWM_CURRENT_MODE THEN
+	out_cfg	(	OUT_6_POH_CL,						(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_6_POH_CL,						(*Channel*)
+			      para_s.POH_Kp_s16,				(*Kp factor*)
+	      		para_s.POH_Ki_s16 );				(*Ki factor*)
+END_IF
+
+IF para_s.Out_Cfg_07_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_7_POH,							(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+ELSIF para_s.Out_Cfg_07_s16 = PWM_CURRENT_MODE THEN
+	out_cfg	(	OUT_7_POH_CL,						(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_7_POH_CL,						(*Channel*)
+			      para_s.POH_Kp_s16,				(*Kp factor*)
+	      		para_s.POH_Ki_s16 );				(*Ki factor*)
+END_IF
+
+IF para_s.Out_Cfg_08_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_8_POH,							(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+ELSIF para_s.Out_Cfg_08_s16 = PWM_CURRENT_MODE THEN
+	out_cfg	(	OUT_8_POH_CL,						(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_8_POH_CL,						(*Channel*)
+			      para_s.POH_Kp_s16,				(*Kp factor*)
+	      		para_s.POH_Ki_s16 );				(*Ki factor*)
+END_IF
+
+IF para_s.Out_Cfg_09_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_9_POH,							(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+ELSIF para_s.Out_Cfg_09_s16 = PWM_CURRENT_MODE THEN
+	out_cfg	(	OUT_9_POH_CL,						(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_9_POH_CL,						(*Channel*)
+			      para_s.POH_Kp_s16,				(*Kp factor*)
+	      		para_s.POH_Ki_s16 );				(*Ki factor*)
+END_IF
+
+IF para_s.Out_Cfg_10_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_10_POH,							(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+ELSIF para_s.Out_Cfg_10_s16 = PWM_CURRENT_MODE THEN
+	out_cfg	(	OUT_10_POH_CL,						(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_10_POH_CL,						(*Channel*)
+			      para_s.POH_Kp_s16,				(*Kp factor*)
+	      		para_s.POH_Ki_s16 );				(*Ki factor*)
+END_IF
+
+IF para_s.Out_Cfg_11_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_11_POH,							(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+ELSIF para_s.Out_Cfg_11_s16 = PWM_CURRENT_MODE THEN
+	out_cfg	(	OUT_11_POH_CL,						(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_11_POH_CL,						(*Channel*)
+			      para_s.POH_Kp_s16,				(*Kp factor*)
+	      		para_s.POH_Ki_s16 );				(*Ki factor*)
+END_IF
+
+IF para_s.Out_Cfg_12_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_12_POH,							(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+ELSIF para_s.Out_Cfg_12_s16 = PWM_CURRENT_MODE THEN
+	out_cfg	(	OUT_12_POH_CL,						(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_12_POH_CL,						(*Channel*)
+			      para_s.POH_Kp_s16,				(*Kp factor*)
+	      		para_s.POH_Ki_s16 );				(*Ki factor*)
+END_IF
+
+IF para_s.Out_Cfg_13_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_13_POH,							(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+ELSIF para_s.Out_Cfg_13_s16 = PWM_CURRENT_MODE THEN
+	out_cfg	(	OUT_13_POH_CL,						(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_13_POH_CL,						(*Channel*)
+			      para_s.POH_Kp_s16,				(*Kp factor*)
+	      		para_s.POH_Ki_s16 );				(*Ki factor*)
+END_IF
+
+IF para_s.Out_Cfg_14_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_14_POH,							(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+ELSIF para_s.Out_Cfg_14_s16 = PWM_CURRENT_MODE THEN
+	out_cfg	(	OUT_14_POH_CL,						(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_14_POH_CL,						(*Channel*)
+			      para_s.POH_Kp_s16,				(*Kp factor*)
+	      		para_s.POH_Ki_s16 );				(*Ki factor*)
+END_IF
+
+IF para_s.Out_Cfg_15_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_15_POH,							(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+ELSIF para_s.Out_Cfg_15_s16 = PWM_CURRENT_MODE THEN
+	out_cfg	(	OUT_15_POH_CL,						(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_15_POH_CL,						(*Channel*)
+			      para_s.POH_Kp_s16,				(*Kp factor*)
+	      		para_s.POH_Ki_s16 );				(*Ki factor*)
+END_IF
+
+IF para_s.Out_Cfg_16_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_16_POH,							(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+ELSIF para_s.Out_Cfg_16_s16 = PWM_CURRENT_MODE THEN
+	out_cfg	(	OUT_16_POH_CL,						(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_16_POH_CL,						(*Channel*)
+			      para_s.POH_Kp_s16,				(*Kp factor*)
+	      		para_s.POH_Ki_s16 );				(*Ki factor*)
+END_IF
+
+IF para_s.Out_Cfg_17_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_17_POH,							(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+ELSIF para_s.Out_Cfg_17_s16 = PWM_CURRENT_MODE THEN
+	out_cfg	(	OUT_17_POH_CL,						(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_17_POH_CL,						(*Channel*)
+			      para_s.POH_Kp_s16,				(*Kp factor*)
+	      		para_s.POH_Ki_s16 );				(*Ki factor*)
+END_IF
+
+IF para_s.Out_Cfg_18_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_18_POH,							(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+ELSIF para_s.Out_Cfg_18_s16 = PWM_CURRENT_MODE THEN
+	out_cfg	(	OUT_18_POH_CL,						(* PWM output close loop *)
+					para_s.POH_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POH_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POH_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POH_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_18_POH_CL,						(*Channel*)
+			      para_s.POH_Kp_s16,				(*Kp factor*)
+	      		para_s.POH_Ki_s16 );				(*Ki factor*)
+END_IF
+
+
+(******************************************************************************************************)
+(* Digital Output *)
+(******************************************************************************************************)
+
+	out_cfg ( 	OUT_19_DOH,
+					para_s.DOH_Debounce_s16,
+					f_100Hz_DU16,
+					DOH_RESISTANCE_MIN,
+					DOH_RESISTANCE_MAX );
+
+	out_cfg ( 	OUT_20_DOH,
+					para_s.DOH_Debounce_s16,
+					f_100Hz_DU16,
+					DOH_RESISTANCE_MIN,
+					DOH_RESISTANCE_MAX );
+
+	out_cfg ( 	OUT_21_DOH,
+					para_s.DOH_Debounce_s16,
+					f_100Hz_DU16,
+					DOH_RESISTANCE_MIN,
+					DOH_RESISTANCE_MAX );
+
+	out_cfg ( 	OUT_22_DOH,
+					para_s.DOH_Debounce_s16,
+					f_100Hz_DU16,
+					DOH_RESISTANCE_MIN,
+					DOH_RESISTANCE_MAX );
+
+	out_cfg ( 	OUT_23_DOH,
+					para_s.DOH_Debounce_s16,
+					f_100Hz_DU16,
+					DOH_RESISTANCE_MIN,
+					DOH_RESISTANCE_MAX );
+
+	out_cfg ( 	OUT_24_DOH,
+					para_s.DOH_Debounce_s16,
+					f_100Hz_DU16,
+					DOH_RESISTANCE_MIN,
+					DOH_RESISTANCE_MAX );
+
+	out_cfg ( 	OUT_25_DOH,
+					para_s.DOH_Debounce_s16,
+					f_100Hz_DU16,
+					DOH_RESISTANCE_MIN,
+					DOH_RESISTANCE_MAX );
+
+	out_cfg ( 	OUT_26_DOH,
+					para_s.DOH_Debounce_s16,
+					f_100Hz_DU16,
+					DOH_RESISTANCE_MIN,
+					DOH_RESISTANCE_MAX );
+
+	out_cfg ( 	OUT_27_DOH,
+					para_s.DOH_Debounce_s16,
+					f_100Hz_DU16,
+					DOH_RESISTANCE_MIN,
+					DOH_RESISTANCE_MAX );
+
+	out_cfg ( 	OUT_28_DOH,
+					para_s.DOH_Debounce_s16,
+					f_100Hz_DU16,
+					DOH_RESISTANCE_MIN,
+					DOH_RESISTANCE_MAX );
+
+	out_cfg ( 	OUT_29_DOH,
+					para_s.DOH_Debounce_s16,
+					f_100Hz_DU16,
+					DOH_RESISTANCE_MIN,
+					DOH_RESISTANCE_MAX );
+
+	out_cfg ( 	OUT_30_DOH,
+					para_s.DOH_Debounce_s16,
+					f_100Hz_DU16,
+					DOH_RESISTANCE_MIN,
+					DOH_RESISTANCE_MAX );
+
+	out_cfg ( 	OUT_31_DOH,
+					para_s.DOH_Debounce_s16,
+					f_100Hz_DU16,
+					DOH_RESISTANCE_MIN,
+					DOH_RESISTANCE_MAX );
+
+	out_cfg ( 	OUT_32_DOH,
+					para_s.DOH_Debounce_s16,
+					f_100Hz_DU16,
+					DOH_RESISTANCE_MIN,
+					DOH_RESISTANCE_MAX );
+
+(******************************************************************************************************)
+(* Analog Output Voltage *)
+(******************************************************************************************************)
+
+IF para_s.Out_Cfg_33_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_33_POH,							(* PWM output close loop *)
+					para_s.AOV_Debounce_s16,		(* debounce time [ms] for error detection *)
+					para_s.AOC_Freq_s16, 			(* dither frequency [Hz] *)
+					AOV_RESISTANCE_MIN, 				(* min resistance of solenoid for error detection [mOhm]*)
+					AOV_RESISTANCE_MAX );			(* max resistance of solenoid for error detection[mOhm] *)
+
+ELSIF para_s.Out_Cfg_33_s16 = AOV_MODE THEN
+	out_cfg	(	OUT_33_AOV,							(* PWM output close loop *)
+					para_s.AOV_Debounce_s16,		(* debounce time [ms] for error detection *)
+					para_s.AOC_Freq_s16, 			(* dither frequency [Hz] *)
+					AOV_RESISTANCE_MIN, 				(* min resistance of solenoid for error detection [mOhm]*)
+					AOV_RESISTANCE_MAX );			(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_33_AOV,							(*Channel*)
+			      para_s.AOV_Kp_s16,				(*Kp factor*)
+	      		para_s.AOV_Ki_s16 );				(*Ki factor*)
+END_IF
+
+IF para_s.Out_Cfg_34_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_34_POH,							(* PWM output close loop *)
+					para_s.AOV_Debounce_s16,		(* debounce time [ms] for error detection *)
+					para_s.AOC_Freq_s16, 			(* dither frequency [Hz] *)
+					AOV_RESISTANCE_MIN, 				(* min resistance of solenoid for error detection [mOhm]*)
+					AOV_RESISTANCE_MAX );			(* max resistance of solenoid for error detection[mOhm] *)
+
+ELSIF para_s.Out_Cfg_34_s16 = AOV_MODE THEN
+	out_cfg	(	OUT_34_AOV,							(* PWM output close loop *)
+					para_s.AOV_Debounce_s16,		(* debounce time [ms] for error detection *)
+					para_s.AOC_Freq_s16, 			(* dither frequency [Hz] *)
+					AOV_RESISTANCE_MIN, 				(* min resistance of solenoid for error detection [mOhm]*)
+					AOV_RESISTANCE_MAX );			(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_34_AOV,							(*Channel*)
+			      para_s.AOV_Kp_s16,				(*Kp factor*)
+	      		para_s.AOV_Ki_s16 );				(*Ki factor*)
+END_IF
+
+IF para_s.Out_Cfg_35_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_35_POH,							(* PWM output close loop *)
+					para_s.AOV_Debounce_s16,		(* debounce time [ms] for error detection *)
+					para_s.AOC_Freq_s16, 			(* dither frequency [Hz] *)
+					AOV_RESISTANCE_MIN, 				(* min resistance of solenoid for error detection [mOhm]*)
+					AOV_RESISTANCE_MAX );			(* max resistance of solenoid for error detection[mOhm] *)
+
+ELSIF para_s.Out_Cfg_35_s16 = AOV_MODE THEN
+	out_cfg	(	OUT_35_AOV,							(* PWM output close loop *)
+					para_s.AOV_Debounce_s16,		(* debounce time [ms] for error detection *)
+					para_s.AOC_Freq_s16, 			(* dither frequency [Hz] *)
+					AOV_RESISTANCE_MIN, 				(* min resistance of solenoid for error detection [mOhm]*)
+					AOV_RESISTANCE_MAX );			(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_35_AOV,							(*Channel*)
+			      para_s.AOV_Kp_s16,				(*Kp factor*)
+	      		para_s.AOV_Ki_s16 );				(*Ki factor*)
+END_IF
+
+IF para_s.Out_Cfg_36_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_36_POH,							(* PWM output close loop *)
+					para_s.AOV_Debounce_s16,		(* debounce time [ms] for error detection *)
+					para_s.AOC_Freq_s16, 			(* dither frequency [Hz] *)
+					AOV_RESISTANCE_MIN, 				(* min resistance of solenoid for error detection [mOhm]*)
+					AOV_RESISTANCE_MAX );			(* max resistance of solenoid for error detection[mOhm] *)
+
+ELSIF para_s.Out_Cfg_36_s16 = AOV_MODE THEN
+	out_cfg	(	OUT_36_AOV,							(* PWM output close loop *)
+					para_s.AOV_Debounce_s16,		(* debounce time [ms] for error detection *)
+					para_s.AOC_Freq_s16, 			(* dither frequency [Hz] *)
+					AOV_RESISTANCE_MIN, 				(* min resistance of solenoid for error detection [mOhm]*)
+					AOV_RESISTANCE_MAX );			(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_36_AOV,							(*Channel*)
+			      para_s.AOV_Kp_s16,				(*Kp factor*)
+	      		para_s.AOV_Ki_s16 );				(*Ki factor*)
+END_IF
+
+
+(******************************************************************************************************)
+(* Proportional Output Low *)
+(******************************************************************************************************)
+IF para_s.Out_Cfg_37_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_37_POL,							(* PWM output close loop *)
+					para_s.POL_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POL_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POL_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POL_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+ELSIF para_s.Out_Cfg_37_s16 = PWM_CURRENT_MODE THEN
+	out_cfg	(	OUT_37_POL_CL,						(* PWM output close loop *)
+					para_s.POL_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POL_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POL_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POL_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_37_POL_CL,						(*Channel*)
+			      para_s.POL_Kp_s16,				(*Kp factor*)
+	      		para_s.POL_Ki_s16 );				(*Ki factor*)
+END_IF
+
+IF para_s.Out_Cfg_38_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_38_POL,							(* PWM output close loop *)
+					para_s.POL_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POL_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POL_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POL_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+ELSIF para_s.Out_Cfg_38_s16 = PWM_CURRENT_MODE THEN
+	out_cfg	(	OUT_38_POL_CL,						(* PWM output close loop *)
+					para_s.POL_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POL_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POL_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POL_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_38_POL_CL,						(*Channel*)
+			      para_s.POL_Kp_s16,				(*Kp factor*)
+	      		para_s.POL_Ki_s16 );				(*Ki factor*)
+END_IF
+
+IF para_s.Out_Cfg_39_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_39_POL,							(* PWM output close loop *)
+					para_s.POL_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POL_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POL_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POL_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+ELSIF para_s.Out_Cfg_39_s16 = PWM_CURRENT_MODE THEN
+	out_cfg	(	OUT_39_POL_CL,						(* PWM output close loop *)
+					para_s.POL_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POL_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POL_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POL_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_39_POL_CL,						(*Channel*)
+			      para_s.POL_Kp_s16,				(*Kp factor*)
+	      		para_s.POL_Ki_s16 );				(*Ki factor*)
+END_IF
+
+IF para_s.Out_Cfg_40_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_40_POL,							(* PWM output close loop *)
+					para_s.POL_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POL_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POL_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POL_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+ELSIF para_s.Out_Cfg_40_s16 = PWM_CURRENT_MODE THEN
+	out_cfg	(	OUT_40_POL_CL,						(* PWM output close loop *)
+					para_s.POL_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POL_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POL_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POL_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_40_POL_CL,						(*Channel*)
+			      para_s.POL_Kp_s16,				(*Kp factor*)
+	      		para_s.POL_Ki_s16 );				(*Ki factor*)
+END_IF
+
+IF para_s.Out_Cfg_41_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_41_POL,							(* PWM output close loop *)
+					para_s.POL_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POL_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POL_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POL_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+ELSIF para_s.Out_Cfg_41_s16 = PWM_CURRENT_MODE THEN
+	out_cfg	(	OUT_41_POL_CL,						(* PWM output close loop *)
+					para_s.POL_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POL_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POL_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POL_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_41_POL_CL,						(*Channel*)
+			      para_s.POL_Kp_s16,				(*Kp factor*)
+	      		para_s.POL_Ki_s16 );				(*Ki factor*)
+END_IF
+
+IF para_s.Out_Cfg_42_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_42_POL,							(* PWM output close loop *)
+					para_s.POL_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POL_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POL_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POL_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+ELSIF para_s.Out_Cfg_42_s16 = PWM_CURRENT_MODE THEN
+	out_cfg	(	OUT_42_POL_CL,						(* PWM output close loop *)
+					para_s.POL_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POL_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POL_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POL_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_42_POL_CL,						(*Channel*)
+			      para_s.POL_Kp_s16,				(*Kp factor*)
+	      		para_s.POL_Ki_s16 );				(*Ki factor*)
+END_IF
+
+IF para_s.Out_Cfg_43_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_43_POL,							(* PWM output close loop *)
+					para_s.POL_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POL_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POL_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POL_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+ELSIF para_s.Out_Cfg_43_s16 = PWM_CURRENT_MODE THEN
+	out_cfg	(	OUT_43_POL_CL,						(* PWM output close loop *)
+					para_s.POL_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POL_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POL_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POL_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_43_POL_CL,						(*Channel*)
+			      para_s.POL_Kp_s16,				(*Kp factor*)
+	      		para_s.POL_Ki_s16 );				(*Ki factor*)
+END_IF
+
+IF para_s.Out_Cfg_44_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_44_POL,							(* PWM output close loop *)
+					para_s.POL_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POL_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POL_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POL_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+ELSIF para_s.Out_Cfg_44_s16 = PWM_CURRENT_MODE THEN
+	out_cfg	(	OUT_44_POL_CL,						(* PWM output close loop *)
+					para_s.POL_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POL_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POL_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POL_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_44_POL_CL,						(*Channel*)
+			      para_s.POL_Kp_s16,				(*Kp factor*)
+	      		para_s.POL_Ki_s16 );				(*Ki factor*)
+END_IF
+
+IF para_s.Out_Cfg_45_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_45_POL,							(* PWM output close loop *)
+					para_s.POL_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POL_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POL_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POL_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+ELSIF para_s.Out_Cfg_45_s16 = PWM_CURRENT_MODE THEN
+	out_cfg	(	OUT_45_POL_CL,						(* PWM output close loop *)
+					para_s.POL_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POL_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POL_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POL_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_45_POL_CL,						(*Channel*)
+			      para_s.POL_Kp_s16,				(*Kp factor*)
+	      		para_s.POL_Ki_s16 );				(*Ki factor*)
+END_IF
+
+IF para_s.Out_Cfg_46_s16 = PWM_MODE THEN
+	out_cfg	(	OUT_46_POL,							(* PWM output close loop *)
+					para_s.POL_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POL_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POL_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POL_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+ELSIF para_s.Out_Cfg_46_s16 = PWM_CURRENT_MODE THEN
+	out_cfg	(	OUT_46_POL_CL,						(* PWM output close loop *)
+					para_s.POL_Debounce_s16,		(* debounce time [ms] for error detection *)
+					POL_CL_DITHER_FREQUENCY, 		(* dither frequency [Hz] *)
+					POL_CL_RESISTANCE_MIN, 			(* min resistance of solenoid for error detection [mOhm]*)
+					POL_CL_RESISTANCE_MAX );		(* max resistance of solenoid for error detection[mOhm] *)
+
+	out_cfgPI(	OUT_46_POL_CL,						(*Channel*)
+			      para_s.POL_Kp_s16,				(*Kp factor*)
+	      		para_s.POL_Ki_s16 );				(*Ki factor*)
+END_IF
+
+
+(******************************************************************************************************)
+(* Analog Current Output *)
+(******************************************************************************************************)
+
+IF para_s.Out_Cfg_47_s16 = AOC_MODE THEN
+
+	out_cfg (	OUT_47_AOC,
+					para_s.AOC_Debounce_s16,
+					para_s.AOC_Freq_s16,
+					AOC_RESISTANCE_MIN,
+					AOC_RESISTANCE_MAX);
+
+	out_cfgPI(	OUT_47_AOC,							(*Channel*)
+			      para_s.AOC_Kp_s16,				(*Kp factor*)
+	      		para_s.AOC_Ki_s16 );				(*Ki factor*)
+ELSIF para_s.Out_Cfg_47_s16 = AOV_MODE THEN
+	out_cfg (	OUT_47_AOV,
+					para_s.AOC_Debounce_s16,
+					para_s.AOC_Freq_s16,
+					AOC_RESISTANCE_MIN,
+					AOC_RESISTANCE_MAX);
+
+	out_cfgPI(	OUT_47_AOV,							(*Channel*)
+			      para_s.AOC_Kp_s16,				(*Kp factor*)
+	      		para_s.AOC_Ki_s16 );				(*Ki factor*)
+END_IF
+
+(*see API description for more explanations about the "min resistance" and "max resistance" parameters of the "out_cfg" function*)
+END_ACTION
+
+ACTION	PLC_initCAN:
+(*
+!!! CAN1 always at 250kBaud !!!
+!!! BODAS-service always on CAN1 !!!
+!!! Databox No 1 and 2 are reserved by diagnosis !!!
+!!! The first 20 databoxes of each CAN channel do not need a registration !!!
+*)
+(*can_setTxCycle(CAN_1, CAN1_MESSAGE_FREQ);*)
+can_registerTxDataboxes(CAN_1, ADR(CAN_S.Data.can_TxMsg_as[1]), 41);
+(*can_registerTxBuf(CAN_s.Chnl.ELOBAU_u8, ADR(CAN_s.Data.can_1_TxBuf_as[1]), 50);*)
+(************************************************************************************************)
+(******************** @CAN Initialization of CAN at 250kBaud ************************************)
+(************************************************************************************************)
+
+	can_cfgRxDatabox( CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Rx_Start_Stop_Button,
+							CAN_s.Id.Rx_Start_Stop_Button,
+							CAN_EXD_DU8		);
+
+
+	can_cfgRxDatabox( CAN_s.Chnl.Remote_Control_u8,
+							CAN_s.Box.Rx_RemoteControl_A_u16,
+							CAN_s.Id.Rx_RemoteControl_A_u16,
+							CAN_STD_DU8									);
+
+	can_cfgRxDatabox( CAN_s.Chnl.Remote_Control_u8,
+							CAN_s.Box.Rx_RemoteControl_B_u16,
+						CAN_s.Id.Rx_RemoteControl_B_u16,
+								CAN_STD_DU8									);
+
+	can_cfgRxDatabox( CAN_s.Chnl.Remote_Control_u8,
+							CAN_s.Box.Rx_RemoteControl_C_u16,
+							CAN_s.Id.Rx_RemoteControl_C_u16,
+							CAN_STD_DU8									);
+
+		(*can_cfgTxDatabox(	CAN_s.Chnl.Remote_Control_u8,
+								CAN_s.Box.Tx_Remote_Control_u16,
+								CAN_s.Id.Tx_RemoteControl_u16,
+								CAN_STD_DU8									);*)
+(*END_IF*)
+(***************************************************************************************************)
+(***************************************************************************************************)
+can_cfgRxDatabox( CAN_s.Chnl.CAN_modem_u8,
+						CAN_s.Box.Rx_Modem_300,
+						CAN_s.Id.Rx_Modem_300,
+						CAN_EXD_DU8									);
+
+can_cfgRxDatabox( CAN_s.Chnl.CAN_modem_u8,
+						CAN_s.Box.Rx_Modem_301,
+						CAN_s.Id.Rx_Modem_301,
+						CAN_EXD_DU8									);
+
+
+(***************************************************************************************************)
+
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_Modem_202,
+							CAN_s.Id.Tx_Modem_202,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_Modem_203,
+							CAN_s.Id.Tx_Modem_203,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_Modem_204,
+							CAN_s.Id.Tx_Modem_204,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_Modem_205,
+							CAN_s.Id.Tx_Modem_205,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_Modem_206,
+							CAN_s.Id.Tx_Modem_206,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_Modem_207,
+							CAN_s.Id.Tx_Modem_207,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_Modem_208,
+							CAN_s.Id.Tx_Modem_208,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_Modem_209,
+							CAN_s.Id.Tx_Modem_209,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_Modem_210,
+							CAN_s.Id.Tx_Modem_210,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_Modem_211,
+							CAN_s.Id.Tx_Modem_211,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_Modem_212,
+							CAN_s.Id.Tx_Modem_212,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_Modem_213,
+							CAN_s.Id.Tx_Modem_213,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_Modem_214,
+							CAN_s.Id.Tx_Modem_214,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_Modem_215,
+							CAN_s.Id.Tx_Modem_215,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_Modem_216,
+							CAN_s.Id.Tx_Modem_216,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_MI3_220,
+							CAN_s.Id.Tx_MI3_220,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_MI3_221,
+							CAN_s.Id.Tx_MI3_221,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_Modem_303,
+							CAN_s.Id.Tx_Modem_303,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_Modem_304,
+							CAN_s.Id.Tx_Modem_304,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_Modem_305,
+							CAN_s.Id.Tx_Modem_305,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_Modem_306,
+							CAN_s.Id.Tx_Modem_306,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_Modem_307,
+							CAN_s.Id.Tx_Modem_307,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_Modem_308,
+							CAN_s.Id.Tx_Modem_308,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_Modem_309,
+							CAN_s.Id.Tx_Modem_309,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_Modem_310,
+							CAN_s.Id.Tx_Modem_310,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_Modem_311,
+							CAN_s.Id.Tx_Modem_311,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_Modem_401,
+							CAN_s.Id.Tx_Modem_401,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_Modem_402,
+							CAN_s.Id.Tx_Modem_402,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_Modem_405,
+							CAN_s.Id.Tx_Modem_405,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_Modem_406,
+							CAN_s.Id.Tx_Modem_406,
+							CAN_EXD_DU8									);
+
+(*IF typeIndModule = DM_01 AND typeDieselSpSource	= CAN_TSC1 THEN*)
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_DM1_Diesel,
+							CAN_s.Id.Tx_DM1_Diesel,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_s.Chnl.CAN_modem_u8,
+							CAN_s.Box.Tx_DM2_Diesel,
+							CAN_s.Id.Tx_DM2_Diesel,
+							CAN_EXD_DU8									);
+
+	can_cfgTxDatabox(	CAN_1,
+							3,
+							16#101,
+							CAN_STD_DU8	);
+
+(* Start CAN channel *)
+can_init(CAN_1,	BAUD_250K);
+
+	can_cfgTxDatabox(	CAN_2,
+							3,
+							16#102,
+							CAN_STD_DU8	);
+
+can_init(CAN_2,	BAUD_250K);
+
+	can_cfgTxDatabox(	CAN_3,
+							3,
+							16#103,
+							CAN_STD_DU8	);
+
+can_init(CAN_3,	BAUD_250K);
+
+	can_cfgTxDatabox(	CAN_4,
+							3,
+							16#104,
+							CAN_STD_DU8	);
+
+can_init(CAN_4,	BAUD_250K);
+END_ACTION
+
+ACTION	PLC_initJ1939:
+(************************************************************************************************)
+(******************** @CAN Initialization of the databoxes to transmit **************************)
+(************************************************************************************************)
+(*CAN EASY functions are used. Be aware only 20 databoxes are supported*)
+(*************************************************************************************************)
+(********************************* Init J1939 - from API documentation ***************************)
+(*************************************************************************************************)
+ (* register can rx/tx buffers *)
+  (*can_registerTxBuf(CAN_1, ADR(can1_tx_buf), 30); *)     (* not needed here !!! *)
+  (*can_registerRxBuf(CAN_1, ADR(can1_rx_buf), 30); *)
+
+  (* register j1939 rx/tx message boxes:
+This FUNCTION registers memory FOR j1939 receive databoxes AND therefore defines the maximal number 
+OF usable J1939 receive databoxes.
+
+Remarks:
+This function must be called once during the configuration of the J1939 communication stack before 
+j1939_initComm(). After the execution of this function, each j1939 receive databox has to be 
+initialized with j1939_initRxDatabox() before using. The meaning of this function is similar to 
+the system function can_registerRxDataboxes().    *)
+
+j1939_registerRxDataboxes( ADR(J1939_s.Data.j1939_RxMsg_as[1]), 8);
+j1939_registerTxDataboxes( ADR(J1939_s.Data.j1939_TxMsg_as[1]), 20);
+
+  (* Define j1939 receive messages within the j1939 RX databoxes: *)
+  j1939_initRxDatabox(	J1939_s.Box.Rx_EEC1_u16,
+								J1939_s.PGN.EEC1,
+								J1939_s.SOURCE_ADRESS,
+								J1939_s.TIMEOUT.EEC1,
+								J1939_s.TIMEOUT.EEC1,
+								J1939_s.Length.J1939_STD_MSG_LEN,
+								ADR(J1939_s.Data.RxEEC1_au8[1]),
+								J1939_s.DISABLE_CALLBACK				);
+
+  j1939_initRxDatabox(	J1939_s.Box.Rx_ET1_u16,
+								J1939_s.PGN.ET1_u32,
+								J1939_s.SOURCE_ADRESS,
+								J1939_s.TIMEOUT.ET1_u16,
+								J1939_s.TIMEOUT.ET1_u16,
+								J1939_s.Length.J1939_STD_MSG_LEN,
+								ADR(J1939_s.Data.RxET1_au8[1]),
+								J1939_s.DISABLE_CALLBACK				);
+
+  j1939_initRxDatabox(	J1939_s.Box.Rx_EFL_u16,
+								J1939_s.PGN.EFL_u32,
+								J1939_s.SOURCE_ADRESS,
+								J1939_s.TIMEOUT.EFL_u16,
+								J1939_s.TIMEOUT.EFL_u16,
+								J1939_s.Length.J1939_STD_MSG_LEN,
+								ADR(J1939_s.Data.RxEFL_au8[1]),
+								J1939_s.DISABLE_CALLBACK				);
+
+  j1939_initRxDatabox(	J1939_s.Box.Rx_IC1_u16,
+								J1939_s.PGN.IC1_u32,
+								J1939_s.SOURCE_ADRESS,
+								J1939_s.TIMEOUT.IC1_u16,
+								J1939_s.TIMEOUT.IC1_u16,
+								J1939_s.Length.J1939_STD_MSG_LEN,
+								ADR(J1939_s.Data.RxIC1_au8[1]),
+								J1939_s.DISABLE_CALLBACK				);
+
+  j1939_initRxDatabox(	J1939_s.Box.Rx_DD_u16,
+								J1939_s.PGN.DD,
+								3,	(* Посылка не от двигателя *)
+								J1939_s.TIMEOUT.DD_timeout,
+								J1939_s.TIMEOUT.DD_timeout,
+								J1939_s.Length.J1939_STD_MSG_LEN,
+								ADR(J1939_s.Data.RxDD_au8[1]),
+								J1939_s.DISABLE_CALLBACK				);
+
+  (* Define j1939 receive messages within the j1939 RX databoxes: *)
+  (*j1939_initRxDatabox(	J1939_s.Box.Rx_EEC2_u16,
+								J1939_s.PGN.EEC2,
+								J1939_s.SOURCE_ADRESS,
+								J1939_s.TIMEOUT.EEC2,
+								J1939_s.TIMEOUT.EEC2,
+								J1939_s.Length.J1939_STD_MSG_LEN,
+								ADR(J1939_s.Data.RxEEC2_au8[1]),
+								J1939_s.DISABLE_CALLBACK				);
+
+  (* Define j1939 receive messages within the j1939 RX databoxes: *)
+  j1939_initRxDatabox(	J1939_s.Box.Rx_EEC3_u16,
+								J1939_s.PGN.EEC3,
+								J1939_s.SOURCE_ADRESS,
+								J1939_s.TIMEOUT.EEC3,
+								J1939_s.TIMEOUT.EEC3,
+								J1939_s.Length.J1939_STD_MSG_LEN,
+								ADR(J1939_s.Data.RxEEC3_au8[1]),
+								J1939_s.DISABLE_CALLBACK				);*)
+
+(*Tx***************************************************************************************************************)
+(*********** 00 ************************************************************************)
+	j1939_initTxDatabox(	J1939_s.Box.Tx_TF_u16,
+   							J1939_s.PGN.TF_u32,
+   							J1939_s.Length.PRIOR_DEFAULT, 		(* Prioritet *)
+   							J1939_s.Length.CYCLE_DEFAULT,
+   							J1939_s.Length.OFFSET_10,				(* offset *)
+   							J1939_s.Length.J1939_STD_MSG_LEN, 	(* Length, byte *)
+   							ADR( J1939_s.Data.TxTF_au8[1]),
+   							J1939_s.DISABLE_CALLBACK				);
+(*********** 01 ************************************************************************)
+	j1939_initTxDatabox(	J1939_s.Box.Tx_ETC2_u16,
+   							J1939_s.PGN.ETC2_u32,
+   							J1939_s.Length.PRIOR_DEFAULT, 		(* Prioritet *)
+   							J1939_s.Length.CYCLE_DEFAULT,
+   							J1939_s.Length.OFFSET_10, 				(* offset *)
+   							J1939_s.Length.J1939_STD_MSG_LEN, 	(* Length, byte *)
+   							ADR( J1939_s.Data.TxETC2_au8[1]),
+   							J1939_s.DISABLE_CALLBACK				);
+(*********** 02 ************************************************************************)
+
+(*********** 03 ************************************************************************)
+	(*j1939_initTxDatabox(	J1939_S.Box.Tx_TFAC_u16,
+								J1939_s.PGN.TFAC,
+								J1939_s.Length.PRIOR_DEFAULT,
+								J1939_s.Length.CYCLE_TFAC,
+								J1939_s.Length.OFFSET_0,
+								J1939_s.Length.J1939_STD_MSG_LEN,
+								ADR(J1939_s.Data.TxTFAC_au8[1]),
+								J1939_s.DISABLE_CALLBACK				);*)
+(*********** 04 ************************************************************************)
+	(*j1939_initTxDatabox(	J1939_s.Box.Tx_ETC2_u16,
+   							J1939_s.PGN.ETC2_u32,
+   							J1939_s.Length.PRIOR_DEFAULT,
+								J1939_s.Length.CYCLE_DEFAULT,
+								J1939_s.Length.OFFSET_0,
+								J1939_s.Length.J1939_STD_MSG_LEN,
+   							ADR( J1939_s.Data.TxETC2_au8[1]),
+   							J1939_s.DISABLE_CALLBACK				);*)
+(*********** 05 ************************************************************************)
+	j1939_initTxDatabox(	J1939_s.Box.Tx_BJM1,
+  	 							J1939_s.PGN.BJM1,
+   							J1939_s.Length.PRIOR_DEFAULT,
+								J1939_s.Length.CYCLE_LOCARUS,
+								J1939_s.Length.OFFSET_10,
+								J1939_s.Length.J1939_STD_MSG_LEN,
+   							ADR( J1939_s.Data.TxBJM1[1]),
+   							J1939_s.DISABLE_CALLBACK				);
+(*********** 06 ************************************************************************)
+	j1939_initTxDatabox(	J1939_s.Box.Tx_AV00MF,
+  	 							J1939_s.PGN.AV00MF,
+   							J1939_s.Length.PRIOR_DEFAULT,
+								J1939_s.Length.CYCLE_LOCARUS,
+								J1939_s.Length.OFFSET_20,
+								J1939_s.Length.J1939_STD_MSG_LEN,
+   							ADR( J1939_s.Data.TxAV00MF[1]),
+   							J1939_s.DISABLE_CALLBACK				);
+(*********** 07 ************************************************************************)
+	j1939_initTxDatabox(	J1939_s.Box.Tx_AV01MF,
+  	 							J1939_s.PGN.AV01MF,
+   							J1939_s.Length.PRIOR_DEFAULT,
+								J1939_s.Length.CYCLE_LOCARUS,
+								J1939_s.Length.OFFSET_20,
+								J1939_s.Length.J1939_STD_MSG_LEN,
+   							ADR( J1939_s.Data.TxAV01MF[1]),
+   							J1939_s.DISABLE_CALLBACK				);
+(*********** 08 ************************************************************************)
+	j1939_initTxDatabox(	J1939_s.Box.Tx_VF,
+  	 							J1939_s.PGN.VF,
+   							J1939_s.Length.PRIOR_DEFAULT,
+								J1939_s.Length.CYCLE_LOCARUS,
+								J1939_s.Length.OFFSET_0,
+								J1939_s.Length.J1939_STD_MSG_LEN,
+   							ADR( J1939_s.Data.TxVF[1]),
+   							J1939_s.DISABLE_CALLBACK				);
+(*********** 09 ************************************************************************)
+	j1939_initTxDatabox(	J1939_s.Box.Tx_TRF2,
+  	 							J1939_s.PGN.TRF2,
+   							J1939_s.Length.PRIOR_DEFAULT,
+								J1939_s.Length.CYCLE_LOCARUS,
+								J1939_s.Length.OFFSET_0,
+								J1939_s.Length.J1939_STD_MSG_LEN,
+   							ADR( J1939_s.Data.TxTRF2[1]),
+   							J1939_s.DISABLE_CALLBACK				);
+(*********** 10 ************************************************************************)
+	j1939_initTxDatabox(	J1939_s.Box.Tx_MP,
+  	 							J1939_s.PGN.MP,
+   							J1939_s.Length.PRIOR_DEFAULT,
+								J1939_s.Length.CYCLE_LOCARUS,
+								J1939_s.Length.OFFSET_0,
+								J1939_s.Length.J1939_STD_MSG_LEN,
+   							ADR( J1939_s.Data.TxMP[1]),
+   							J1939_s.DISABLE_CALLBACK				);
+(*********** 11 ************************************************************************)
+	j1939_initTxDatabox(	J1939_s.Box.Tx_HOURS,
+  	 							J1939_s.PGN.HOURS,
+   							J1939_s.Length.PRIOR_DEFAULT,
+								J1939_s.Length.CYCLE_LOCARUS,
+								J1939_s.Length.OFFSET_0,
+								J1939_s.Length.J1939_STD_MSG_LEN,
+   							ADR( J1939_s.Data.TxHOURS[1]),
+   							J1939_s.DISABLE_CALLBACK				);
+(*********** 12-13 ************************************************************************)
+(*********** 14 ************************************************************************)
+	j1939_initTxDatabox(	J1939_s.Box.Tx_ESSI,
+  	 							J1939_s.PGN.ESSI,
+   							J1939_s.Length.PRIOR_DEFAULT,
+								J1939_s.Length.CYCLE_LOCARUS,
+								J1939_s.Length.OFFSET_0,
+								J1939_s.Length.J1939_STD_MSG_LEN,
+   							ADR( J1939_s.Data.TxESSI[1]),
+   							J1939_s.DISABLE_CALLBACK				);
+(*********** 15 ************************************************************************)
+	j1939_initTxDatabox(	J1939_s.Box.Tx_AV02MF,
+  	 							J1939_s.PGN.AV02MF,
+   							J1939_s.Length.PRIOR_DEFAULT,
+								J1939_s.Length.CYCLE_LOCARUS,
+								J1939_s.Length.OFFSET_20,
+								J1939_s.Length.J1939_STD_MSG_LEN,
+   							ADR( J1939_s.Data.TxAV02MF[1]),
+   							J1939_s.DISABLE_CALLBACK				);
+(*********** 16 ************************************************************************)
+	j1939_initTxDatabox(	J1939_s.Box.Tx_AV03MF,
+  	 							J1939_s.PGN.AV03MF,
+   							J1939_s.Length.PRIOR_DEFAULT,
+								J1939_s.Length.CYCLE_LOCARUS,
+								J1939_s.Length.OFFSET_20,
+								J1939_s.Length.J1939_STD_MSG_LEN,
+   							ADR( J1939_s.Data.TxAV03MF[1]),
+   							J1939_s.DISABLE_CALLBACK				);
+(*********** 17 ************************************************************************)
+	j1939_initTxDatabox(	J1939_s.Box.Tx_AV04MF,
+  	 							J1939_s.PGN.AV04MF,
+   							J1939_s.Length.PRIOR_DEFAULT,
+								J1939_s.Length.CYCLE_LOCARUS,
+								J1939_s.Length.OFFSET_20,
+								J1939_s.Length.J1939_STD_MSG_LEN,
+   							ADR( J1939_s.Data.TxAV04MF[1]),
+   							J1939_s.DISABLE_CALLBACK				);
+(*********** 18 ************************************************************************)
+	j1939_initTxDatabox(	J1939_s.Box.Tx_RHS,
+  	 							J1939_s.PGN.RHS,
+   							J1939_s.Length.PRIOR_DEFAULT,
+								J1939_s.Length.CYCLE_LOCARUS,
+								J1939_s.Length.OFFSET_10,
+								J1939_s.Length.J1939_STD_MSG_LEN,
+   							ADR( J1939_s.Data.TxRHS[1]),
+   							J1939_s.DISABLE_CALLBACK				);
+(*********** 19 ************************************************************************)
+	j1939_initTxDatabox(	J1939_s.Box.Tx_LOI,
+  	 							J1939_s.PGN.LOI,
+   							J1939_s.Length.PRIOR_DEFAULT,
+								J1939_s.Length.CYCLE_LOCARUS,
+								J1939_s.Length.OFFSET_10,
+								J1939_s.Length.J1939_STD_MSG_LEN,
+   							ADR( J1939_s.Data.TxLOI[1]),
+   							J1939_s.DISABLE_CALLBACK				);
+(*********** Rx7 ************************************************************************)
+  (* init a DM1 failure list for the DIESEL ECU with the address 00 *)
+  j1939_initDiagnostic(	J1939_s.SOURCE_ADRESS,      			(* address of another ECU *)
+                       	J1939_LIST_DM1_DU16,        			(* selected DM type = DM1 *)
+                       	ADR(j1939_DIESEL_DM1_s),    			(* pointer to the failure list *)
+                       	J1939_s.Box.Rx_DIESEL_DM1_u16, 		(* RX box nbr for receiving the list *)
+                       	J1939_s.DISABLE_CALLBACK			); (* callback to evaluate failure *)
+(*********** Rx8 ************************************************************************)
+  (* init a DM2 failure list for the DIESEL ECU with the address 00 *)
+  j1939_initDiagnostic(	J1939_s.SOURCE_ADRESS,      			(* address of another ECU *)
+                       	J1939_LIST_DM2_DU16,        			(* selected DM type = DM1 *)
+                       	ADR(j1939_DIESEL_DM2_s),    			(* pointer to the failure list *)
+                       	J1939_s.Box.Rx_DIESEL_DM2_u16, 		(* RX box nbr for receiving the list *)
+                       	J1939_s.DISABLE_CALLBACK			); (* callback to evaluate failure *)
+(***************************************************************************************)
+	(* define the controller application name, required for address claiming *)
+  j1939_setCaName(16#02,  (* 3 bit industry group *)
+                  16#00,  (* 4 bit vehicle instance *)
+                  16#01,  (* 7 bit vehicle system *)
+                  16#81,  (* 8 bit function *)
+                  16#01,  (* 5 bit function instance *)
+                  16#01); (* 3 bit ecu instance *)
+
+  (* initialize and start j1939 communication *)
+  j1939_initComm(				CAN_s.Chnl.J1939_DIESEL_u8,
+									16#03, 								(* RC controllrer own address *)
+									100,  								(*	Priority OF the j1939 task, not used in BodasDesign*)
+									CYCLE,
+									20);									(* Maximum allowed run time of the j1939 task,
+																				related to the J1939 cycle time, %%, [1...99] *)
+(***************************************************************************************)
+END_ACTION
+

@@ -1,0 +1,4506 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/Autocode' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+PROGRAM PrmData_Sample
+VAR
+
+
+	LID_DefaultSession_DU8    			: USINT := 129; (*16#81; *)
+	LID_DemoSession_DU8           	: USINT := 128; (*16#80; *)
+	LID_ServiceSession_DU8        	: USINT := 145; (*16#91; *)
+	LID_AdjustmentSession_DU8     	: USINT := 179; (*16#B3; *)
+	LID_Adjustment1Session_DU8    	: USINT := 193; (*16#C1; *)
+	LID_Adjustment2Session_DU8     	: USINT := 194; (*16#C2; *)
+	LID_Adjustment3Session_DU8    	: USINT := 195; (*16#C3; *)
+	LID_Adjustment4Session_DU8     	: USINT := 196; (*16#C4; *)
+	LID_DevelopmentSession_DU8     	: USINT := 24; (*16#F7; *)
+
+
+END_VAR
+
+VAR CONSTANT
+
+
+
+	ParameterMenus_as			: ARRAY [1..2] OF ParameterMenu_ts :=
+										(
+											MenuName_as8 :=	'Menu 1',
+
+											ParameterGroup_as :=
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											),
+
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											),
+
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											),
+
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											),
+
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											),
+
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											),
+
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											),
+
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											)
+
+										),
+
+										(
+											MenuName_as8 :=	'Menu 1',
+
+											ParameterGroup_as :=
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											),
+
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											),
+
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											),
+
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											),
+
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											),
+
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											),
+
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											),
+
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											)
+
+										);
+
+END_VAR
+(* @END_DECLARATION := '0' *)
+;
+
+(*
+	ParameterMenus_as			: ARRAY [1..2] OF ParameterMenu_ts :=
+										(
+											MenuName_as8 :=	'Menu 1',
+
+											ParameterGroup_as :=
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											),
+
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											),
+
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											),
+
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											),
+
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											),
+
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											),
+
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											),
+
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											)
+
+										),
+
+										(
+											MenuName_as8 :=	'Menu 1',
+
+											ParameterGroup_as :=
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											),
+
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											),
+
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											),
+
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											),
+
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											),
+
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											),
+
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											),
+
+
+											(
+												GroupName_as8	:=	'Maschine',
+
+												Param_as 		:=
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													),
+
+
+													(
+														ParameterName_as8		:=	'Maschinentyp',
+														ParameterType_u8		:= 1,
+														attr1_u					:= 1,
+														attr2_u					:= 5,
+														attr3_u					:= 1,
+														UnitCode_au8			:= 0,
+														Multiplier_s16			:= 1,
+														Divisor_s16				:= 1,
+														NumberOfDigits_u16	:= 0,
+														AccesslevelCode_u8	:= 3,
+														attr4_u					:= 1,
+														EEPROMAddress_s		:= (Page_u8 := 3, IntIndex_u8 := 0)
+													)
+
+											)
+
+										);
+*)
+END_PROGRAM

@@ -1,0 +1,11 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/20_CAN' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE enum_Can :
+	(
+		CAN_RESET_STOP		:= 0,
+		CAN_RESET_START	:= 1,
+		CAN_RESET_WAIT		:= 2
+	);
+END_TYPE
+(* @END_DECLARATION := '0' *)

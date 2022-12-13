@@ -1,0 +1,72 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/20_CAN\/30_CAN_RAW' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE struc_Can_Box :
+STRUCT
+	(*Tx_CANopen_BootUp_u16	:	UINT	:= 2;    (* Databox to transmit CANopen bootup message *)		(*для джойстика элобау - пересмотреть, возможно удалить*)*)
+
+	Tx_Modem_201				:	UINT	:= 3;		(* first databox used for the CAN diagnostic 				*)
+	Tx_Modem_202				:	UINT	:= 4;		(* second databox used for the CAN diagnostic 		*)
+	Tx_Modem_203				:	UINT	:= 5;		(* the third databox used for the CAN diagnostic 	*)
+	Tx_Modem_204				:	UINT	:= 6;		(*---------||------------||-----------||---------------||---------- 	*)
+	Tx_Modem_205				:	UINT	:= 7;		(*---------||------------||-----------||---------------||---------- 	*)
+	Tx_Modem_206				:	UINT	:= 8;		(*---------||------------||-----------||---------------||---------- 	*)
+	Tx_Modem_207				:	UINT	:= 9;		(*---------||------------||-----------||---------------||---------- 	*)
+	Tx_Modem_208				:	UINT	:= 10;	(*---------||------------||-----------||---------------||---------- 	*)
+	Tx_Modem_209				:	UINT	:= 11;	(*---------||------------||-----------||---------------||---------- 	*)
+	Tx_Modem_210				:	UINT	:= 12;
+	Tx_Modem_211				:	UINT 	:= 13;
+	Tx_Modem_212				:	UINT 	:= 14;
+	Tx_Modem_213				:	UINT 	:= 15;
+	Tx_Modem_214				:	UINT 	:= 16;
+	Tx_Modem_215				:	UINT	:= 17;
+	Tx_Modem_216				:	UINT	:= 18;
+	Tx_MI3_220					:	UINT	:=	19;
+	Tx_MI3_221					:	UINT	:=	20;
+	Tx_Modem_303				:	UINT	:= 21;
+	Tx_Modem_304				:	UINT	:= 22;
+	Tx_Modem_305				:	UINT	:= 23;
+	Tx_Modem_306				:	UINT	:= 24;
+	Tx_Modem_307				:	UINT	:= 25;
+	Tx_Modem_308				:	UINT	:= 26;
+	Tx_Modem_309				:	UINT	:= 27;
+	Tx_Modem_310				:	UINT	:= 28;
+	Tx_Modem_311				:	UINT	:= 29;
+	Tx_Modem_401				:	UINT	:= 30;		(* сообщение об ошибках 1-64*)
+	Tx_Modem_402				:	UINT	:= 31;		(* сообщение об ошибках 65-99*)
+	Tx_Topcon					:	UINT	:= 32;
+	Tx_TSC_Cummins				:	UINT	:= 33;
+	Tx_TSC_YaMZ					:	UINT	:= 34;
+	Tx_DieselPoti				:	UINT	:= 35;
+	Tx_DM1_Diesel				:	UINT	:= 36;
+	Tx_Modem_405				:	UINT	:= 37;		(* сообщение о сохраненных ошибках 1-64*)
+	Tx_Modem_406				:	UINT	:= 38;		(* сообщение о сохраненных ошибках 65-99*)
+	Tx_DM2_Diesel				:	UINT	:= 39;
+	Tx_Req_PGN_from_Dies		:	UINT	:= 40;		(* Запрос ошибок от ДВС *)
+	Tx_Req_DM3_Cummins		:	UINT	:= 41;		(* Запрос на удаление ошибок ДВС Cummins *)
+(******************************************************************************)
+(******************** Definition: databoxes RX  *******************************)
+(******************************************************************************)
+(*Rx_BODAS1				: UINT	:= 1;		used BY BODAS Diag*)
+(*Rx_BODAS2				: UINT	:= 2;		used BY BODAS Diag*)
+	Rx_HG405_u16				:	UINT	:= 3;		(* used to receive CAN from drive / steer joystick *)
+	Rx_Elobau_A_u16			:	UINT	:= 4;		(* used to receive CAN from drive / steer joystick *)
+	Rx_Elobau_B_u16			:	UINT	:= 5;		(* used to receive CAN from joy buttons *)
+	Rx_RemoteControl_A_u16	:	UINT	:= 6;		(* Пульт дистанционного управления *)
+	Rx_RemoteControl_B_u16	:	UINT	:= 7;		(* Пульт дистанционного управления *)
+	Rx_RemoteControl_C_u16	:	UINT	:= 8;	(* Пульт дистанционного управления *)
+	Rx_AZK_u16					:	UINT	:= 9;
+	Rx_Attach_KVG				:	UINT	:= 10;
+	Rx_Modem_300				:	UINT	:= 11;
+	Rx_Modem_301				:	UINT	:= 12;
+	Rx_PosSensBlade			:	UINT	:= 13;
+	Rx_PosSensChassis			:	UINT	:= 14;
+	Rx_PosSensRipper			:	UINT	:= 15;
+	Rx_JoyAttach				:	UINT	:= 16;
+	Rx_DieselPoti				:	UINT	:= 17;
+	Rx_GpsRover					:	UINT	:= 18;
+	Rx_Topcon					:	UINT	:= 19;
+	Rx_Start_Stop_Button		:	UINT	:= 20;
+END_STRUCT
+END_TYPE
+(* @END_DECLARATION := '0' *)

@@ -1,0 +1,28 @@
+LIBRARY
+lib_mat.lib 15.2.18 10:15:14
+(* @LIBRARYSYMFILEINFO := '0' *)
+NumOfPOUs: 20
+mat_calcActiveOff: 2048
+mat_calcActiveOn: 2048
+mat_calcCurve: 2048
+mat_calcDebounce: 2048
+mat_calcDelayOff: 2048
+mat_calcDelayOn: 2048
+mat_calcDelayOnOff: 2048
+mat_calcFilter: 2048
+mat_calcFlash: 2048
+mat_calcFlashCode: 2048
+mat_calcFlashCodeByte: 2048
+mat_calcHyperbola: 2048
+mat_calcPI: 2048
+mat_calcPID: 2048
+mat_calcRamp: 2048
+mat_calcRampSimple: 2048
+mat_calcScale: 2048
+mat_calcToggleOff: 2048
+mat_calcToggleOn: 2048
+mat_getLibraryVersion: 2048
+NumOfGVLs: 2
+Global_Constants: 2048
+Global_Errors: 2048
+END_LIBRARY

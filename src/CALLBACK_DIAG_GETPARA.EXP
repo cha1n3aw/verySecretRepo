@@ -1,0 +1,175 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/Autocode' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+PROGRAM Callback_diag_getPara
+VAR
+   eep:  ARRAY [0..1280] OF INT;
+END_VAR
+(* @END_DECLARATION := '0' *)
+(*********************************************)
+(*  DON'T MAKE ANY CHANGES TO THIS PROGRAM!! *)
+(*     FILE WAS AUTOMATICALLY GENERATED!!    *)
+(*********************************************)
+
+(* get EEPROM pages 0..4 *)
+ree_getArray( PAGE0, 0, ADR(eep[0]),    256 );
+ree_getArray( PAGE1, 0, ADR(eep[256]),  256 );
+ree_getArray( PAGE2, 0, ADR(eep[512]),  256 );
+ree_getArray( PAGE3, 0, ADR(eep[768]),  256 );
+ree_getArray( PAGE4, 0, ADR(eep[1024]), 256 );
+
+(* Basic *)
+para_s.Input_to_Output_Mode_s16 := eep[EEP_Input_to_Output_Mode_e];
+para_s.test_par_new_s16         := eep[EEP_test_par_new_e];
+para_s.test_params_s16          := eep[EEP_test_params_e];
+para_s.test_par2_s16            := eep[EEP_test_par2_e];
+
+(* Test Type *)
+para_s.Trimming_type_s16        := eep[EEP_Trimming_type_e];
+para_s.Analog_type_s16          := eep[EEP_Analog_type_e];
+para_s.Curve_Type_s16           := eep[EEP_Curve_Type_e];
+para_s.Function_Type_s16        := eep[EEP_Function_Type_e];
+para_s.Percent_Type_s16         := eep[EEP_Percent_Type_e];
+para_s.Ramp_Type_s16            := eep[EEP_Ramp_Type_e];
+para_s.Switch_Type_s16          := eep[EEP_Switch_Type_e];
+para_s.List_Type_s16            := eep[EEP_List_Type_e];
+
+(* Output Cfg 1-8 *)
+para_s.Out_Cfg_01_s16           := eep[EEP_Out_Cfg_01_e];
+para_s.Out_Cfg_02_s16           := eep[EEP_Out_Cfg_02_e];
+para_s.Out_Cfg_03_s16           := eep[EEP_Out_Cfg_03_e];
+para_s.Out_Cfg_04_s16           := eep[EEP_Out_Cfg_04_e];
+para_s.Out_Cfg_05_s16           := eep[EEP_Out_Cfg_05_e];
+para_s.Out_Cfg_06_s16           := eep[EEP_Out_Cfg_06_e];
+para_s.Out_Cfg_07_s16           := eep[EEP_Out_Cfg_07_e];
+para_s.Out_Cfg_08_s16           := eep[EEP_Out_Cfg_08_e];
+
+(* Output Cfg 9-16 *)
+para_s.Out_Cfg_09_s16           := eep[EEP_Out_Cfg_09_e];
+para_s.Out_Cfg_10_s16           := eep[EEP_Out_Cfg_10_e];
+para_s.Out_Cfg_11_s16           := eep[EEP_Out_Cfg_11_e];
+para_s.Out_Cfg_12_s16           := eep[EEP_Out_Cfg_12_e];
+para_s.Out_Cfg_13_s16           := eep[EEP_Out_Cfg_13_e];
+para_s.Out_Cfg_14_s16           := eep[EEP_Out_Cfg_14_e];
+para_s.Out_Cfg_15_s16           := eep[EEP_Out_Cfg_15_e];
+para_s.Out_Cfg_16_s16           := eep[EEP_Out_Cfg_16_e];
+
+(* Output Cfg 17-24 *)
+para_s.Out_Cfg_17_s16           := eep[EEP_Out_Cfg_17_e];
+para_s.Out_Cfg_18_s16           := eep[EEP_Out_Cfg_18_e];
+para_s.Out_Cfg_19_s16           := eep[EEP_Out_Cfg_19_e];
+para_s.Out_Cfg_20_s16           := eep[EEP_Out_Cfg_20_e];
+para_s.Out_Cfg_21_s16           := eep[EEP_Out_Cfg_21_e];
+para_s.Out_Cfg_22_s16           := eep[EEP_Out_Cfg_22_e];
+para_s.Out_Cfg_23_s16           := eep[EEP_Out_Cfg_23_e];
+para_s.Out_Cfg_24_s16           := eep[EEP_Out_Cfg_24_e];
+
+(* Output Cfg 25-32 *)
+para_s.Out_Cfg_25_s16           := eep[EEP_Out_Cfg_25_e];
+para_s.Out_Cfg_26_s16           := eep[EEP_Out_Cfg_26_e];
+para_s.Out_Cfg_27_s16           := eep[EEP_Out_Cfg_27_e];
+para_s.Out_Cfg_28_s16           := eep[EEP_Out_Cfg_28_e];
+para_s.Out_Cfg_29_s16           := eep[EEP_Out_Cfg_29_e];
+para_s.Out_Cfg_30_s16           := eep[EEP_Out_Cfg_30_e];
+para_s.Out_Cfg_31_s16           := eep[EEP_Out_Cfg_31_e];
+para_s.Out_Cfg_32_s16           := eep[EEP_Out_Cfg_32_e];
+
+(* Output Cfg 33-40 *)
+para_s.Out_Cfg_33_s16           := eep[EEP_Out_Cfg_33_e];
+para_s.Out_Cfg_34_s16           := eep[EEP_Out_Cfg_34_e];
+para_s.Out_Cfg_35_s16           := eep[EEP_Out_Cfg_35_e];
+para_s.Out_Cfg_36_s16           := eep[EEP_Out_Cfg_36_e];
+para_s.Out_Cfg_37_s16           := eep[EEP_Out_Cfg_37_e];
+para_s.Out_Cfg_38_s16           := eep[EEP_Out_Cfg_38_e];
+para_s.Out_Cfg_39_s16           := eep[EEP_Out_Cfg_39_e];
+para_s.Out_Cfg_40_s16           := eep[EEP_Out_Cfg_40_e];
+
+(* Output Cfg 41-47 *)
+para_s.Out_Cfg_41_s16           := eep[EEP_Out_Cfg_41_e];
+para_s.Out_Cfg_42_s16           := eep[EEP_Out_Cfg_42_e];
+para_s.Out_Cfg_43_s16           := eep[EEP_Out_Cfg_43_e];
+para_s.Out_Cfg_44_s16           := eep[EEP_Out_Cfg_44_e];
+para_s.Out_Cfg_45_s16           := eep[EEP_Out_Cfg_45_e];
+para_s.Out_Cfg_46_s16           := eep[EEP_Out_Cfg_46_e];
+para_s.Out_Cfg_47_s16           := eep[EEP_Out_Cfg_47_e];
+
+(* AOV Configuration *)
+para_s.AOV_Debounce_s16         := eep[EEP_AOV_Debounce_e];
+para_s.AOV_Freq_s16             := eep[EEP_AOV_Freq_e];
+para_s.AOV_Res_Min_s16          := eep[EEP_AOV_Res_Min_e];
+para_s.AOV_Res_Max_s16          := eep[EEP_AOV_Res_Max_e];
+para_s.AOV_Kp_s16               := eep[EEP_AOV_Kp_e];
+para_s.AOV_Ki_s16               := eep[EEP_AOV_Ki_e];
+
+(* AOC Configuration *)
+para_s.AOC_Debounce_s16         := eep[EEP_AOC_Debounce_e];
+para_s.AOC_Freq_s16             := eep[EEP_AOC_Freq_e];
+para_s.AOC_Res_Min_s16          := eep[EEP_AOC_Res_Min_e];
+para_s.AOC_Res_Max_s16          := eep[EEP_AOC_Res_Max_e];
+para_s.AOC_Kp_s16               := eep[EEP_AOC_Kp_e];
+para_s.AOC_Ki_s16               := eep[EEP_AOC_Ki_e];
+
+(* Output Value 1-8 *)
+para_s.Out_Val_01_s16           := eep[EEP_Out_Val_01_e];
+para_s.Out_Val_02_s16           := eep[EEP_Out_Val_02_e];
+para_s.Out_Val_03_s16           := eep[EEP_Out_Val_03_e];
+para_s.Out_Val_04_s16           := eep[EEP_Out_Val_04_e];
+para_s.Out_Val_05_s16           := eep[EEP_Out_Val_05_e];
+para_s.Out_Val_06_s16           := eep[EEP_Out_Val_06_e];
+para_s.Out_Val_07_s16           := eep[EEP_Out_Val_07_e];
+para_s.Out_Val_08_s16           := eep[EEP_Out_Val_08_e];
+
+(* Output Value 9-16 *)
+para_s.Out_Val_09_s16           := eep[EEP_Out_Val_09_e];
+para_s.Out_Val_10_s16           := eep[EEP_Out_Val_10_e];
+para_s.Out_Val_11_s16           := eep[EEP_Out_Val_11_e];
+para_s.Out_Val_12_s16           := eep[EEP_Out_Val_12_e];
+para_s.Out_Val_13_s16           := eep[EEP_Out_Val_13_e];
+para_s.Out_Val_14_s16           := eep[EEP_Out_Val_14_e];
+para_s.Out_Val_15_s16           := eep[EEP_Out_Val_15_e];
+para_s.Out_Val_16_s16           := eep[EEP_Out_Val_16_e];
+
+(* Output Value 17-36 *)
+para_s.Out_Val_17_s16           := eep[EEP_Out_Val_17_e];
+para_s.Out_Val_18_s16           := eep[EEP_Out_Val_18_e];
+para_s.Out_Val_33_s16           := eep[EEP_Out_Val_33_e];
+para_s.Out_Val_34_s16           := eep[EEP_Out_Val_34_e];
+para_s.Out_Val_35_s16           := eep[EEP_Out_Val_35_e];
+para_s.Out_Val_36_s16           := eep[EEP_Out_Val_36_e];
+
+(* Output Value 37-44 *)
+para_s.Out_Val_37_s16           := eep[EEP_Out_Val_37_e];
+para_s.Out_Val_38_s16           := eep[EEP_Out_Val_38_e];
+para_s.Out_Val_39_s16           := eep[EEP_Out_Val_39_e];
+para_s.Out_Val_40_s16           := eep[EEP_Out_Val_40_e];
+para_s.Out_Val_41_s16           := eep[EEP_Out_Val_41_e];
+para_s.Out_Val_42_s16           := eep[EEP_Out_Val_42_e];
+para_s.Out_Val_43_s16           := eep[EEP_Out_Val_43_e];
+para_s.Out_Val_44_s16           := eep[EEP_Out_Val_44_e];
+
+(* Output Value 45-47 *)
+para_s.Out_Val_45_s16           := eep[EEP_Out_Val_45_e];
+para_s.Out_Val_46_s16           := eep[EEP_Out_Val_46_e];
+para_s.Out_Val_47_s16           := eep[EEP_Out_Val_47_e];
+
+(* POH Configuration *)
+para_s.POH_Debounce_s16         := eep[EEP_POH_Debounce_e];
+para_s.POH_Res_Min_s16          := eep[EEP_POH_Res_Min_e];
+para_s.POH_Res_Max_s16          := eep[EEP_POH_Res_Max_e];
+para_s.POH_Kp_s16               := eep[EEP_POH_Kp_e];
+para_s.POH_Ki_s16               := eep[EEP_POH_Ki_e];
+
+(* POL Configuration *)
+para_s.POL_Debounce_s16         := eep[EEP_POL_Debounce_e];
+para_s.POL_Res_Min_s16          := eep[EEP_POL_Res_Min_e];
+para_s.POL_Res_Max_s16          := eep[EEP_POL_Res_Max_e];
+para_s.POL_Kp_s16               := eep[EEP_POL_Kp_e];
+para_s.POL_Ki_s16               := eep[EEP_POL_Ki_e];
+
+(* DOH Configuration *)
+para_s.DOH_Debounce_s16         := eep[EEP_DOH_Debounce_e];
+para_s.DOH_Res_Min_s16          := eep[EEP_DOH_Res_Min_e];
+para_s.DOH_Res_Max_s16          := eep[EEP_DOH_Res_Max_e];
+END_PROGRAM

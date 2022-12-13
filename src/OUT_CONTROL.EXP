@@ -1,0 +1,264 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/30_Outputs' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+PROGRAM out_Control
+VAR
+	out_19_state_b8	: BOOL;	(* Состояние выхода out_19 *)
+	out_19_status_s	: out_ts;	(* Статус выхода out_19 *)
+	out_19_on_b8		: BOOL;
+
+	out_Brakes_status_s	: out_ts;	(* Статус выхода out_19 *)
+	out_Brakes_on_b8		: BOOL;
+END_VAR
+VAR CONSTANT
+	DOH_DUTYCYCLE_ON		: UINT	:= 10000;	(* Скважность, при которой дискретный выход активирован *)
+END_VAR
+(* @END_DECLARATION := '0' *)
+IF para_s.Input_to_Output_Mode_s16 = DEACTIVATED THEN
+
+
+	out_POH();
+	out_DOH();
+	out_AOV();
+	out_POL();
+
+IF PLC_PRG.EcuInfo_s.HwType_u16 <> PLC_PRG.HW_Type_RC12_10_30_u16 THEN
+	out_getStatusxt(IO_Chnl.DOH_BRAKES, ADR(out_Brakes_status_s));
+	out_Brakes_on_b8		:= out_Brakes_status_s.out_po_s.dc_u16 = DOH_DUTYCYCLE_ON;
+
+	out(IO_Chnl.DOH_FLASHING_BEACON,	BOOL_TO_INT(out_Brakes_on_b8));							(* Выход маяка *)
+END_IF
+
+ELSE
+
+
+;
+END_IF
+END_PROGRAM
+ACTION	out_AOV:
+IF para_s.Out_Cfg_33_s16 = PWM_MODE THEN
+	out (	OUT_33_POH,	para_s.Out_Val_33_s16);
+ELSIF para_s.Out_Cfg_33_s16 = AOV_MODE THEN
+	out (	OUT_33_AOV,	para_s.Out_Val_33_s16);
+END_IF
+
+IF para_s.Out_Cfg_34_s16 = PWM_MODE THEN
+	out (	OUT_34_POH,	para_s.Out_Val_34_s16);
+ELSIF para_s.Out_Cfg_34_s16 = AOV_MODE THEN
+	out (	OUT_34_AOV,	para_s.Out_Val_34_s16);
+END_IF
+
+IF para_s.Out_Cfg_35_s16 = PWM_MODE THEN
+	out (	OUT_35_POH,	para_s.Out_Val_35_s16);
+ELSIF para_s.Out_Cfg_35_s16 = AOV_MODE THEN
+	out (	OUT_35_AOV,	para_s.Out_Val_35_s16);
+END_IF
+
+IF para_s.Out_Cfg_36_s16 = PWM_MODE THEN
+	out (	OUT_36_POH,	para_s.Out_Val_36_s16);
+ELSIF para_s.Out_Cfg_36_s16 = AOV_MODE THEN
+	out (	OUT_36_AOV,	para_s.Out_Val_36_s16);
+END_IF
+
+IF para_s.Out_Cfg_47_s16 = AOC_MODE THEN
+	out (	OUT_47_AOC,	para_s.Out_Val_47_s16);
+ELSIF para_s.Out_Cfg_47_s16 = AOV_MODE THEN
+	out (	OUT_47_AOV,	para_s.Out_Val_47_s16);
+END_IF
+END_ACTION
+
+ACTION	out_DOH:
+out(OUT_19_DOH, para_s.Out_Cfg_19_s16);
+out(OUT_20_DOH, para_s.Out_Cfg_20_s16);
+out(OUT_21_DOH, para_s.Out_Cfg_21_s16);
+out(OUT_22_DOH, para_s.Out_Cfg_22_s16);
+out(OUT_23_DOH, para_s.Out_Cfg_23_s16);
+out(OUT_24_DOH, para_s.Out_Cfg_24_s16);
+out(OUT_25_DOH, para_s.Out_Cfg_25_s16);
+out(OUT_26_DOH, para_s.Out_Cfg_26_s16);
+out(OUT_27_DOH, para_s.Out_Cfg_27_s16);
+out(OUT_28_DOH, para_s.Out_Cfg_28_s16);
+out(OUT_29_DOH, para_s.Out_Cfg_29_s16);
+out(OUT_30_DOH, para_s.Out_Cfg_30_s16);
+out(OUT_31_DOH, para_s.Out_Cfg_31_s16);
+out(OUT_32_DOH, para_s.Out_Cfg_32_s16);
+END_ACTION
+
+ACTION	out_POH:
+(* Proportional output high side PWM *)
+
+IF para_s.Out_Cfg_01_s16 = PWM_MODE THEN
+	out (	OUT_1_POH,	para_s.Out_Val_01_s16);
+ELSIF para_s.Out_Cfg_01_s16 = PWM_CURRENT_MODE THEN
+	out (	OUT_1_POH_CL,	para_s.Out_Val_01_s16);
+END_IF
+
+IF para_s.Out_Cfg_02_s16 = PWM_MODE THEN
+	out (	OUT_2_POH,	para_s.Out_Val_02_s16);
+ELSIF para_s.Out_Cfg_01_s16 = PWM_CURRENT_MODE THEN
+	out (	OUT_2_POH_CL,	para_s.Out_Val_02_s16);
+END_IF
+
+IF para_s.Out_Cfg_03_s16 = PWM_MODE THEN
+	out (	OUT_3_POH,	para_s.Out_Val_03_s16);
+ELSIF para_s.Out_Cfg_03_s16 = PWM_CURRENT_MODE THEN
+	out (	OUT_3_POH_CL,	para_s.Out_Val_03_s16);
+END_IF
+
+IF para_s.Out_Cfg_04_s16 = PWM_MODE THEN
+	out (	OUT_4_POH,	para_s.Out_Val_04_s16);
+ELSIF para_s.Out_Cfg_04_s16 = PWM_CURRENT_MODE THEN
+	out (	OUT_4_POH_CL,	para_s.Out_Val_04_s16);
+END_IF
+
+IF para_s.Out_Cfg_05_s16 = PWM_MODE THEN
+	out (	OUT_5_POH,	para_s.Out_Val_05_s16);
+ELSIF para_s.Out_Cfg_05_s16 = PWM_CURRENT_MODE THEN
+	out (	OUT_5_POH_CL,	para_s.Out_Val_05_s16);
+END_IF
+
+IF para_s.Out_Cfg_06_s16 = PWM_MODE THEN
+	out (	OUT_6_POH,	para_s.Out_Val_06_s16);
+ELSIF para_s.Out_Cfg_06_s16 = PWM_CURRENT_MODE THEN
+	out (	OUT_6_POH_CL,	para_s.Out_Val_06_s16);
+END_IF
+
+IF para_s.Out_Cfg_07_s16 = PWM_MODE THEN
+	out (	OUT_7_POH,	para_s.Out_Val_07_s16);
+ELSIF para_s.Out_Cfg_07_s16 = PWM_CURRENT_MODE THEN
+	out (	OUT_7_POH_CL,	para_s.Out_Val_07_s16);
+END_IF
+
+IF para_s.Out_Cfg_08_s16 = PWM_MODE THEN
+	out (	OUT_8_POH,	para_s.Out_Val_08_s16);
+ELSIF para_s.Out_Cfg_08_s16 = PWM_CURRENT_MODE THEN
+	out (	OUT_8_POH_CL,	para_s.Out_Val_08_s16);
+END_IF
+
+IF para_s.Out_Cfg_09_s16 = PWM_MODE THEN
+	out (	OUT_9_POH,	para_s.Out_Val_09_s16);
+ELSIF para_s.Out_Cfg_09_s16 = PWM_CURRENT_MODE THEN
+	out (	OUT_9_POH_CL,	para_s.Out_Val_09_s16);
+END_IF
+
+IF para_s.Out_Cfg_10_s16 = PWM_MODE THEN
+	out (	OUT_10_POH,	para_s.Out_Val_10_s16);
+ELSIF para_s.Out_Cfg_10_s16 = PWM_CURRENT_MODE THEN
+	out (	OUT_10_POH_CL,	para_s.Out_Val_10_s16);
+END_IF
+
+IF para_s.Out_Cfg_11_s16 = PWM_MODE THEN
+	out (	OUT_11_POH,	para_s.Out_Val_11_s16);
+ELSIF para_s.Out_Cfg_11_s16 = PWM_CURRENT_MODE THEN
+	out (	OUT_11_POH_CL,	para_s.Out_Val_11_s16);
+END_IF
+
+IF para_s.Out_Cfg_12_s16 = PWM_MODE THEN
+	out (	OUT_12_POH,	para_s.Out_Val_12_s16);
+ELSIF para_s.Out_Cfg_12_s16 = PWM_CURRENT_MODE THEN
+	out (	OUT_12_POH_CL,	para_s.Out_Val_12_s16);
+END_IF
+
+IF para_s.Out_Cfg_13_s16 = PWM_MODE THEN
+	out (	OUT_13_POH,	para_s.Out_Val_13_s16);
+ELSIF para_s.Out_Cfg_13_s16 = PWM_CURRENT_MODE THEN
+	out (	OUT_13_POH_CL,	para_s.Out_Val_13_s16);
+END_IF
+
+IF para_s.Out_Cfg_14_s16 = PWM_MODE THEN
+	out (	OUT_14_POH,	para_s.Out_Val_14_s16);
+ELSIF para_s.Out_Cfg_14_s16 = PWM_CURRENT_MODE THEN
+	out (	OUT_14_POH_CL,	para_s.Out_Val_14_s16);
+END_IF
+
+IF para_s.Out_Cfg_15_s16 = PWM_MODE THEN
+	out (	OUT_15_POH,	para_s.Out_Val_15_s16);
+ELSIF para_s.Out_Cfg_15_s16 = PWM_CURRENT_MODE THEN
+	out (	OUT_15_POH_CL,	para_s.Out_Val_15_s16);
+END_IF
+
+IF para_s.Out_Cfg_16_s16 = PWM_MODE THEN
+	out (	OUT_16_POH,	para_s.Out_Val_16_s16);
+ELSIF para_s.Out_Cfg_16_s16 = PWM_CURRENT_MODE THEN
+	out (	OUT_16_POH_CL,	para_s.Out_Val_16_s16);
+END_IF
+
+IF para_s.Out_Cfg_17_s16 = PWM_MODE THEN
+	out (	OUT_17_POH,	para_s.Out_Val_17_s16);
+ELSIF para_s.Out_Cfg_17_s16 = PWM_CURRENT_MODE THEN
+	out (	OUT_17_POH_CL,	para_s.Out_Val_17_s16);
+END_IF
+
+IF para_s.Out_Cfg_18_s16 = PWM_MODE THEN
+	out (	OUT_18_POH,	para_s.Out_Val_18_s16);
+ELSIF para_s.Out_Cfg_18_s16 = PWM_CURRENT_MODE THEN
+	out (	OUT_18_POH_CL,	para_s.Out_Val_18_s16);
+END_IF
+END_ACTION
+
+ACTION	out_POL:
+(* Proportional output Low side PWM *)
+
+IF para_s.Out_Cfg_37_s16 = PWM_MODE THEN
+	out (	OUT_37_POL,	para_s.Out_Val_37_s16);
+ELSIF para_s.Out_Cfg_37_s16 = PWM_CURRENT_MODE THEN
+	out (	OUT_37_POL_CL,	para_s.Out_Val_37_s16);
+END_IF
+
+IF para_s.Out_Cfg_38_s16 = PWM_MODE THEN
+	out (	OUT_38_POL,	para_s.Out_Val_38_s16);
+ELSIF para_s.Out_Cfg_38_s16 = PWM_CURRENT_MODE THEN
+	out (	OUT_38_POL_CL,	para_s.Out_Val_38_s16);
+END_IF
+
+IF para_s.Out_Cfg_39_s16 = PWM_MODE THEN
+	out (	OUT_39_POL,	para_s.Out_Val_39_s16);
+ELSIF para_s.Out_Cfg_39_s16 = PWM_CURRENT_MODE THEN
+	out (	OUT_39_POL_CL,	para_s.Out_Val_39_s16);
+END_IF
+
+IF para_s.Out_Cfg_40_s16 = PWM_MODE THEN
+	out (	OUT_40_POL,	para_s.Out_Val_40_s16);
+ELSIF para_s.Out_Cfg_40_s16 = PWM_CURRENT_MODE THEN
+	out (	OUT_40_POL_CL,	para_s.Out_Val_40_s16);
+END_IF
+
+IF para_s.Out_Cfg_41_s16 = PWM_MODE THEN
+	out (	OUT_41_POL,	para_s.Out_Val_14_s16);
+ELSIF para_s.Out_Cfg_14_s16 = PWM_CURRENT_MODE THEN
+	out (	OUT_41_POL_CL,	para_s.Out_Val_41_s16);
+END_IF
+
+IF para_s.Out_Cfg_42_s16 = PWM_MODE THEN
+	out (	OUT_42_POL,	para_s.Out_Val_42_s16);
+ELSIF para_s.Out_Cfg_42_s16 = PWM_CURRENT_MODE THEN
+	out (	OUT_42_POL_CL,	para_s.Out_Val_42_s16);
+END_IF
+
+IF para_s.Out_Cfg_43_s16 = PWM_MODE THEN
+	out (	OUT_43_POL,	para_s.Out_Val_43_s16);
+ELSIF para_s.Out_Cfg_43_s16 = PWM_CURRENT_MODE THEN
+	out (	OUT_43_POL_CL,	para_s.Out_Val_43_s16);
+END_IF
+
+IF para_s.Out_Cfg_44_s16 = PWM_MODE THEN
+	out (	OUT_44_POL,	para_s.Out_Val_44_s16);
+ELSIF para_s.Out_Cfg_44_s16 = PWM_CURRENT_MODE THEN
+	out (	OUT_44_POL_CL,	para_s.Out_Val_44_s16);
+END_IF
+
+IF para_s.Out_Cfg_45_s16 = PWM_MODE THEN
+	out (	OUT_45_POL,	para_s.Out_Val_45_s16);
+ELSIF para_s.Out_Cfg_45_s16 = PWM_CURRENT_MODE THEN
+	out (	OUT_45_POL_CL,	para_s.Out_Val_45_s16);
+END_IF
+
+IF para_s.Out_Cfg_46_s16 = PWM_MODE THEN
+	out (	OUT_46_POL,	para_s.Out_Val_46_s16);
+ELSIF para_s.Out_Cfg_46_s16 = PWM_CURRENT_MODE THEN
+	out (	OUT_46_POL_CL,	para_s.Out_Val_46_s16);
+END_IF
+END_ACTION
+

@@ -1,0 +1,37 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/10_IO' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE struc_inputs :
+STRUCT
+
+	potiDriveCAN_s16			: INT;  	(* Speed Setpoint with deadbnd (CAN part), [ -1000, 1000], Unit = 0.1% *)
+	potiSteerCAN_s16			: INT;	(* Steer Setpoint with deadband (CAN part), [ -1000, 1000], Unit = 0.1% *)
+	potiDriveCAN_raw_s16		: INT;	(* Speed Setpoint (CAN part), [ -1000, 1000], Unit = 0.1% *)
+	potiSteerCAN_raw_s16		: INT;	(* Steer Setpoint (CAN part), [ -1000, 1000], Unit = 0.1% *)
+	potiDriveANA_s16			: INT;	(* Speed Setpoint (Analog part), [ -1000, 1000], Unit = 0.1% *)
+	iDriveANA_uA_s16			: INT; 	(* Current through drive poti, Unit = 1/1000 mA *)
+	potiSteerANA_s16			: INT;	(* Steer Setpoint (Analog part), [ -1000, 1000], Unit = 0.1% *)
+	iSteerANA_uA_s16			: INT; 	(* Current through steer poti, Unit = 1/1000 mA *)
+	potiDriveANA_raw_s16		: INT;	(* Speed Setpoint (Analog part), [ -1000, 1000], Unit = 0.1% w/o deadband *)
+	potiSteerANA_raw_s16		: INT;	(* Steer Setpoint (Analog part), [ -1000, 1000], Unit = 0.1% w/o deadband *)
+
+	potiDriveSet_s16			: INT;	(* Drive averaged Setpoint, [ -1000, 1000], Unit = 0.1% *)
+	potiSteerSet_s16			: INT;	(* Steer averaged Setpoint, [ -1000, 1000], Unit = 0.1% *)
+(**********************************************************************************************************)
+(***************************** Пульт дистанционного управления ********************************************)
+(**********************************************************************************************************)
+	potiDrive_RC_s16			: INT;	(* Управление движением 								*)
+	potiSteer_RC_s16			: INT;  	(* Управление рулением 									*)
+	potiDir_RC_s16				: INT;	(* Управление навесным оборудованием				*)
+	potiSide_RC_s16			: INT;	(* Управление навесным оборудованием				*)
+	btn_GearUp_RC_b8			: BOOL;	(* Уменьшение скорости									*)
+	btn_GearDn_RC_b8			: BOOL;	(* Увеличение скорости									*)
+	btn_EquipMode_RC_b8		: BOOL;	(* Выбор режима оборудования							*)
+	btn_SwimMode_RC_b8		: BOOL;	(* Включение "плавающего"								*)
+	btn_A_RC_b8					: BOOL;	(* Дополнительная кнопка на джойстике навесного	*)
+	potiDiesel_RC_s16			: INT;	(* Обороты ДВС												*)
+
+END_STRUCT
+END_TYPE
+
+(* @END_DECLARATION := '0' *)

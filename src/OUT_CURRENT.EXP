@@ -1,0 +1,68 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/30_Outputs' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+PROGRAM out_Current
+VAR
+END_VAR
+(* @END_DECLARATION := '0' *)
+(********************************************************************************)
+(***** Получение актуальных значений токов PWM выходов **************************)
+(********************************************************************************)
+
+(* Test Code *)
+output.iAct_Out_01_ma_s32			:= in( OUT_1_PIC );
+output.iAct_Out_02_ma_s32			:= in( OUT_2_PIC );
+output.iAct_Out_03_ma_s32			:= in( OUT_3_PIC );
+output.iAct_Out_04_ma_s32			:= in( OUT_4_PIC );
+
+(* code for test *)
+output.iAct_Out_02_ma_s32			:= in( OUT_2_PIC );
+output.iAct_Out_03_ma_s32			:= in( OUT_3_PIC );
+output.iAct_Out_04_ma_s32			:= in( OUT_4_PIC );
+output.iAct_Out_05_ma_s32			:= in( OUT_5_PIC );
+
+output.iAct_Out_01_ma_s32			:= in( OUT_1_PIC );
+output.iAct_Out_02_ma_s32			:= in( OUT_2_PIC );
+output.iAct_Out_03_ma_s32			:= in( OUT_3_PIC );
+output.iAct_Out_04_ma_s32			:= in( OUT_4_PIC );
+output.iAct_Out_05_ma_s32			:= in( OUT_5_PIC );
+output.iAct_Out_06_ma_s32			:= in( OUT_6_PIC );
+output.iAct_Out_07_ma_s32			:= in( OUT_7_PIC );
+output.iAct_Out_08_ma_s32			:= in( OUT_8_PIC );
+output.iAct_Out_09_ma_s32			:= in( OUT_9_PIC );
+output.iAct_Out_10_ma_s32			:= in( OUT_10_PIC);
+output.iAct_Out_11_ma_s32			:= in( OUT_11_PIC);
+output.iAct_Out_12_ma_s32			:= in( OUT_12_PIC);
+output.iAct_Out_13_ma_s32			:= in( OUT_13_PIC);
+output.iAct_Out_14_ma_s32			:= in( OUT_14_PIC);
+output.iAct_Out_15_ma_s32			:= in( OUT_15_PIC);
+output.iAct_Out_16_ma_s32			:= in( OUT_16_PIC);
+output.iAct_Out_17_ma_s32			:= in( OUT_17_PIC);
+output.iAct_Out_18_ma_s32			:= in( OUT_18_PIC);
+output.iAct_Out_19_ma_s32			:= in( OUT_19_PIC);
+output.iAct_Out_20_ma_s32			:= in( OUT_20_PIC);
+output.iAct_Out_21_ma_s32			:= in( OUT_21_PIC);
+output.iAct_Out_22_ma_s32			:= in( OUT_22_PIC);
+output.iAct_Out_23_ma_s32			:= in( OUT_23_PIC);
+output.iAct_Out_24_ma_s32			:= in( OUT_24_PIC);
+output.iAct_Out_25_ma_s32			:= in( OUT_25_PIC);
+output.iAct_Out_26_ma_s32			:= in( OUT_26_PIC);
+output.iAct_Out_27_ma_s32			:= in( OUT_27_PIC);
+output.iAct_Out_28_ma_s32			:= in( OUT_28_PIC);
+output.iAct_Out_29_ma_s32			:= in( OUT_29_PIC);
+output.iAct_Out_30_ma_s32			:= in( OUT_30_PIC);
+output.iAct_Out_31_ma_s32			:= in( OUT_31_PIC);
+output.iAct_Out_32_ma_s32			:= in( OUT_32_PIC);
+output.iAct_Out_37_ma_s32			:= in( OUT_37_PIC);
+output.iAct_Out_38_ma_s32			:= in( OUT_38_PIC);
+output.iAct_Out_39_ma_s32			:= in( OUT_39_PIC);
+output.iAct_Out_40_ma_s32			:= in( OUT_40_PIC);
+output.iAct_Out_41_ma_s32			:= in( OUT_41_PIC);
+output.iAct_Out_42_ma_s32			:= in( OUT_42_PIC);
+output.iAct_Out_43_ma_s32			:= in( OUT_43_PIC);
+output.iAct_Out_44_ma_s32			:= in( OUT_44_PIC);
+output.iAct_Out_45_ma_s32			:= in( OUT_45_PIC);
+output.iAct_Out_46_ma_s32			:= in( OUT_46_PIC);
+END_PROGRAM

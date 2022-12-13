@@ -1,0 +1,78 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @GLOBAL_VARIABLE_LIST := 'Global_CONST' *)
+(* @PATH := '' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+VAR_GLOBAL CONSTANT
+
+	CYCLE							: USINT	:= 10;		(* cycle time of the main task *)
+	MAIN_TASK_PRIO				: BYTE	:= 100;		(*priority of the main task*)
+	SIMU_motSpeed_b8			: BOOL	:= FALSE;
+
+	DST_JOY						: INT		:= 1;			(* Type of the Drive joystick *)
+	GESSMAN						: INT 	:= 0;			(* Type of the Drive joystick *)
+
+	ST_RANGE						: INT		:= 1000;
+	PAGE1_OFFSET				: INT 	:= 256;
+	PAGE2_OFFSET				: INT 	:= 512;
+
+	DELAY_STANDARD				: UINT	:= 600; 		(* increased for Fair !!! *)
+	DEBOUNCE_FOR_SAVOUT		: UINT	:= 200;
+	MAX_LIMIT_SPEED_MUL1000	: INT		:= 1800;
+	(*LIMIT_SPEED_1_MUL1000	: INT 	:=	400;*)
+
+	POTI_CURRENT_ERR_MIN		: INT		:= 700;		(* Unit = uA *)
+	POTI_CURRENT_ERR_MAX		: INT		:= 1200;		(* Unit = uA *)
+
+	KPDv							: REAL	:= 0.95; 	(* Volumetric efficiency *)
+	(*iReductor_1					: REAL	:= 0.792;	(* передачное число редуктора МП19-4240010 *)*)
+
+	V_TRANSM_BORDER			: INT		:= 500;		(* Граница, после которой включаются в работу моторы *)
+	(*CAN1_MESSAGE_FREQ			: UINT	:= 100;		(* Промежуток между отправками посылок в шину, ms *)*)
+	CYCLES_FOR_CAN_SEND		: INT		:= 10;
+
+	Pi								: REAL	:= 3.14;		(* Число Пи *)
+(******************** Definition:   PWM output - High side  *******************)
+(******************************************************************************)
+	POH_CL_DEBOUNCE			: UINT	:= 100;				(* debounce time [ms] for error detection *)
+	POH_CL_DITHER_FREQUENCY	: UINT	:= f_100Hz_DU16;	(* dither frequency [Hz]*)
+	POH_CL_RESISTANCE_MIN	: UDINT	:= 2000; 			(* min resistance of solenoid for error detection [mOhm]*)
+	POH_CL_RESISTANCE_MAX	: UDINT	:= 52000;			(* max resistance of solenoid for error detection[mOhm] *)
+	POH_CL_KP					: UINT	:= 250;				(*Kp factor*)
+	POH_CL_KI					: UINT 	:= 250;				(*Ki factor*)
+(******************** Definition:   PWM output - Low side - FAN_Drive *********)
+(******************************************************************************)
+	POL_CL_DEBOUNCE			: UINT	:= 100;				(* debounce time [ms] for error detection *)
+	POL_CL_DITHER_FREQUENCY	: UINT	:= f_100Hz_DU16;	(* dither frequency [Hz]*)
+	POL_CL_RESISTANCE_MIN	: UDINT	:= 2000; 			(* min resistance of solenoid for error detection [mOhm]*)
+	POL_CL_RESISTANCE_MAX	: UDINT	:= 52000;			(* max resistance of solenoid for error detection[mOhm] *)
+	POL_CL_KP					: UINT 	:= 250;				(*Kp factor*)
+	POL_CL_KI					: UINT 	:= 250;				(*Ki factor*)
+(******************************************************************************)
+(******************** Definition:   Digital output - High side  ***************)
+(******************************************************************************)
+	DOH_DEBOUNCE				: UINT	:= 200;				(* debounce time [ms] for error detection *)
+	DOH_DITHER_FREQUENCY		: UINT	:= f_100Hz_DU16;	(* dither frequency [Hz]*)
+	DOH_RESISTANCE_MIN		: UDINT	:= 6000;				(* min resistance of solenoid for error detection [mOhm]*)
+	DOH_RESISTANCE_MAX		: UDINT	:= 44000;			(* max resistance of solenoid for error detection[mOhm] *)
+	DOH_WORKING_ARM_MAX		: UDINT	:= 60000;			(* Для плеч гидрораспределителя *)
+	MS_IN_MINUTE				: DINT	:= 60000;
+
+	AOV_DITHER_FREQUENCY		: UINT	:= f_100Hz_DU16;	(* dither frequency [Hz]*)
+
+	MAX_VOLTAGE_FOR_JOY		: INT := 5000; (* Максимальное напряжение для джойстиков, мВ *)
+
+	PWM_MODE						: INT		:= 0;					(* Режим ШИМ-выхода без поддержания тока *)
+	PWM_CURRENT_MODE			: INT		:= 1;					(* Режим ШИМ-выхода с обратной связью по току *)
+
+	AOC_MODE						: INT		:= 0;					(* Analog Output Current *)
+	AOV_MODE						: INT		:= 1;					(* Analog Output Voltage *)
+
+END_VAR
+(* @OBJECT_END := 'Global_CONST' *)
+(* @CONNECTIONS := Global_CONST
+FILENAME : ''
+FILETIME : 0
+EXPORT : 0
+NUMOFCONNECTIONS : 0
+*)

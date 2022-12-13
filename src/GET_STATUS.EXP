@@ -1,0 +1,90 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/10_Inputs\/General Parameters' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+PROGRAM get_Status
+VAR
+
+	in_as: ARRAY [1..75] OF in_ts;	(* Structure with the extended input information *)
+
+END_VAR
+(* @END_DECLARATION := '0' *)
+  (* get infos from specified input *)
+
+  inxt(IN_1_AIV,  	ADR(in_as[1]));
+  inxt(IN_2_AIV, 		ADR(in_as[2]));
+  inxt(IN_3_AIV,  	ADR(in_as[3]));
+  inxt(IN_4_AIV,  	ADR(in_as[4]));
+  inxt(IN_5_AIV,  	ADR(in_as[5]));
+  inxt(IN_6_AIV,  	ADR(in_as[6]));
+  inxt(IN_7_AIV,  	ADR(in_as[7]));
+  inxt(IN_8_AIV,  	ADR(in_as[8]));
+  inxt(IN_9_AIV,  	ADR(in_as[9]));
+  inxt(IN_10_AIV,  	ADR(in_as[10]));
+  inxt(IN_11_AIV,  	ADR(in_as[11]));
+  inxt(IN_12_AIV,  	ADR(in_as[12]));
+  inxt(IN_13_AIV,  	ADR(in_as[13]));
+  inxt(IN_14_AIV,  	ADR(in_as[14]));
+  inxt(IN_15_AIV,  	ADR(in_as[15]));
+  inxt(IN_16_AIV,  	ADR(in_as[16]));
+  inxt(IN_17_AIV,  	ADR(in_as[17]));
+  inxt(IN_18_AIV,  	ADR(in_as[18]));
+  inxt(IN_19_AIV,  	ADR(in_as[19]));
+  inxt(IN_20_AIV,  	ADR(in_as[20]));
+  inxt(IN_21_AIV,  	ADR(in_as[21]));
+  inxt(IN_22_AIV,  	ADR(in_as[22]));
+  inxt(IN_23_AIV,  	ADR(in_as[23]));
+  inxt(IN_24_AIV,  	ADR(in_as[24]));
+  inxt(IN_25_AIV,  	ADR(in_as[25]));
+  inxt(IN_26_AIV,  	ADR(in_as[26]));
+  inxt(IN_27_AIV,  	ADR(in_as[27]));
+  inxt(IN_28_AIV,  	ADR(in_as[28]));
+  inxt(IN_29_AIV,  	ADR(in_as[29]));
+  inxt(IN_30_AIV,  	ADR(in_as[30]));
+  inxt(IN_31_AIV,  	ADR(in_as[31]));
+  inxt(IN_32_AIV,  	ADR(in_as[32]));
+  inxt(IN_33_AIV,  	ADR(in_as[33]));
+  inxt(IN_34_AIV,  	ADR(in_as[34]));
+  inxt(IN_35_AIV,  	ADR(in_as[35]));
+  inxt(IN_36_AIV,  	ADR(in_as[36]));
+  inxt(IN_37_AIV,  	ADR(in_as[37]));
+  inxt(IN_38_AIV,  	ADR(in_as[38]));
+  inxt(IN_39_AIV,  	ADR(in_as[39]));
+  inxt(IN_40_AIV,  	ADR(in_as[40]));
+  inxt(IN_41_AIV,  	ADR(in_as[41]));
+  inxt(IN_42_DI,  	ADR(in_as[42]));
+  inxt(IN_43_DI,  	ADR(in_as[43]));
+  inxt(IN_44_DI,  	ADR(in_as[44]));
+  inxt(IN_45_DI,  	ADR(in_as[45]));
+  inxt(IN_46_DI,  	ADR(in_as[46]));
+  inxt(IN_47_DI,  	ADR(in_as[47]));
+  inxt(IN_48_DI,  	ADR(in_as[48]));
+  inxt(IN_49_DI,  	ADR(in_as[49]));
+  inxt(IN_50_DI,  	ADR(in_as[50]));
+  inxt(IN_51_DI,  	ADR(in_as[51]));
+  inxt(IN_52_AIV,  	ADR(in_as[52]));
+  inxt(IN_53_AIV,  	ADR(in_as[53]));
+  inxt(IN_54_AIV,  	ADR(in_as[54]));
+  inxt(IN_55_AIV,  	ADR(in_as[55]));
+  inxt(IN_56_AIV,  	ADR(in_as[56]));
+  inxt(IN_57_AIV,  	ADR(in_as[57]));
+  inxt(IN_58_AIV,  	ADR(in_as[58]));
+  inxt(IN_59_AIV,  	ADR(in_as[59]));
+  inxt(IN_60_AIV,  	ADR(in_as[60]));
+  inxt(IN_61_AIV,  	ADR(in_as[61]));
+  inxt(IN_62_AIV,  	ADR(in_as[62]));
+  inxt(IN_63_AIV,  	ADR(in_as[63]));
+  inxt(IN_64_AIV,  	ADR(in_as[64]));
+  inxt(IN_65_AIV,  	ADR(in_as[65]));
+  inxt(IN_66_AIV,  	ADR(in_as[66]));
+  inxt(IN_67_AIV,  	ADR(in_as[67]));
+  inxt(IN_68_AIV,  	ADR(in_as[68]));
+  inxt(IN_69_AIV,  	ADR(in_as[69]));
+  inxt(IN_70_AIV,  	ADR(in_as[70]));
+  inxt(IN_71_FI,  	ADR(in_as[71]));
+  inxt(IN_72_FI,  	ADR(in_as[72]));
+  inxt(IN_73_FI,  	ADR(in_as[73]));
+  inxt(IN_74_FI,  	ADR(in_as[74]));
+  inxt(IN_75_FI,  	ADR(in_as[75]));
+END_PROGRAM

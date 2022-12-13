@@ -1,0 +1,9 @@
+LIBRARY
+RCE_InitParameter_V01_03.lib 15.2.18 10:15:14
+(* @LIBRARYSYMFILEINFO := '0' *)
+NumOfPOUs: 0
+NumOfGVLs: 3
+RC69_Parameter: 2048
+RCE1_Parameter: 2048
+RCE2_Parameter: 2048
+END_LIBRARY

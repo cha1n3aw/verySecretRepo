@@ -1,0 +1,34 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/05_Basic_Calc' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION conv_mV_to_dig : INT
+(* Функция конвертации входного напряжения из [0; vMax] в цифровой сигнал  [0; 511] *)
+(* Функция возвращает -1, если введены не верные входные параметры *)
+VAR_INPUT
+	in_mV_s16			: INT;		(* Входной сигнал напряжения, мВ *)
+	U_lim_mV_s16		: INT;		(* Максимально допустимое напряжение на входе, мВ *)
+END_VAR
+VAR
+	dig_raw_s16			: INT;		(* Конвертированный сигнал, без округления *)
+END_VAR
+(* @END_DECLARATION := '0' *)
+	(* Проверка на правильность входных данных *)
+	IF (in_mV_s16 < 0 OR in_mV_s16 > U_lim_mV_s16) THEN
+		(* Входные данные не верные *)
+		conv_mV_to_dig := -1;
+	ELSE
+
+		(* Конвертация входного сигнала *)
+		dig_raw_s16 	:= in_mV_s16 * 5110 / U_lim_mV_s16;
+
+		(* Округление конвертированного сигнала в большую сторону *)
+		IF (dig_raw_s16 MOD 10) = 0 THEN
+			conv_mV_to_dig := dig_raw_s16/10;
+		ELSE
+			conv_mV_to_dig := dig_raw_s16/10 + 1;
+		END_IF
+
+	END_IF
+END_FUNCTION

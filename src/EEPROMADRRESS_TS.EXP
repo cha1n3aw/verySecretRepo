@@ -1,0 +1,10 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/Diag\/Parameter' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE EEPROMAdrress_ts :
+STRUCT
+	Page_u8		: USINT;
+	IntIndex_u8	: USINT;
+END_STRUCT
+END_TYPE
+(* @END_DECLARATION := '0' *)

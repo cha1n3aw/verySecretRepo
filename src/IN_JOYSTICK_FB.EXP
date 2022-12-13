@@ -1,0 +1,51 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/10_Inputs\/Function Blocks' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION_BLOCK in_joystick_fb
+VAR_OUTPUT
+	poti_s16			: INT;	(*	poti position, [-1000 .. 1000]	Unit = 0.1%*)
+	poti_raw_s16	: INT;	(*	poti position without deadband *)
+END_VAR
+VAR
+	poti_min_s16	: INT;
+	poti_mid_s16	: INT;
+	poti_max_s16	: INT;
+	poti_emin_s16	: INT;
+	poti_emax_s16	: INT;
+END_VAR
+VAR_INPUT
+	PotiAdjust_s16	: INT;
+	PotiMiddle_s16	: INT;
+	Deadband_s16	: INT;
+	PotiChannel_u32: DWORD;
+END_VAR
+(* @END_DECLARATION := '0' *)
+(* get poti adjustment values *)
+poti_min_s16 := inext_getPotiMin( PotiAdjust_s16 );
+poti_max_s16 := inext_getPotiMax( PotiAdjust_s16 );
+poti_mid_s16 := inext_getPotiMid( PotiMiddle_s16 );
+
+(*derive error thresholds from adjustment values *)
+IF poti_min_s16 >= 50 THEN
+	poti_emin_s16 := poti_min_s16 - 50;
+ELSE
+	poti_emin_s16 := 0;
+END_IF
+
+IF poti_max_s16 <= 950 THEN
+	poti_emax_s16 := poti_max_s16 + 50;
+ELSE
+	poti_emax_s16 := 1000;
+END_IF
+(* read jostick poti *)
+poti_raw_s16 := inext_getPotiDir(	PotiChannel_u32,
+												poti_min_s16,
+												poti_max_s16,
+												poti_mid_s16,
+												poti_emin_s16,
+												poti_emax_s16 );
+
+poti_s16:=calc_deadband(poti_raw_s16, Deadband_s16);
+END_FUNCTION_BLOCK

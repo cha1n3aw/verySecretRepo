@@ -1,0 +1,94 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/60_Error handling' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+(*************************************************************************************
+FUNCTION BLOCK: fb_handleError
+
+BRIEF: set/reset an error under BODAS-service after a defined debounce time 
+
+PARAM[IN]	stErrorCondition_b8  error condition						[0/1]
+PARAM[IN]	stQuitCondition_b8	quit condition							[0/1]
+PARAM[IN]	tiDelay_u16	 			delay time for error detection 	[ms]
+PARAM[IN]	numErr_code_u16 		error code under BODAS-service	
+PARAM[IN]	numErr_nbr_u8	 		error number under BODAS-service
+PARAM[IN]	bSave_b8		 			1: the error is saved in EEPROM	[0/1]
+PARAM[IN]	tiCycle_s16	 			cycle time
+
+PARAM[OUT]	bFlag_b8					error currently active or not  	[0/1]
+
+*************************************************************************************
+ (c) Copyright by BOSCH REXROTH AG, all rights reserved 
+*************************************************************************************
+
+VERSION INFORMATION
+	V1.0 	Benez Fabien, DC-MA/EMF2
+		- initial release	
+_____________________________________
+|Best to read using Courrier new 8pt |
+|tab-width=3 				             |   	
+|____________________________________|
+see  [Project] [Options] [Editor] [Fonts]
+**************************************************************************************)
+
+FUNCTION_BLOCK handleError
+(*	This function block checks the error-condition and the quit-error-condition.
+	If the error-condition is true for the defined time, the error is saved in the bb3-array and the error flag is set. 
+	If the quit-error-condition is true, the error is deleted in the bb3-array and the error flag is reset.
+*)
+
+VAR_INPUT
+	stErrorCondition_b8	: BOOL;					(* error condition *)
+	stQuitCondition_b8	: BOOL	:= FALSE;	(* quit condition *)
+	tiDelay_u16				: UINT	:= 0;			(* delay time for error detection  *)
+	numErr_code_u16		: UINT;					(* error code under BODAS-service*)
+	numErr_nbr_u8			: USINT;					(* error number under BODAS-service*)
+	bSave_b8					: BOOL;					(* 1: the error is saved in EEPROM	*)
+	tiCycle_s16				: INT;					(* cycle time*)
+END_VAR
+
+
+VAR
+	cnt_s16					: INT;
+END_VAR
+
+
+VAR_OUTPUT
+	bFlag_b8					: BOOL	:= FALSE;	(* error bit that is set in case of error *)
+END_VAR
+(* @END_DECLARATION := '0' *)
+(*debouncing*)
+IF stErrorCondition_b8 THEN
+	cnt_s16	:= cnt_s16 + 1;
+ELSE
+	cnt_s16 	:= 0;
+END_IF
+
+(* if delay is reached set: BODAS error *)
+IF ( cnt_s16 > tiDelay_u16 / tiCycle_s16 ) THEN
+
+	(* error counter in B-s shall only be incremented once per occurrence of an error *)
+	IF NOT bFlag_b8 THEN
+		sys_setError( numErr_code_u16,  numErr_nbr_u8 , bSave_b8 );
+	END_IF
+
+	(*Prevent an overrun of cnt_s16 *)
+	cnt_s16	:= cnt_s16  - 1;
+
+	(*BODAS error active*)
+	bFlag_b8	:= TRUE;
+
+(* if quit condition is fulfilled: reset bb3 error *)
+ELSIF stQuitCondition_b8 THEN
+
+								(* reset bb3 error only if error is active  *)
+				IF sys_testError( numErr_code_u16, numErr_nbr_u8) > 0 THEN
+							sys_delActiveError( numErr_code_u16, numErr_nbr_u8 );
+				END_IF
+
+	(*BODAS error not active*)
+	bFlag_b8	:= FALSE;
+
+END_IF
+END_FUNCTION_BLOCK

@@ -1,0 +1,42 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/05_Basic_Calc' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION_BLOCK isRegulationNow
+VAR_INPUT
+	RAW_SIGNAL				: INT;				(* Непосредственно сигнал *)
+	error						: INT;				(* Погрешность *)
+	timer_regul				: TON;				(* Таймер для защиты от помех *)
+	timer_reg_in			: BOOL;				(* Вход таймера *)
+END_VAR
+VAR_OUTPUT
+	isRegulationNow		: BOOL;				(* Происходит ли регуливка в данный момент *)
+END_VAR
+VAR
+	buffer					: INT := 0;			(* Буффер для хранения значения *)
+	buffer_state			: INT;				(* Состояние буффера *)
+END_VAR
+VAR CONSTANT
+	AMOUNT_OF_REG_CYCLES	: INT	:= 10;		(* Количество циклов, допускающее скачок *)
+END_VAR
+(* @END_DECLARATION := '0' *)
+timer_regul(in:= timer_reg_in, PT:= INT_TO_TIME(CYCLE * AMOUNT_OF_REG_CYCLES), Q=> , ET=> );
+	CASE buffer_state OF
+		0:
+			buffer			:=	RAW_SIGNAL;
+			buffer_state	:=	1;
+		1:
+			IF ABS(buffer-RAW_SIGNAL) > error THEN
+				timer_reg_in		:= TRUE;
+				IF timer_regul.Q THEN
+					isRegulationNow	:=	TRUE;
+					buffer_state		:=	0;
+					timer_reg_in		:= FALSE;
+				END_IF
+			ELSE
+				isRegulationNow	:=	FALSE;
+				timer_reg_in		:= FALSE;
+			END_IF
+	END_CASE
+END_FUNCTION_BLOCK

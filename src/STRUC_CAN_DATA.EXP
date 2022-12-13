@@ -1,0 +1,99 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/20_CAN\/30_CAN_RAW' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE struc_Can_Data :
+STRUCT
+	(* @CAN *)
+  (*CAN1_Rx_buf				: ARRAY [1..20] OF can_Message_ts;		(* can receive buffer - NOT NEEDED AS in BD is DONE BY API!	*)
+  CAN1_Tx_buf				: ARRAY [1..20] OF can_Message_ts;		(* can send buffer  	- NOT NEEDED AS in BD is DONE BY API! *)*)
+
+	(* Tx data buffer *)
+	(*can_1_TxBuf_as				: ARRAY [1..2] OF can_Message_ts;*)
+	(*TxOperationalStatus_au8	: ARRAY [1..8] OF USINT;	(*storage of the data for the diagnostic *)*)
+
+	can_TxMsg_as				: ARRAY [1..41] OF can_TxDatabox_ts;		(* can tx msg boxes *)
+
+	RxHG405_au8					: ARRAY [1..8] OF USINT;   (* data buffer for HG405 joystick *)
+	RxElobau_A_au8				: ARRAY [1..8] OF USINT;   (* data buffer for HG405 joystick *)
+	RxElobau_B_au8				: ARRAY [1..8] OF USINT;   (* data buffer for HG405 joystick *)
+
+	RxJoyAttachDst				: ARRAY [1..8] OF USINT;
+
+	RxRemoteControl_A_au8	: ARRAY [1..8] OF USINT;	 (* Данные от пульта дистанционного управления *)
+	RxRemoteControl_B_au8	: ARRAY [1..8] OF USINT;	 (* Данные от пульта дистанционного управления *)
+	RxRemoteControl_C_au8	: ARRAY [1..8] OF USINT;	 (* Данные от пульта дистанционного управления *)
+
+	RxAttachmentsKVG_au8		: ARRAY [1..8] OF USINT;
+	RxAZK							: ARRAY [1..8] OF USINT;
+
+	RxModem_300_au8			: ARRAY [1..8] OF USINT;	(* storage of the data for the CAN-modem *)
+	RxModem_301_au8			: ARRAY [1..8] OF USINT;	(* storage of the data for the CAN-modem *)
+
+	(**Position Sensors**)
+	RxPosSensBlade				: ARRAY [1..8] OF USINT;
+	RxPosSensChassis			: ARRAY [1..8] OF USINT;
+	RxPosSensRipper			: ARRAY [1..8] OF USINT;
+	RxGpsRover					: ARRAY [1..8] OF USINT;
+
+	RxStartStopButton			: ARRAY [1..8] OF USINT;	(* Блок пуска-глушения *)
+(*************--Tx--*************)
+	TxModem_201_au8			: ARRAY [1..8] OF USINT;	(* storage of the data for the CAN-modem *)
+	TxModem_202_au8			: ARRAY [1..8] OF USINT;	(* storage of the data for the CAN-modem *)
+	TxModem_203_au8			: ARRAY [1..8] OF USINT;	(* storage of the data for the CAN-modem *)
+	TxModem_204_au8			: ARRAY [1..8] OF USINT;	(* storage of the data for the CAN-modem *)
+	TxModem_205_au8			: ARRAY [1..8] OF USINT;	(* storage of the data for the CAN-modem *)
+	TxModem_206_au8			: ARRAY [1..8] OF USINT;	(* storage of the data for the CAN-modem *)
+	TxModem_207_au8			: ARRAY [1..8] OF USINT;	(* storage of the data for the CAN-modem *)
+	TxModem_208_au8			: ARRAY [1..8] OF USINT;	(* storage of the data for the CAN-modem *)
+	TxModem_209_au8			: ARRAY [1..8] OF USINT;	(* storage of the data for the CAN-modem *)
+	TxModem_210_au8			: ARRAY [1..8] OF USINT;	(* storage of the data for the CAN-modem *)
+	TxModem_211_au8			: ARRAY [1..8] OF USINT;	(* storage of the data for the CAN-modem *)
+	TxModem_212_au8			: ARRAY [1..8] OF USINT;	(* storage of the data for the CAN-modem *)
+	TxModem_213_au8			: ARRAY [1..8] OF USINT;	(* storage of the data for the CAN-modem *)
+	TxModem_214_au8			: ARRAY [1..8] OF USINT;	(* storage of the data for the CAN-modem *)
+	TxModem_215_au8			: ARRAY [1..8] OF USINT;	(* storage of the data for the CAN-modem *)
+	TxModem_216_au8			: ARRAY [1..8] OF USINT;	(* storage of the data for the CAN-modem *)
+
+	TxMI3_220_au8				: ARRAY [1..8] OF USINT;	(* storage of the data for the MI-3 *)
+	TxMI3_221_au8				: ARRAY [1..8] OF USINT;	(* storage of the data for the MI-3 *)
+	(* Актуальные ошибки контроллера ГСТ *)
+	TxModem_401_au8			: ARRAY [1..8] OF USINT;
+	TxModem_402_au8			: ARRAY [1..8] OF USINT;
+	(* Сохраненные ошибки контроллера ГСТ *)
+	TxModem_405_au8			: ARRAY [1..8] OF USINT;
+	TxModem_406_au8			: ARRAY [1..8] OF USINT;
+
+	TxModem_303_au8			: ARRAY [1..8] OF USINT;	(* storage of the data for the CAN-modem *)
+	TxModem_304_au8			: ARRAY [1..8] OF USINT;	(* storage of the data for the CAN-modem *)
+	TxModem_305_au8			: ARRAY [1..8] OF USINT;	(* storage of the data for the CAN-modem *)
+	TxModem_306_au8			: ARRAY [1..8] OF USINT;	(* storage of the data for the CAN-modem *)
+	TxModem_307_au8			: ARRAY [1..8] OF USINT;	(* storage of the data for the CAN-modem *)
+	TxModem_308_au8			: ARRAY [1..8] OF USINT;	(* storage of the data for the CAN-modem *)
+	TxModem_309_au8			: ARRAY [1..8] OF USINT;	(* storage of the data for the CAN-modem *)
+	TxModem_310_au8			: ARRAY [1..8] OF USINT;	(* storage of the data for the CAN-modem *)
+	TxModem_311_au8			: ARRAY [1..8] OF USINT;	(* storage of the data for the CAN-modem *)
+	(*TxRemoteControl_au8	: ARRAY	[1..8] OF USINT;	 (* Данные передаваемые на пульт дистанционного управления *)*)
+
+	(* Topcon *)
+	Rx_Topcon_au8				: ARRAY [1..8] OF USINT;
+	Tx_Topcon_au8				: ARRAY [1..8] OF USINT;
+	(* Engines *)
+	TxTscCummins				: ARRAY [1..8] OF USINT;	(* Посылка с требуемой скоростью вращения для Cummins *)
+	TxTscYaMZ					: ARRAY [1..8] OF USINT;	(* Посылка с требуемой скоростью вращения для ЯМЗ *)
+	(* Ручка газа *)
+	RxDiesPoti					: ARRAY [1..8] OF USINT;
+	TxDiesPoti					: ARRAY [1..8] OF USINT;
+	(* Сообщение с ошибками ДВС для дисплея *)
+	Tx_DM1_Diesel_au8			: ARRAY [1..8] OF USINT;
+	Tx_DM2_Diesel_au8			: ARRAY [1..8] OF USINT;
+	Tx_Req_PGN_au8				: ARRAY [1..8] OF USINT;
+	Tx_DM3_Cummins_au8		: ARRAY [1..8] OF USINT;
+
+
+	Databox_data_1				: ARRAY [1..8] OF USINT;
+	Databox_data_2				: ARRAY [1..8] OF USINT;
+	Databox_data_3				: ARRAY [1..8] OF USINT;
+	Databox_data_4				: ARRAY [1..8] OF USINT;
+END_STRUCT
+END_TYPE
+(* @END_DECLARATION := '0' *)

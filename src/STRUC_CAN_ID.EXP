@@ -1,0 +1,90 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/20_CAN\/30_CAN_RAW' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE struc_Can_Id :
+	STRUCT
+(******************************************************************************)
+(******************** Definition: CAN IDs  ************************************)
+(******************************************************************************)
+		Rx_HG405						: 	UINT := 	16#2FE;			(* Define receive HG405 joystick identifier *)
+
+		Rx_AttachDstJoy			: 	UINT := 	16#180;			(* Джойстик управления навесным оборудованием, ДСТ *)
+
+		Rx_Elobau_A_u16			: 	UINT := 	16#190;			(* Define receive Elobau joystick identifier *)
+		Rx_Elobau_B_u16			: 	UINT := 	16#290;			(* Define receive Elobau joystick identifier *)
+
+		Rx_RemoteControl_A_u16	:	UINT :=	16#195;			(* ПДУ - джойстик движения 						*)
+		Rx_RemoteControl_B_u16	:	UINT :=	16#196;			(* ПДУ - джойстик навесного						*)
+		Rx_RemoteControl_C_u16	:	UINT :=	16#198;			(* ПДУ - обороты ДВС									*)
+		(*Tx_RemoteControl_u16		:	UINT :=	16#199;*)
+
+		Rx_Attachments_KVG_u16	:	UINT :=	16#199;			(* Плата управления навесным оборудованием КВГ *)
+
+		(*Посылка 501 - от преобразователя K-Line/CAN идет к монитору АЗК Bosch *)
+		Rx_AZK_d32					:	DINT :=	16#18050203;	(* Прием посылок от АЗК - монитор Bosch *)
+		(* Датчики положения отвала/рамы/рыхлителя *)
+		Rx_Pos_Sens_Blade			:	DINT :=	16#18050603;
+		Rx_Pos_Sens_Chassis		:	DINT :=	16#18050703;
+		Rx_Pos_Sens_Ripper		:	DINT :=	16#18050803;
+		Rx_GPS_Rover				:	DINT :=	16#18051003;	(* Модем *)
+
+		Rx_Start_Stop_Button		:	DINT :=	16#1802BD03;	(* Блок пуска-глушения *)
+
+		Tx_Modem_201				:	DINT :=	16#18020103;
+		Tx_Modem_202				:	DINT :=	16#18020203;
+		Tx_Modem_203				:	DINT :=	16#18020303;
+		Tx_Modem_204				:	DINT :=	16#18020403;
+		Tx_Modem_205				:	DINT :=	16#18020503;
+		Tx_Modem_206				:	DINT :=	16#18020603;
+		Tx_Modem_207				:	DINT :=	16#18020703;
+		Tx_Modem_208				:	DINT :=	16#18020803;
+		Tx_Modem_209				:	DINT :=	16#18020903;
+		Tx_Modem_210				:	DINT :=	16#18021003;
+		Tx_Modem_211				:	DINT :=	16#18021103;
+		Tx_Modem_212				:	DINT :=	16#18021203;
+		Tx_Modem_213				:	DINT :=	16#18021303;
+		Tx_Modem_214				:	DINT :=	16#18021403;
+		Tx_Modem_215				:	DINT :=	16#18021503;
+		Tx_Modem_216				:	DINT :=	16#18021603;
+
+		Tx_MI3_220					:	DINT :=	16#18022003;
+		Tx_MI3_221					:	DINT :=	16#18022103;
+
+		Rx_Modem_300				:	DINT :=	16#18030003;
+		Rx_Modem_301				:	DINT :=	16#18030103;
+
+		Tx_Modem_303				:	DINT :=	16#18030303;
+		Tx_Modem_304				:	DINT :=	16#18030403;
+		Tx_Modem_305				:	DINT :=	16#18030503;
+		Tx_Modem_306				:	DINT :=	16#18030603;
+		Tx_Modem_307				:	DINT :=	16#18030703;
+		Tx_Modem_308				:	DINT :=	16#18030803;
+		Tx_Modem_309				:	DINT :=	16#18030903;
+		Tx_Modem_310				:	DINT :=	16#18031003;
+		Tx_Modem_311				:	DINT :=	16#18031103;
+		(* Актуальные ошибки контроллера ГСТ *)
+		Tx_Modem_401				:	DINT :=	16#18040103;
+		Tx_Modem_402				:	DINT :=	16#18040203;
+		(* Сохраненные ошибки контроллера ГСТ *)
+		Tx_Modem_405				:	DINT :=	16#18040503;
+		Tx_Modem_406				:	DINT :=	16#18040603;
+		(* Topcon *)
+		Rx_Topcon					:	DINT :=	16#0CEF8047;
+		Tx_Topcon					:	DINT :=	16#18F00D80;
+		(* Двигатели *)
+		Tx_TSC_Cummins				:	DINT :=	16#0C000007;
+		Tx_TSC_YaMZ					:	DINT :=	16#0C000024;	(* Проверить *)
+		(* Ручка газа *)
+		Rx_DieselPoti				:	DINT :=	16#18018919;
+		Tx_DieselPoti				:	DINT :=	16#18018803;
+		(* Сообщение с ошибками ДВС для дисплея *)
+		Tx_DM1_Diesel				:	DINT :=	16#18FFA003;
+		Tx_DM2_Diesel				:	DINT :=	16#18FFA303;
+
+
+		Tx_Req_PGN					:	DWORD :=	16#18EA0000;	(* Подготовка для расчета ID для запроса PGN у двигателя *)
+	END_STRUCT
+END_TYPE
+
+
+(* @END_DECLARATION := '0' *)

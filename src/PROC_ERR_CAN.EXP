@@ -1,0 +1,38 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/60_Error handling\/Process Errors' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+PROGRAM proc_Err_CAN
+VAR
+	ProcessErr1_fb		: handleError;
+	ProcessErr2_fb		: handleError;
+	ProcessErr3_fb		: handleError;
+	ProcessErr4_fb		: handleError;
+	ProcessErr5_fb		: handleError;
+	ProcessErr6_fb		: handleError;
+	ProcessErr7_fb		: handleError;
+	ProcessErr8_fb		: handleError;
+	ProcessErr9_fb		: handleError;
+	ProcessErr10_fb	: handleError;
+
+	Can_Error_Ton		: TON;
+	Can_reset_fb		: Can_reset;
+	dataLen_u16			: UINT 					:= 8;
+	error80_cond		: BOOL;
+	error83_cond		: BOOL;
+	error8A_cond		: BOOL;
+	error90a_cond		: BOOL;
+	error90b_cond		: BOOL;
+END_VAR
+(* @END_DECLARATION := '0' *)
+IF stStartlock_b8 THEN
+	Can_Error_Ton(in := TRUE, PT := T#1000ms);
+	(* Run reset procedure in case of bus shutdown *)
+	Can_reset_fb(	stCAN_BusOFF_b8	:= CAN_s.Status.BODAS_SERVICE_u16.0,
+						Can_Channel_u8		:= CAN_s.Chnl.BODAS_SERVICE_u8);
+END_IF
+
+(**)
+;
+END_PROGRAM

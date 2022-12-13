@@ -1,0 +1,74 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/20_CAN\/10_General CAN' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE struc_Can_Status :
+STRUCT
+
+(*@CAN*)
+
+	BODAS_SERVICE_u16	: UINT;
+	BUS2_u16				: UINT;
+	BUS3_u16				: UINT;
+	Channel_CAN_1		: UINT;
+(******************************************************************************)
+(******************** Status: databoxes TX  ***********************************)
+(******************************************************************************)
+	(*CAN_modem_201_u16	: UINT;		(* state of the first databox used for the CAN diagnostic *)
+	CAN_modem_202_u16	: UINT;		(* state of the second databox used for the CAN diagnostic *)
+	CAN_modem_203_u16	: UINT;		(* state of the second databox used for the CAN diagnostic *)
+ 	CAN_modem_204_u16	: UINT;		(* state of the first databox used for the CAN diagnostic *)
+	CAN_modem_205_u16	: UINT;		(* state of the second databox used for the CAN diagnostic *)
+	CAN_modem_206_u16	: UINT;		(* state of the second databox used for the CAN diagnostic *)
+	CAN_modem_207_u16	: UINT;		(* state of the second databox used for the CAN diagnostic *)
+	CAN_modem_208_u16	: UINT;		(* state of the second databox used for the CAN diagnostic *)
+	CAN_modem_209_u16	: UINT;		(* state of the second databox used for the CAN diagnostic *)
+	CAN_modem_210_u16	: UINT;		(* state of the second databox used for the CAN diagnostic *)
+	CAN_modem_211_u16	: UINT;		(* state of the second databox used for the CAN diagnostic *)
+	CAN_modem_212_u16	: UINT;		(* state of the second databox used for the CAN diagnostic *)
+	CAN_modem_213_u16	: UINT;		(* state of the second databox used for the CAN diagnostic *)
+	CAN_modem_214_u16	: UINT;		(* state of the second databox used for the CAN diagnostic *)
+	CAN_modem_215_u16	: UINT;		(* state of the second databox used for the CAN diagnostic *)
+	CAN_modem_216_u16	: UINT;		(* state of the second databox used for the CAN diagnostic *)*)
+
+	(*MI3_220_u16			: UINT;		(* МИ-3 *)
+	MI3_221_u16			: UINT;		(* МИ-3 *)
+
+	CAN_modem_401_u16	: UINT;		(* state of the second databox used for the CAN diagnostic*)
+	CAN_modem_402_u16	: UINT;		(* state of the second databox used for the CAN diagnostic*)*)
+(******************************************************************************)
+(******************** Status: databoxes RX  ***********************************)
+(******************************************************************************)
+	HG405_u16				: UINT;
+	Elobau_A_u16			: UINT;
+	Elobau_B_u16			: UINT;
+	EEC1_u16					: UINT;		(*state of the databox used to receive values from the customer*)
+	(*EEC2_u16					: UINT;		(*state of the databox used to receive values from the customer*)
+	EEC3_u16					: UINT;		(*state of the databox used to receive values from the customer*)*)
+	ET1_u16					: UINT;
+	EFL_u16					: UINT;
+	IC1_u16					: UINT;
+	TFAC_u16					: UINT;
+	RemoteControl_A_u16	: UINT;		(* Пульт дистанционного управления *)
+	RemoteControl_B_u16	: UINT;		(* Пульт дистанционного управления *)
+	RemoteControl_C_u16	: UINT;		(* Пульт дистанционного управления *)
+	Attachments_KVG		: UINT;
+	AZK						: UINT;
+	Modem_300				: UINT;
+	Modem_301				: UINT;
+	(*********)
+	PosSensBlade			: UINT;
+	PosSensChassis			: UINT;
+	PosSensRipper			: UINT;
+	GpsRover					: UINT;
+	(*********)
+	JoyAttachDST			: UINT;
+	DieselPoti				: UINT;
+	(**)
+	LevelingTopcon			: UINT;
+	DM1_Diesel_u16			: UINT;
+	DM2_Diesel_u16			: UINT;
+
+	Start_Stop_Btn_u16	: UINT;		(* Блок пуска-глушения *)
+END_STRUCT
+END_TYPE
+(* @END_DECLARATION := '0' *)

@@ -1,0 +1,13 @@
+LIBRARY
+INEXT_Library_V01_06.lib 15.2.18 10:15:14
+(* @LIBRARYSYMFILEINFO := '0' *)
+NumOfPOUs: 7
+inext_cfgPoti: 2048
+inext_getPoti: 2048
+inext_getPotiDir: 2048
+inext_getPotiMax: 2048
+inext_getPotiMid: 2048
+inext_getPotiMin: 2048
+inext_getPotiStatus: 2048
+NumOfGVLs: 0
+END_LIBRARY

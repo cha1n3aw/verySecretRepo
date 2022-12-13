@@ -1,0 +1,26 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/30_Outputs' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION setProp : UINT
+VAR_INPUT
+	Chn_u32		: UDINT;
+	i_Input_s32	: DINT;
+	Imin_s16		: INT;
+	Imax_s16		: INT;
+END_VAR
+VAR
+	i_mA_u16		: UINT;
+END_VAR
+(* @END_DECLARATION := '0' *)
+(* Обратить внимание: если на вход i_Input_s32 подается 0, то минимальный ток игнорируется *)
+IF i_Input_s32 > 0 AND i_Input_s32 <= ST_RANGE THEN
+	i_mA_u16 := DINT_TO_UINT (  i_Input_s32 * ( Imax_s16 - Imin_s16) / ST_RANGE + Imin_s16 );
+ELSE
+	i_mA_u16 := 0;
+END_IF
+
+out(Chn_u32, i_mA_u16);
+setProp := i_mA_u16;
+END_FUNCTION

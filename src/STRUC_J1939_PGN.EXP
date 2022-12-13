@@ -1,0 +1,66 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/20_CAN\/20_J1939' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE struc_J1939_PGN :
+STRUCT
+
+(******************************************************************************)
+(******************** Definition: CAN IDs  ************************************)
+(******************************************************************************)
+	EEC1:					DWORD 	:= 16#F004;
+	(*EEC2:					DWORD 	:= 16#F003;	(* Пересмотреть: нужна ли эта посылка? *)
+	EEC3:					DWORD 	:= 16#FEDF;	(* Пересмотреть: нужна ли эта посылка? *)*)
+	TSC1:					DWORD 	:= 16#0000;
+	ET1_u32:				DWORD 	:= 16#FEEE;
+	IC1_u32:				DWORD 	:= 16#FEF6;
+	TF_u32:				DWORD 	:= 16#FEF8; (* Transmission Fluids - Oil Temperature in Tank *)
+	ETC2_u32:			DWORD 	:= 16#F005; (* Electronic Transmission Controller - FNR/Gear Status,Brakes..*)
+	TFAC:					DWORD		:= 16#F01A;	(*  *)
+	EFL_u32:				DWORD		:= 16#FEEF;
+	BJM1:					DWORD		:= 16#FDD6;
+	VF:					DWORD		:= 16#FE68;
+	TRF2:					DWORD		:= 16#FD95;
+	MP:					DWORD		:= 16#FE47;
+	ESSI:					DWORD		:= 16#F021;
+	HOURS:				DWORD		:= 16#FEE5;
+	RHS:					DWORD		:= 16#FE45;	(* Индикация работы задним навесным оборудованием - Rear Hitch In-work Indication, SPN - 1877 *)
+	LOI:					DWORD		:= 16#F00D;	(* Индикация "плавающего" режима - Blade Control Mode Switch, SPN - 3156 *)
+	AV00MF:				DWORD		:= 16#FE20;
+	AV01MF:				DWORD		:= 16#FE21;
+	AV02MF:				DWORD		:= 16#FE22;	(* Давление в контуре навесного оборудования + давление в контуре Фан-драйв *)
+	AV03MF:				DWORD		:= 16#FE23;	(* Ошибки 1 *)
+	AV04MF:				DWORD		:= 16#FE24;	(* Ошибки 2, 3 *)
+	DD:					DWORD		:= 16#FEFC;	(* Dash Display, уровень топлива *)
+
+	(*Modem_201:			DWORD		:= 16#0201;
+	Modem_202:			DWORD		:= 16#0202;
+	Modem_203:			DWORD		:= 16#0203;
+	Modem_204:			DWORD		:= 16#0204;
+	Modem_205:			DWORD		:= 16#0205;
+	Modem_206:			DWORD		:= 16#0206;
+	Modem_207:			DWORD		:= 16#0207;
+	Modem_208:			DWORD		:= 16#0208;
+	Modem_209:			DWORD		:= 16#0209;
+	Modem_210:			DWORD		:= 16#0210;
+	Modem_211:			DWORD		:= 16#0211;
+	Modem_212:			DWORD		:= 16#0212;
+	Modem_213:			DWORD		:= 16#0213;
+	Modem_214:			DWORD		:= 16#0214;
+	Modem_215:			DWORD		:= 16#0215;
+	Modem_216:			DWORD		:= 16#0216;
+
+	MI3_220:				DWORD		:= 16#0220;
+	MI3_221:				DWORD		:= 16#0221;
+
+	Modem_300:			DWORD		:= 16#0300;
+
+	Modem_401:			DWORD		:= 16#0401;
+	Modem_402:			DWORD		:= 16#0402;*)
+	(*StTransm_u32:		DWORD		:= 16#FF00; (* Transm Emergency - Low Pressure / Filter Contamination*)*)
+	(*CCVS:					DWORD		:= 16#FEF1;*)
+	(*FD:					DWORD		:= 16#FEBD;	(* Fan Drive *)*)
+END_STRUCT
+END_TYPE
+
+
+(* @END_DECLARATION := '0' *)

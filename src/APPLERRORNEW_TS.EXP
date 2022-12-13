@@ -1,0 +1,12 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/Diag\/Error' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE ApplErrorNew_ts :
+(* ApplError_ts *)
+STRUCT
+	Code_u16					: UINT;
+	Description_as8		: STRING(32);
+(*	Description_as8		: ARRAY [1..4] OF STRING(32);*)
+END_STRUCT
+END_TYPE
+(* @END_DECLARATION := '0' *)

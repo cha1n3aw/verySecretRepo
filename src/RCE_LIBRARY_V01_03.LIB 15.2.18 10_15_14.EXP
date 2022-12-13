@@ -1,0 +1,16 @@
+LIBRARY
+RCE_Library_V01_03.lib 15.2.18 10:15:14
+(* @LIBRARYSYMFILEINFO := '0' *)
+NumOfPOUs: 7
+RCE_checkError_u8: 2048
+RCE_control_u8: 2048
+RCE_getStatus_u32: 2048
+RCE_in_s32: 2048
+RCE_init_u8: 2048
+RCE_out: 2048
+RCE_setParametersetPointer_u8: 2048
+NumOfGVLs: 3
+Channels: 2048
+States: 2048
+TransitionStates: 2048
+END_LIBRARY

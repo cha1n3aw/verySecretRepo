@@ -1,0 +1,25 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/60_Error handling\/Process Errors' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+PROGRAM proc_Err_Inputs
+VAR
+
+(*		Here we process errors from sensors, or HMI - which have to be calibrated at the beginning
+		 = 0 no error, > 0 error
+		Encoding of error bits:
+			Bit 0x0000 = no error
+			Bit 0x0004 = potentiometer slider < lower error threshold value (only if error threshold value >0)
+			Bit 0x0008 = potentiometer slider > upper error threshold value
+			Bit 0x0020 = potentiometer slider > max poti voltage + 5% (e.g. 10,5V for a 10V input and max voltage = nominal voltage 10V). 
+		This bit can not be set if the defined max poti voltage is already greater than the ADC input range!    
+			Bit 0x0001 = Current through defined current channel out of defined limit (not defined by inext_getPotiStatus(), but set here separetely)
+*)
+END_VAR
+VAR CONSTANT
+
+END_VAR
+(* @END_DECLARATION := '0' *)
+;
+END_PROGRAM

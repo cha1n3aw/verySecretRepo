@@ -1,0 +1,32 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/10_Inputs\/Function Blocks' *)
+(* @OBJECTFLAGS := '8, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION_BLOCK Get_Suction_Pressure
+(* V. Lewitan, DCRU, 12/01-2013, ver 1.0
+V. Lewitan, ver 2.0, adapted to RC30, 01/05-2012
+*)
+VAR_INPUT
+	Chn_u32: DWORD;
+END_VAR
+VAR_OUTPUT
+	p_mbar_s16: INT;
+	stPrSen_u8: BYTE;
+END_VAR
+VAR
+	i_uA_s16: INT;
+END_VAR
+(* @END_DECLARATION := '0' *)
+i_uA_s16 := DINT_TO_INT( in(Chn_u32));
+
+IF i_uA_s16 < 1000 THEN
+	stPrSen_u8 := 2#011;
+ELSIF i_uA_s16 > 20400 THEN
+	stPrSen_u8 := 2#101;
+ELSE (* no error, fb initialized *)
+	stPrSen_u8 := 2#001;
+END_IF
+
+p_mbar_s16 := Scale_fun_s16( i_uA_s16 , 0, 20000, -1000, 6000);
+END_FUNCTION_BLOCK

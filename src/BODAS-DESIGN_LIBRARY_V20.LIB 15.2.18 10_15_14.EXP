@@ -1,0 +1,9 @@
+LIBRARY
+BODAS-design_Library_V20.lib 15.2.18 10:15:14
+(* @LIBRARYSYMFILEINFO := '0' *)
+NumOfPOUs: 1
+lib_getLibraryVersion: 2048
+NumOfGVLs: 2
+Global_Constants: 2048
+Global_Errors: 2048
+END_LIBRARY

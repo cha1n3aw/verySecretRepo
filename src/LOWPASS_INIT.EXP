@@ -1,0 +1,28 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/05_Basic_Calc' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION_BLOCK Lowpass_init
+VAR_INPUT
+	tTime_constant: TIME;
+	iCycle_time: INT;
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR_IN_OUT
+	iDivisor: INT;
+END_VAR
+
+VAR
+	iTime_constant:INT;
+END_VAR
+
+(* @END_DECLARATION := '0' *)
+iTime_constant:=TIME_TO_INT(tTime_constant);
+
+iCycle_time := MAX(1,iCycle_time );	(*not zero*)
+iTime_constant := LIMIT(iCycle_time, iTime_constant, iTime_constant); (*Time constant min. Cycle_time*)
+
+iDivisor:=iTime_constant / iCycle_time;
+END_FUNCTION_BLOCK
