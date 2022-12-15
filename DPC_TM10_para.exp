@@ -564,7 +564,7 @@ ParameterMenus_as      : ARRAY [1..5] OF ParameterMenu_ts :=
    (* parameter menu 1 - up to 8 groups can be defined here *)
    (*********************************************)
    (
-      MenuName_as8        := 'ÏÐÈÂÅÒ',
+      MenuName_as8        := 'Menu 1',
 
       ParameterGroup_as   := 
 
@@ -580,7 +580,7 @@ ParameterMenus_as      : ARRAY [1..5] OF ParameterMenu_ts :=
          (* parameter 1.1.1 *)
          (*********************************************)
          (
-            ParameterName_as8    := 'Ðóññêèé',
+            ParameterName_as8    := 'List test 1',
             ParameterType_u8     := 0,
             attr1_u              := 0,
             attr2_u              := 2,
@@ -4170,6 +4170,132 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
 
    );
 
+
+(**)
+END_VAR
+(* @END_DECLARATION := '0' *)
+(*********************************************)
+(*  DON'T MAKE ANY CHANGES TO THIS PROGRAM!! *)
+(*     FILE WAS AUTOMATICALLY GENERATED!!    *)
+(*********************************************)
+
+;
+END_PROGRAM
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/Autocode' *)
+(* @SYMFILEFLAGS := '2048' *)
+PROGRAM UnitCodes
+(*********************************************)
+(*  DON'T MAKE ANY CHANGES TO THIS PROGRAM!! *)
+(*     FILE WAS AUTOMATICALLY GENERATED!!    *)
+(*********************************************)
+
+VAR
+END_VAR
+VAR CONSTANT
+
+(**)
+(*********************************************)
+nrUnitCodes_u8      : USINT := 18;
+
+(*********************************************)
+(* Unit Codes Array *)
+
+UnitCodes_cau8      : ARRAY [1..18] OF STRING(8) := 
+   '%',
+   'rpm',
+   'hrs',
+   'ms',
+   'ccm',
+   'mA',
+   'bar',
+   'mbar',
+   'Deg C',
+   'min',
+   's',
+   'km/h',
+   'Nm',
+   'deg °',
+   '% / mA',
+   '% / mV',
+   'uA / mV',
+   'Ohm';
+
+
+(**)
+END_VAR
+(* @END_DECLARATION := '0' *)
+(*********************************************)
+(*  DON'T MAKE ANY CHANGES TO THIS PROGRAM!! *)
+(*     FILE WAS AUTOMATICALLY GENERATED!!    *)
+(*********************************************)
+
+;
+END_PROGRAM
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/Autocode' *)
+(* @SYMFILEFLAGS := '2048' *)
+PROGRAM Lists
+(*********************************************)
+(*  DON'T MAKE ANY CHANGES TO THIS PROGRAM!! *)
+(*     FILE WAS AUTOMATICALLY GENERATED!!    *)
+(*********************************************)
+
+VAR
+END_VAR
+VAR CONSTANT
+
+(**)
+(*********************************************)
+nrLists_u8      : USINT := 4;
+
+(*********************************************)
+(* Lists Tree*)
+
+ParaLists_as      : ARRAY [1..4] OF ARRAY[1..10] OF STRING(32) := 
+      'Not Active',
+      'Active',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      'PWM',
+      'PWM Current control',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      'PWM',
+      'AOV',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      'AOC',
+      'AOV',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      ''
+;
 
 (**)
 END_VAR
