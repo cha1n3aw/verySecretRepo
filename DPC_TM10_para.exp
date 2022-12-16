@@ -6,6 +6,9 @@ TYPE para_e:
 (*    FILE WAS AUTOMATICALLY GENERATED!!     *)
 (*********************************************)
 (
+
+(* Menu 1 *)
+
 (* Basic *)
    EEP_number_1_1_1_e          := 790,      (* 0  (0 - 2) *)
    EEP_Input_to_Output_Mode_e  := 770,      (* Not Active  (0 - 2) *)
@@ -32,6 +35,9 @@ TYPE para_e:
    EEP_number_1_3_6_e          := 787,      (* 0 ms (0 - 30000) *)
    EEP_number_1_3_7_e          := 788,      (* 0 ms (0 - 30000) *)
    EEP_number_1_3_8_e          := 789,      (* 0 ms (0 - 30000) *)
+
+
+(* Menu 2 *)
 
 (* Output Cfg 1-8 *)
    EEP_Out_Cfg_01_e            := 832,      (* PWM  (1 - 2) *)
@@ -107,6 +113,9 @@ TYPE para_e:
    EEP_AOC_Res_Max_e           := 891,      (* 0 Ohm (0 - 3000) *)
    EEP_AOC_Kp_e                := 892,      (* 250  (0 - 2000) *)
    EEP_AOC_Ki_e                := 893,      (* 250  (0 - 500) *)
+
+
+(* Menu 3 *)
 
 (* Output Value 1-8 *)
    EEP_Out_Val_01_e            := 896,      (* 0 % / mA (0 - 10000) *)
@@ -184,6 +193,9 @@ TYPE para_ts:
 (***********************************************)
 STRUCT
 
+
+(* Menu 1 *)
+
 (* Basic *)
    number_1_1_1_s16        : INT;           (* 0  (0 - 2) *)
    Input_to_Output_Mode_s16: INT;           (* Not Active  (0 - 2) *)
@@ -210,6 +222,9 @@ STRUCT
    number_1_3_6_s16        : INT;           (* 0 ms (0 - 30000) *)
    number_1_3_7_s16        : INT;           (* 0 ms (0 - 30000) *)
    number_1_3_8_s16        : INT;           (* 0 ms (0 - 30000) *)
+
+
+(* Menu 2 *)
 
 (* Output Cfg 1-8 *)
    Out_Cfg_01_s16          : INT;           (* PWM  (1 - 2) *)
@@ -285,6 +300,9 @@ STRUCT
    AOC_Res_Max_s16         : INT;           (* 0 Ohm (0 - 3000) *)
    AOC_Kp_s16              : INT;           (* 250  (0 - 2000) *)
    AOC_Ki_s16              : INT;           (* 250  (0 - 500) *)
+
+
+(* Menu 3 *)
 
 (* Output Value 1-8 *)
    Out_Val_01_s16          : INT;           (* 0 % / mA (0 - 10000) *)
@@ -371,6 +389,9 @@ ree_getArray( PAGE2, 0, ADR(eep[512]),  256 );
 ree_getArray( PAGE3, 0, ADR(eep[768]),  256 );
 ree_getArray( PAGE4, 0, ADR(eep[1024]), 256 );
 
+
+(* Menu 1 *)
+
 (* Basic *)
 para_s.number_1_1_1_s16         := eep[EEP_number_1_1_1_e];
 para_s.Input_to_Output_Mode_s16 := eep[EEP_Input_to_Output_Mode_e];
@@ -397,6 +418,9 @@ para_s.number_1_3_5_s16         := eep[EEP_number_1_3_5_e];
 para_s.number_1_3_6_s16         := eep[EEP_number_1_3_6_e];
 para_s.number_1_3_7_s16         := eep[EEP_number_1_3_7_e];
 para_s.number_1_3_8_s16         := eep[EEP_number_1_3_8_e];
+
+
+(* Menu 2 *)
 
 (* Output Cfg 1-8 *)
 para_s.Out_Cfg_01_s16           := eep[EEP_Out_Cfg_01_e];
@@ -472,6 +496,9 @@ para_s.AOC_Res_Min_s16          := eep[EEP_AOC_Res_Min_e];
 para_s.AOC_Res_Max_s16          := eep[EEP_AOC_Res_Max_e];
 para_s.AOC_Kp_s16               := eep[EEP_AOC_Kp_e];
 para_s.AOC_Ki_s16               := eep[EEP_AOC_Ki_e];
+
+
+(* Menu 3 *)
 
 (* Output Value 1-8 *)
 para_s.Out_Val_01_s16           := eep[EEP_Out_Val_01_e];
@@ -3042,244 +3069,12 @@ ParameterMenus_as      : ARRAY [1..5] OF ParameterMenu_ts :=
    (* parameter menu 4 - up to 8 groups can be defined here *)
    (*********************************************)
    (
-      MenuName_as8        := 'Menu 4',
-
-      ParameterGroup_as   := 
-
-      (*********************************************)
-      (* parameter group 4.1 - up to 8 parameters can be defined here *)
-      (*********************************************)
-      (
-
-
-
-
-
-
-
-
-      ),
-
-      (*********************************************)
-      (* parameter group 4.2 - up to 8 parameters can be defined here *)
-      (*********************************************)
-      (
-
-
-
-
-
-
-
-
-      ),
-
-      (*********************************************)
-      (* parameter group 4.3 - up to 8 parameters can be defined here *)
-      (*********************************************)
-      (
-
-
-
-
-
-
-
-
-      ),
-
-      (*********************************************)
-      (* parameter group 4.4 - up to 8 parameters can be defined here *)
-      (*********************************************)
-      (
-
-
-
-
-
-
-
-
-      ),
-
-      (*********************************************)
-      (* parameter group 4.5 - up to 8 parameters can be defined here *)
-      (*********************************************)
-      (
-
-
-
-
-
-
-
-
-      ),
-
-      (*********************************************)
-      (* parameter group 4.6 - up to 8 parameters can be defined here *)
-      (*********************************************)
-      (
-
-
-
-
-
-
-
-
-      ),
-
-      (*********************************************)
-      (* parameter group 4.7 - up to 8 parameters can be defined here *)
-      (*********************************************)
-      (
-
-
-
-
-
-
-
-
-      ),
-
-      (*********************************************)
-      (* parameter group 4.8 - up to 8 parameters can be defined here *)
-      (*********************************************)
-      (
-
-
-
-
-
-
-
-
-      )
-
    ),
 
    (*********************************************)
    (* parameter menu 5 - up to 8 groups can be defined here *)
    (*********************************************)
    (
-      MenuName_as8        := 'Menu 5',
-
-      ParameterGroup_as   := 
-
-      (*********************************************)
-      (* parameter group 5.1 - up to 8 parameters can be defined here *)
-      (*********************************************)
-      (
-
-
-
-
-
-
-
-
-      ),
-
-      (*********************************************)
-      (* parameter group 5.2 - up to 8 parameters can be defined here *)
-      (*********************************************)
-      (
-
-
-
-
-
-
-
-
-      ),
-
-      (*********************************************)
-      (* parameter group 5.3 - up to 8 parameters can be defined here *)
-      (*********************************************)
-      (
-
-
-
-
-
-
-
-
-      ),
-
-      (*********************************************)
-      (* parameter group 5.4 - up to 8 parameters can be defined here *)
-      (*********************************************)
-      (
-
-
-
-
-
-
-
-
-      ),
-
-      (*********************************************)
-      (* parameter group 5.5 - up to 8 parameters can be defined here *)
-      (*********************************************)
-      (
-
-
-
-
-
-
-
-
-      ),
-
-      (*********************************************)
-      (* parameter group 5.6 - up to 8 parameters can be defined here *)
-      (*********************************************)
-      (
-
-
-
-
-
-
-
-
-      ),
-
-      (*********************************************)
-      (* parameter group 5.7 - up to 8 parameters can be defined here *)
-      (*********************************************)
-      (
-
-
-
-
-
-
-
-
-      ),
-
-      (*********************************************)
-      (* parameter group 5.8 - up to 8 parameters can be defined here *)
-      (*********************************************)
-      (
-
-
-
-
-
-
-
-
-      )
-
    );
 
 
