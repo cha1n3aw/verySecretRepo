@@ -1,4 +1,122 @@
 (* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/Autocode' *)
+(* @SYMFILEFLAGS := '2048' *)
+PROGRAM ErrorsList
+(*********************************************)
+(*  DON'T MAKE ANY CHANGES TO THIS ENUMS!!   *)
+(*     FILE WAS AUTOMATICALLY GENERATED!!    *)
+(*********************************************)
+VAR
+END_VAR
+VAR CONSTANT
+
+(**)
+(*********************************************)
+
+(* Errors Tree *)
+(*********************************************)
+nrErrors_u8          : USINT := 21;
+
+(*********************************************)
+ApplError_as      : ARRAY [1..21] OF ApplErrorNew_ts := 
+
+   (
+      Code_u16 := 16#8000,
+      Description_as8 := 'FIRST_CODE'
+   ),
+   (
+      Code_u16 := 16#8001,
+      Description_as8 := 'CAN_DIAG'
+   ),
+   (
+      Code_u16 := 16#8036,
+      Description_as8 := 'PWRON_SUPPLY_VB_LOW'
+   ),
+   (
+      Code_u16 := 16#8037,
+      Description_as8 := 'PWRON_SUPPLY_VSS'
+   ),
+   (
+      Code_u16 := 16#8038,
+      Description_as8 := 'PWRON_HWMONITOR_1'
+   ),
+   (
+      Code_u16 := 16#8039,
+      Description_as8 := 'PWRON_STARTCONDITION_1'
+   ),
+   (
+      Code_u16 := 16#8040,
+      Description_as8 := 'PWRON_ENGINE_SPEED'
+   ),
+   (
+      Code_u16 := 16#8041,
+      Description_as8 := 'PWRON_HWMONITOR_2'
+   ),
+   (
+      Code_u16 := 16#8042,
+      Description_as8 := 'PWRON_STARTCONDITION_2'
+   ),
+   (
+      Code_u16 := 16#8043,
+      Description_as8 := 'PWRON_SAFOUT_CABLE_BRAKE'
+   ),
+   (
+      Code_u16 := 16#8044,
+      Description_as8 := 'PWRON_SAFOUT_SHORT_CIRCUIT'
+   ),
+   (
+      Code_u16 := 16#8045,
+      Description_as8 := 'PWRON_POWERSWITCH_1'
+   ),
+   (
+      Code_u16 := 16#8046,
+      Description_as8 := 'PWRON_POWERSUPPLY'
+   ),
+   (
+      Code_u16 := 16#8047,
+      Description_as8 := 'PWRON_POWERSWITCH_2'
+   ),
+   (
+      Code_u16 := 16#8048,
+      Description_as8 := 'PWRON_REVERSE_POWER'
+   ),
+   (
+      Code_u16 := 16#8049,
+      Description_as8 := 'PWRON_EMERGENCY_STOP'
+   ),
+   (
+      Code_u16 := 16#8031,
+      Description_as8 := 'SUPPLY_VB_HIGH'
+   ),
+   (
+      Code_u16 := 16#8032,
+      Description_as8 := 'SUPPLY_VB_LOW'
+   ),
+   (
+      Code_u16 := 16#8033,
+      Description_as8 := 'SUPPLY_VSS1'
+   ),
+   (
+      Code_u16 := 16#8034,
+      Description_as8 := 'SUPPLY_VSS2'
+   ),
+   (
+      Code_u16 := 16#8099,
+      Description_as8 := 'LAST_CODE'
+   )
+(**)
+;
+END_VAR
+(* @END_DECLARATION := '0' *)
+(*********************************************)
+(*  DON'T MAKE ANY CHANGES TO THIS PROGRAM!! *)
+(*     FILE WAS AUTOMATICALLY GENERATED!!    *)
+(*********************************************)
+
+;
+END_PROGRAM
+
+(* @NESTEDCOMMENTS := 'Yes' *)
 (* @PATH := '\/Enums' *)
 TYPE applError_e:
 (*********************************************)
