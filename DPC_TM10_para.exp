@@ -10,174 +10,174 @@ TYPE para_e:
 (* Menu 1 *)
 
 (* Basic *)
-   EEP_number_1_1_1_e          := 790,      (* 0  (0 - 2) *)
-   EEP_Input_to_Output_Mode_e  := 770,      (* Not Active  (0 - 2) *)
-   EEP_test_par_new_e          := 773,      (* Not Active  (0 - 2) *)
-   EEP_test_params_e           := 771,      (* Not Active  (0 - 2) *)
-   EEP_test_par2_e             := 772,      (* Not Active  (0 - 2) *)
+   EEP_number_1_1_1_e:= 790,      (* 0  (0 - 2) *)
+   EEP_Input_to_Output_Mode_e:= 770,(* Not Active  (0 - 2) *)
+   EEP_test_par_new_e:= 773,      (* Not Active  (0 - 2) *)
+   EEP_test_params_e:= 771,       (* Not Active  (0 - 2) *)
+   EEP_test_par2_e:= 772,         (* Not Active  (0 - 2) *)
 
 (* Test Type *)
-   EEP_Trimming_type_e         := 818,      (* 53  (0 - 511) *)
-   EEP_Analog_type_e           := 819,      (* 245  (53 - ) *)
-   EEP_Curve_Type_e            := 820,      (* 245  (66 - 67) *)
-   EEP_Function_Type_e         := 821,      (* 248  (248 - 254) *)
-   EEP_Percent_Type_e          := 822,      (* 0 % (0 - 1000) *)
-   EEP_Ramp_Type_e             := 823,      (* 0 % (0 - 100) *)
-   EEP_Switch_Type_e           := 824,      (* 1  ( - ) *)
-   EEP_List_Type_e             := 825,      (* AOC  (3 - 2) *)
+   EEP_Trimming_type_e:= 818,     (* 53  (0 - 511) *)
+   EEP_Analog_type_e:= 819,       (* 245  (53 - ) *)
+   EEP_Curve_Type_e:= 820,        (* 245  (66 - 67) *)
+   EEP_Function_Type_e:= 821,     (* 248  (248 - 254) *)
+   EEP_Percent_Type_e:= 822,      (* 0 % (0 - 1000) *)
+   EEP_Ramp_Type_e:= 823,         (* 0 % (0 - 100) *)
+   EEP_Switch_Type_e:= 824,       (* 1  ( - ) *)
+   EEP_List_Type_e:= 825,         (* AOC  (3 - 2) *)
 
 (* Test Number *)
-   EEP_number_1_3_1_e          := 782,      (* 0 ms (0 - 30000) *)
-   EEP_number_1_3_2_e          := 783,      (* 0 ms (0 - 30000) *)
-   EEP_number_1_3_3_e          := 784,      (* 0 ms (0 - 30000) *)
-   EEP_number_1_3_4_e          := 785,      (* 0 ms (0 - 30000) *)
-   EEP_number_1_3_5_e          := 786,      (* 0 ms (0 - 30000) *)
-   EEP_number_1_3_6_e          := 787,      (* 0 ms (0 - 30000) *)
-   EEP_number_1_3_7_e          := 788,      (* 0 ms (0 - 30000) *)
-   EEP_number_1_3_8_e          := 789,      (* 0 ms (0 - 30000) *)
+   EEP_number_1_3_1_e:= 782,      (* 0 ms (0 - 30000) *)
+   EEP_number_1_3_2_e:= 783,      (* 0 ms (0 - 30000) *)
+   EEP_number_1_3_3_e:= 784,      (* 0 ms (0 - 30000) *)
+   EEP_number_1_3_4_e:= 785,      (* 0 ms (0 - 30000) *)
+   EEP_number_1_3_5_e:= 786,      (* 0 ms (0 - 30000) *)
+   EEP_number_1_3_6_e:= 787,      (* 0 ms (0 - 30000) *)
+   EEP_number_1_3_7_e:= 788,      (* 0 ms (0 - 30000) *)
+   EEP_number_1_3_8_e:= 789,      (* 0 ms (0 - 30000) *)
 
 
 (* Menu 2 *)
 
 (* Output Cfg 1-8 *)
-   EEP_Out_Cfg_01_e            := 832,      (* PWM  (1 - 2) *)
-   EEP_Out_Cfg_02_e            := 833,      (* PWM  (1 - 2) *)
-   EEP_Out_Cfg_03_e            := 834,      (* PWM  (1 - 2) *)
-   EEP_Out_Cfg_04_e            := 835,      (* PWM  (1 - 2) *)
-   EEP_Out_Cfg_05_e            := 836,      (* PWM  (1 - 2) *)
-   EEP_Out_Cfg_06_e            := 837,      (* PWM  (1 - 2) *)
-   EEP_Out_Cfg_07_e            := 838,      (* PWM  (1 - 2) *)
-   EEP_Out_Cfg_08_e            := 839,      (* PWM  (1 - 2) *)
+   EEP_Out_Cfg_01_e:= 832,        (* PWM  (1 - 2) *)
+   EEP_Out_Cfg_02_e:= 833,        (* PWM  (1 - 2) *)
+   EEP_Out_Cfg_03_e:= 834,        (* PWM  (1 - 2) *)
+   EEP_Out_Cfg_04_e:= 835,        (* PWM  (1 - 2) *)
+   EEP_Out_Cfg_05_e:= 836,        (* PWM  (1 - 2) *)
+   EEP_Out_Cfg_06_e:= 837,        (* PWM  (1 - 2) *)
+   EEP_Out_Cfg_07_e:= 838,        (* PWM  (1 - 2) *)
+   EEP_Out_Cfg_08_e:= 839,        (* PWM  (1 - 2) *)
 
 (* Output Cfg 9-16 *)
-   EEP_Out_Cfg_09_e            := 840,      (* PWM  (1 - 2) *)
-   EEP_Out_Cfg_10_e            := 841,      (* PWM  (1 - 2) *)
-   EEP_Out_Cfg_11_e            := 842,      (* PWM  (1 - 2) *)
-   EEP_Out_Cfg_12_e            := 843,      (* PWM  (1 - 2) *)
-   EEP_Out_Cfg_13_e            := 844,      (* PWM  (1 - 2) *)
-   EEP_Out_Cfg_14_e            := 845,      (* PWM  (1 - 2) *)
-   EEP_Out_Cfg_15_e            := 846,      (* PWM  (1 - 2) *)
-   EEP_Out_Cfg_16_e            := 847,      (* PWM  (1 - 2) *)
+   EEP_Out_Cfg_09_e:= 840,        (* PWM  (1 - 2) *)
+   EEP_Out_Cfg_10_e:= 841,        (* PWM  (1 - 2) *)
+   EEP_Out_Cfg_11_e:= 842,        (* PWM  (1 - 2) *)
+   EEP_Out_Cfg_12_e:= 843,        (* PWM  (1 - 2) *)
+   EEP_Out_Cfg_13_e:= 844,        (* PWM  (1 - 2) *)
+   EEP_Out_Cfg_14_e:= 845,        (* PWM  (1 - 2) *)
+   EEP_Out_Cfg_15_e:= 846,        (* PWM  (1 - 2) *)
+   EEP_Out_Cfg_16_e:= 847,        (* PWM  (1 - 2) *)
 
 (* Output Cfg 17-24 *)
-   EEP_Out_Cfg_17_e            := 848,      (* PWM  (1 - 2) *)
-   EEP_Out_Cfg_18_e            := 849,      (* PWM  (1 - 2) *)
-   EEP_Out_Cfg_19_e            := 850,      (* Not Active  (0 - 2) *)
-   EEP_Out_Cfg_20_e            := 851,      (* Not Active  (0 - 2) *)
-   EEP_Out_Cfg_21_e            := 852,      (* Not Active  (0 - 2) *)
-   EEP_Out_Cfg_22_e            := 853,      (* Not Active  (0 - 2) *)
-   EEP_Out_Cfg_23_e            := 854,      (* Not Active  (0 - 2) *)
-   EEP_Out_Cfg_24_e            := 855,      (* Not Active  (0 - 2) *)
+   EEP_Out_Cfg_17_e:= 848,        (* PWM  (1 - 2) *)
+   EEP_Out_Cfg_18_e:= 849,        (* PWM  (1 - 2) *)
+   EEP_Out_Cfg_19_e:= 850,        (* Not Active  (0 - 2) *)
+   EEP_Out_Cfg_20_e:= 851,        (* Not Active  (0 - 2) *)
+   EEP_Out_Cfg_21_e:= 852,        (* Not Active  (0 - 2) *)
+   EEP_Out_Cfg_22_e:= 853,        (* Not Active  (0 - 2) *)
+   EEP_Out_Cfg_23_e:= 854,        (* Not Active  (0 - 2) *)
+   EEP_Out_Cfg_24_e:= 855,        (* Not Active  (0 - 2) *)
 
 (* Output Cfg 25-32 *)
-   EEP_Out_Cfg_25_e            := 856,      (* Not Active  (0 - 2) *)
-   EEP_Out_Cfg_26_e            := 857,      (* Not Active  (0 - 2) *)
-   EEP_Out_Cfg_27_e            := 858,      (* Not Active  (0 - 2) *)
-   EEP_Out_Cfg_28_e            := 859,      (* Not Active  (0 - 2) *)
-   EEP_Out_Cfg_29_e            := 860,      (* Not Active  (0 - 2) *)
-   EEP_Out_Cfg_30_e            := 861,      (* Not Active  (0 - 2) *)
-   EEP_Out_Cfg_31_e            := 862,      (* Not Active  (0 - 2) *)
-   EEP_Out_Cfg_32_e            := 863,      (* Not Active  (0 - 2) *)
+   EEP_Out_Cfg_25_e:= 856,        (* Not Active  (0 - 2) *)
+   EEP_Out_Cfg_26_e:= 857,        (* Not Active  (0 - 2) *)
+   EEP_Out_Cfg_27_e:= 858,        (* Not Active  (0 - 2) *)
+   EEP_Out_Cfg_28_e:= 859,        (* Not Active  (0 - 2) *)
+   EEP_Out_Cfg_29_e:= 860,        (* Not Active  (0 - 2) *)
+   EEP_Out_Cfg_30_e:= 861,        (* Not Active  (0 - 2) *)
+   EEP_Out_Cfg_31_e:= 862,        (* Not Active  (0 - 2) *)
+   EEP_Out_Cfg_32_e:= 863,        (* Not Active  (0 - 2) *)
 
 (* Output Cfg 33-40 *)
-   EEP_Out_Cfg_33_e            := 864,      (* PWM  (2 - 2) *)
-   EEP_Out_Cfg_34_e            := 865,      (* PWM  (2 - 2) *)
-   EEP_Out_Cfg_35_e            := 866,      (* PWM  (2 - 2) *)
-   EEP_Out_Cfg_36_e            := 867,      (* PWM  (2 - 2) *)
-   EEP_Out_Cfg_37_e            := 868,      (* PWM  (1 - 2) *)
-   EEP_Out_Cfg_38_e            := 869,      (* PWM  (1 - 2) *)
-   EEP_Out_Cfg_39_e            := 870,      (* PWM  (1 - 2) *)
-   EEP_Out_Cfg_40_e            := 871,      (* PWM  (1 - 2) *)
+   EEP_Out_Cfg_33_e:= 864,        (* PWM  (2 - 2) *)
+   EEP_Out_Cfg_34_e:= 865,        (* PWM  (2 - 2) *)
+   EEP_Out_Cfg_35_e:= 866,        (* PWM  (2 - 2) *)
+   EEP_Out_Cfg_36_e:= 867,        (* PWM  (2 - 2) *)
+   EEP_Out_Cfg_37_e:= 868,        (* PWM  (1 - 2) *)
+   EEP_Out_Cfg_38_e:= 869,        (* PWM  (1 - 2) *)
+   EEP_Out_Cfg_39_e:= 870,        (* PWM  (1 - 2) *)
+   EEP_Out_Cfg_40_e:= 871,        (* PWM  (1 - 2) *)
 
 (* Output Cfg 41-47 *)
-   EEP_Out_Cfg_41_e            := 872,      (* PWM  (1 - 2) *)
-   EEP_Out_Cfg_42_e            := 873,      (* PWM  (1 - 2) *)
-   EEP_Out_Cfg_43_e            := 874,      (* PWM  (1 - 2) *)
-   EEP_Out_Cfg_44_e            := 875,      (* PWM  (1 - 2) *)
-   EEP_Out_Cfg_45_e            := 876,      (* PWM  (1 - 2) *)
-   EEP_Out_Cfg_46_e            := 877,      (* PWM  (1 - 2) *)
-   EEP_Out_Cfg_47_e            := 878,      (* AOV  (3 - 2) *)
+   EEP_Out_Cfg_41_e:= 872,        (* PWM  (1 - 2) *)
+   EEP_Out_Cfg_42_e:= 873,        (* PWM  (1 - 2) *)
+   EEP_Out_Cfg_43_e:= 874,        (* PWM  (1 - 2) *)
+   EEP_Out_Cfg_44_e:= 875,        (* PWM  (1 - 2) *)
+   EEP_Out_Cfg_45_e:= 876,        (* PWM  (1 - 2) *)
+   EEP_Out_Cfg_46_e:= 877,        (* PWM  (1 - 2) *)
+   EEP_Out_Cfg_47_e:= 878,        (* AOV  (3 - 2) *)
 
 (* AOV Configuration *)
-   EEP_AOV_Debounce_e          := 880,      (* 200 ms (50 - 250) *)
-   EEP_AOV_Freq_e              := 881,      (* 80  (0 - 5000) *)
-   EEP_AOV_Res_Min_e           := 882,      (* 0 Ohm (0 - 3000) *)
-   EEP_AOV_Res_Max_e           := 883,      (* 0 Ohm (0 - 3000) *)
-   EEP_AOV_Kp_e                := 884,      (* 250  (0 - 2000) *)
-   EEP_AOV_Ki_e                := 885,      (* 250  (0 - 500) *)
+   EEP_AOV_Debounce_e:= 880,      (* 200 ms (50 - 250) *)
+   EEP_AOV_Freq_e:= 881,          (* 80  (0 - 5000) *)
+   EEP_AOV_Res_Min_e:= 882,       (* 0 Ohm (0 - 3000) *)
+   EEP_AOV_Res_Max_e:= 883,       (* 0 Ohm (0 - 3000) *)
+   EEP_AOV_Kp_e:= 884,            (* 250  (0 - 2000) *)
+   EEP_AOV_Ki_e:= 885,            (* 250  (0 - 500) *)
 
 (* AOC Configuration *)
-   EEP_AOC_Debounce_e          := 888,      (* 200 ms (50 - 250) *)
-   EEP_AOC_Freq_e              := 889,      (* 5000  (0 - 5000) *)
-   EEP_AOC_Res_Min_e           := 890,      (* 0 Ohm (0 - 3000) *)
-   EEP_AOC_Res_Max_e           := 891,      (* 0 Ohm (0 - 3000) *)
-   EEP_AOC_Kp_e                := 892,      (* 250  (0 - 2000) *)
-   EEP_AOC_Ki_e                := 893,      (* 250  (0 - 500) *)
+   EEP_AOC_Debounce_e:= 888,      (* 200 ms (50 - 250) *)
+   EEP_AOC_Freq_e:= 889,          (* 5000  (0 - 5000) *)
+   EEP_AOC_Res_Min_e:= 890,       (* 0 Ohm (0 - 3000) *)
+   EEP_AOC_Res_Max_e:= 891,       (* 0 Ohm (0 - 3000) *)
+   EEP_AOC_Kp_e:= 892,            (* 250  (0 - 2000) *)
+   EEP_AOC_Ki_e:= 893,            (* 250  (0 - 500) *)
 
 
 (* Menu 3 *)
 
 (* Output Value 1-8 *)
-   EEP_Out_Val_01_e            := 896,      (* 0 % / mA (0 - 10000) *)
-   EEP_Out_Val_02_e            := 897,      (* 0 % / mA (0 - 10000) *)
-   EEP_Out_Val_03_e            := 898,      (* 0 % / mA (0 - 10000) *)
-   EEP_Out_Val_04_e            := 899,      (* 0 % / mA (0 - 10000) *)
-   EEP_Out_Val_05_e            := 900,      (* 0 % / mA (0 - 10000) *)
-   EEP_Out_Val_06_e            := 901,      (* 0 % / mA (0 - 10000) *)
-   EEP_Out_Val_07_e            := 902,      (* 0 % / mA (0 - 10000) *)
-   EEP_Out_Val_08_e            := 903,      (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_01_e:= 896,        (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_02_e:= 897,        (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_03_e:= 898,        (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_04_e:= 899,        (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_05_e:= 900,        (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_06_e:= 901,        (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_07_e:= 902,        (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_08_e:= 903,        (* 0 % / mA (0 - 10000) *)
 
 (* Output Value 9-16 *)
-   EEP_Out_Val_09_e            := 904,      (* 0 % / mA (0 - 10000) *)
-   EEP_Out_Val_10_e            := 905,      (* 0 % / mA (0 - 10000) *)
-   EEP_Out_Val_11_e            := 906,      (* 0 % / mA (0 - 10000) *)
-   EEP_Out_Val_12_e            := 907,      (* 0 % / mA (0 - 10000) *)
-   EEP_Out_Val_13_e            := 908,      (* 0 % / mA (0 - 10000) *)
-   EEP_Out_Val_14_e            := 909,      (* 0 % / mA (0 - 10000) *)
-   EEP_Out_Val_15_e            := 910,      (* 0 % / mA (0 - 10000) *)
-   EEP_Out_Val_16_e            := 911,      (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_09_e:= 904,        (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_10_e:= 905,        (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_11_e:= 906,        (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_12_e:= 907,        (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_13_e:= 908,        (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_14_e:= 909,        (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_15_e:= 910,        (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_16_e:= 911,        (* 0 % / mA (0 - 10000) *)
 
 (* Output Value 17-36 *)
-   EEP_Out_Val_17_e            := 912,      (* 0 % / mA (0 - 10000) *)
-   EEP_Out_Val_18_e            := 913,      (* 0 % / mA (0 - 10000) *)
-   EEP_Out_Val_33_e            := 916,      (* 0 % / mA (0 - 10000) *)
-   EEP_Out_Val_34_e            := 917,      (* 0 % / mA (0 - 10000) *)
-   EEP_Out_Val_35_e            := 918,      (* 0 % / mA (0 - 10000) *)
-   EEP_Out_Val_36_e            := 919,      (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_17_e:= 912,        (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_18_e:= 913,        (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_33_e:= 916,        (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_34_e:= 917,        (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_35_e:= 918,        (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_36_e:= 919,        (* 0 % / mA (0 - 10000) *)
 
 (* Output Value 37-44 *)
-   EEP_Out_Val_37_e            := 920,      (* 0 % / mA (0 - 10000) *)
-   EEP_Out_Val_38_e            := 921,      (* 0 % / mA (0 - 10000) *)
-   EEP_Out_Val_39_e            := 922,      (* 0 % / mA (0 - 10000) *)
-   EEP_Out_Val_40_e            := 923,      (* 0 % / mA (0 - 10000) *)
-   EEP_Out_Val_41_e            := 924,      (* 0 % / mA (0 - 10000) *)
-   EEP_Out_Val_42_e            := 925,      (* 0 % / mA (0 - 10000) *)
-   EEP_Out_Val_43_e            := 926,      (* 0 % / mA (0 - 10000) *)
-   EEP_Out_Val_44_e            := 927,      (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_37_e:= 920,        (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_38_e:= 921,        (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_39_e:= 922,        (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_40_e:= 923,        (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_41_e:= 924,        (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_42_e:= 925,        (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_43_e:= 926,        (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_44_e:= 927,        (* 0 % / mA (0 - 10000) *)
 
 (* Output Value 45-47 *)
-   EEP_Out_Val_45_e            := 928,      (* 0 % / mA (0 - 10000) *)
-   EEP_Out_Val_46_e            := 929,      (* 0 % / mA (0 - 10000) *)
-   EEP_Out_Val_47_e            := 930,      (* 0 % / mA (0 - 20000) *)
+   EEP_Out_Val_45_e:= 928,        (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_46_e:= 929,        (* 0 % / mA (0 - 10000) *)
+   EEP_Out_Val_47_e:= 930,        (* 0 % / mA (0 - 20000) *)
 
 (* POH Configuration *)
-   EEP_POH_Debounce_e          := 936,      (* 100 ms (50 - 250) *)
-   EEP_POH_Res_Min_e           := 938,      (* 2 Ohm (0 - 3000) *)
-   EEP_POH_Res_Max_e           := 939,      (* 52 Ohm (0 - 3000) *)
-   EEP_POH_Kp_e                := 940,      (* 250  (0 - 2000) *)
-   EEP_POH_Ki_e                := 941,      (* 250  (0 - 500) *)
+   EEP_POH_Debounce_e:= 936,      (* 100 ms (50 - 250) *)
+   EEP_POH_Res_Min_e:= 938,       (* 2 Ohm (0 - 3000) *)
+   EEP_POH_Res_Max_e:= 939,       (* 52 Ohm (0 - 3000) *)
+   EEP_POH_Kp_e:= 940,            (* 250  (0 - 2000) *)
+   EEP_POH_Ki_e:= 941,            (* 250  (0 - 500) *)
 
 (* POL Configuration *)
-   EEP_POL_Debounce_e          := 944,      (* 100 ms (50 - 250) *)
-   EEP_POL_Res_Min_e           := 946,      (* 2 Ohm (0 - 3000) *)
-   EEP_POL_Res_Max_e           := 947,      (* 52 Ohm (0 - 3000) *)
-   EEP_POL_Kp_e                := 948,      (* 250  (0 - 2000) *)
-   EEP_POL_Ki_e                := 949,      (* 250  (0 - 500) *)
+   EEP_POL_Debounce_e:= 944,      (* 100 ms (50 - 250) *)
+   EEP_POL_Res_Min_e:= 946,       (* 2 Ohm (0 - 3000) *)
+   EEP_POL_Res_Max_e:= 947,       (* 52 Ohm (0 - 3000) *)
+   EEP_POL_Kp_e:= 948,            (* 250  (0 - 2000) *)
+   EEP_POL_Ki_e:= 949,            (* 250  (0 - 500) *)
 
 (* DOH Configuration *)
-   EEP_DOH_Debounce_e          := 952,      (* 200 ms (50 - 250) *)
-   EEP_DOH_Res_Min_e           := 954,      (* 6 Ohm (0 - 3000) *)
-   EEP_DOH_Res_Max_e           := 955       (* 44 Ohm (0 - 3000) *)
+   EEP_DOH_Debounce_e:= 952,      (* 200 ms (50 - 250) *)
+   EEP_DOH_Res_Min_e:= 954,       (* 6 Ohm (0 - 3000) *)
+   EEP_DOH_Res_Max_e:= 955        (* 44 Ohm (0 - 3000) *)
 
 );
 END_TYPE
@@ -197,174 +197,174 @@ STRUCT
 (* Menu 1 *)
 
 (* Basic *)
-   number_1_1_1_s16        : INT;           (* 0  (0 - 2) *)
-   Input_to_Output_Mode_s16: INT;           (* Not Active  (0 - 2) *)
-   test_par_new_s16        : INT;           (* Not Active  (0 - 2) *)
-   test_params_s16         : INT;           (* Not Active  (0 - 2) *)
-   test_par2_s16           : INT;           (* Not Active  (0 - 2) *)
+   number_1_1_1_s16: INT;         (* 0  (0 - 2) *)
+   Input_to_Output_Mode_s16: INT; (* Not Active  (0 - 2) *)
+   test_par_new_s16: INT;         (* Not Active  (0 - 2) *)
+   test_params_s16: INT;          (* Not Active  (0 - 2) *)
+   test_par2_s16: INT;            (* Not Active  (0 - 2) *)
 
 (* Test Type *)
-   Trimming_type_s16       : INT;           (* 53  (0 - 511) *)
-   Analog_type_s16         : INT;           (* 245  (53 - ) *)
-   Curve_Type_s16          : INT;           (* 245  (66 - 67) *)
-   Function_Type_s16       : INT;           (* 248  (248 - 254) *)
-   Percent_Type_s16        : INT;           (* 0 % (0 - 1000) *)
-   Ramp_Type_s16           : INT;           (* 0 % (0 - 100) *)
-   Switch_Type_s16         : INT;           (* 1  ( - ) *)
-   List_Type_s16           : INT;           (* AOC  (3 - 2) *)
+   Trimming_type_s16: INT;        (* 53  (0 - 511) *)
+   Analog_type_s16: INT;          (* 245  (53 - ) *)
+   Curve_Type_s16: INT;           (* 245  (66 - 67) *)
+   Function_Type_s16: INT;        (* 248  (248 - 254) *)
+   Percent_Type_s16: INT;         (* 0 % (0 - 1000) *)
+   Ramp_Type_s16: INT;            (* 0 % (0 - 100) *)
+   Switch_Type_s16: INT;          (* 1  ( - ) *)
+   List_Type_s16: INT;            (* AOC  (3 - 2) *)
 
 (* Test Number *)
-   number_1_3_1_s16        : INT;           (* 0 ms (0 - 30000) *)
-   number_1_3_2_s16        : INT;           (* 0 ms (0 - 30000) *)
-   number_1_3_3_s16        : INT;           (* 0 ms (0 - 30000) *)
-   number_1_3_4_s16        : INT;           (* 0 ms (0 - 30000) *)
-   number_1_3_5_s16        : INT;           (* 0 ms (0 - 30000) *)
-   number_1_3_6_s16        : INT;           (* 0 ms (0 - 30000) *)
-   number_1_3_7_s16        : INT;           (* 0 ms (0 - 30000) *)
-   number_1_3_8_s16        : INT;           (* 0 ms (0 - 30000) *)
+   number_1_3_1_s16: INT;         (* 0 ms (0 - 30000) *)
+   number_1_3_2_s16: INT;         (* 0 ms (0 - 30000) *)
+   number_1_3_3_s16: INT;         (* 0 ms (0 - 30000) *)
+   number_1_3_4_s16: INT;         (* 0 ms (0 - 30000) *)
+   number_1_3_5_s16: INT;         (* 0 ms (0 - 30000) *)
+   number_1_3_6_s16: INT;         (* 0 ms (0 - 30000) *)
+   number_1_3_7_s16: INT;         (* 0 ms (0 - 30000) *)
+   number_1_3_8_s16: INT;         (* 0 ms (0 - 30000) *)
 
 
 (* Menu 2 *)
 
 (* Output Cfg 1-8 *)
-   Out_Cfg_01_s16          : INT;           (* PWM  (1 - 2) *)
-   Out_Cfg_02_s16          : INT;           (* PWM  (1 - 2) *)
-   Out_Cfg_03_s16          : INT;           (* PWM  (1 - 2) *)
-   Out_Cfg_04_s16          : INT;           (* PWM  (1 - 2) *)
-   Out_Cfg_05_s16          : INT;           (* PWM  (1 - 2) *)
-   Out_Cfg_06_s16          : INT;           (* PWM  (1 - 2) *)
-   Out_Cfg_07_s16          : INT;           (* PWM  (1 - 2) *)
-   Out_Cfg_08_s16          : INT;           (* PWM  (1 - 2) *)
+   Out_Cfg_01_s16: INT;           (* PWM  (1 - 2) *)
+   Out_Cfg_02_s16: INT;           (* PWM  (1 - 2) *)
+   Out_Cfg_03_s16: INT;           (* PWM  (1 - 2) *)
+   Out_Cfg_04_s16: INT;           (* PWM  (1 - 2) *)
+   Out_Cfg_05_s16: INT;           (* PWM  (1 - 2) *)
+   Out_Cfg_06_s16: INT;           (* PWM  (1 - 2) *)
+   Out_Cfg_07_s16: INT;           (* PWM  (1 - 2) *)
+   Out_Cfg_08_s16: INT;           (* PWM  (1 - 2) *)
 
 (* Output Cfg 9-16 *)
-   Out_Cfg_09_s16          : INT;           (* PWM  (1 - 2) *)
-   Out_Cfg_10_s16          : INT;           (* PWM  (1 - 2) *)
-   Out_Cfg_11_s16          : INT;           (* PWM  (1 - 2) *)
-   Out_Cfg_12_s16          : INT;           (* PWM  (1 - 2) *)
-   Out_Cfg_13_s16          : INT;           (* PWM  (1 - 2) *)
-   Out_Cfg_14_s16          : INT;           (* PWM  (1 - 2) *)
-   Out_Cfg_15_s16          : INT;           (* PWM  (1 - 2) *)
-   Out_Cfg_16_s16          : INT;           (* PWM  (1 - 2) *)
+   Out_Cfg_09_s16: INT;           (* PWM  (1 - 2) *)
+   Out_Cfg_10_s16: INT;           (* PWM  (1 - 2) *)
+   Out_Cfg_11_s16: INT;           (* PWM  (1 - 2) *)
+   Out_Cfg_12_s16: INT;           (* PWM  (1 - 2) *)
+   Out_Cfg_13_s16: INT;           (* PWM  (1 - 2) *)
+   Out_Cfg_14_s16: INT;           (* PWM  (1 - 2) *)
+   Out_Cfg_15_s16: INT;           (* PWM  (1 - 2) *)
+   Out_Cfg_16_s16: INT;           (* PWM  (1 - 2) *)
 
 (* Output Cfg 17-24 *)
-   Out_Cfg_17_s16          : INT;           (* PWM  (1 - 2) *)
-   Out_Cfg_18_s16          : INT;           (* PWM  (1 - 2) *)
-   Out_Cfg_19_s16          : INT;           (* Not Active  (0 - 2) *)
-   Out_Cfg_20_s16          : INT;           (* Not Active  (0 - 2) *)
-   Out_Cfg_21_s16          : INT;           (* Not Active  (0 - 2) *)
-   Out_Cfg_22_s16          : INT;           (* Not Active  (0 - 2) *)
-   Out_Cfg_23_s16          : INT;           (* Not Active  (0 - 2) *)
-   Out_Cfg_24_s16          : INT;           (* Not Active  (0 - 2) *)
+   Out_Cfg_17_s16: INT;           (* PWM  (1 - 2) *)
+   Out_Cfg_18_s16: INT;           (* PWM  (1 - 2) *)
+   Out_Cfg_19_s16: INT;           (* Not Active  (0 - 2) *)
+   Out_Cfg_20_s16: INT;           (* Not Active  (0 - 2) *)
+   Out_Cfg_21_s16: INT;           (* Not Active  (0 - 2) *)
+   Out_Cfg_22_s16: INT;           (* Not Active  (0 - 2) *)
+   Out_Cfg_23_s16: INT;           (* Not Active  (0 - 2) *)
+   Out_Cfg_24_s16: INT;           (* Not Active  (0 - 2) *)
 
 (* Output Cfg 25-32 *)
-   Out_Cfg_25_s16          : INT;           (* Not Active  (0 - 2) *)
-   Out_Cfg_26_s16          : INT;           (* Not Active  (0 - 2) *)
-   Out_Cfg_27_s16          : INT;           (* Not Active  (0 - 2) *)
-   Out_Cfg_28_s16          : INT;           (* Not Active  (0 - 2) *)
-   Out_Cfg_29_s16          : INT;           (* Not Active  (0 - 2) *)
-   Out_Cfg_30_s16          : INT;           (* Not Active  (0 - 2) *)
-   Out_Cfg_31_s16          : INT;           (* Not Active  (0 - 2) *)
-   Out_Cfg_32_s16          : INT;           (* Not Active  (0 - 2) *)
+   Out_Cfg_25_s16: INT;           (* Not Active  (0 - 2) *)
+   Out_Cfg_26_s16: INT;           (* Not Active  (0 - 2) *)
+   Out_Cfg_27_s16: INT;           (* Not Active  (0 - 2) *)
+   Out_Cfg_28_s16: INT;           (* Not Active  (0 - 2) *)
+   Out_Cfg_29_s16: INT;           (* Not Active  (0 - 2) *)
+   Out_Cfg_30_s16: INT;           (* Not Active  (0 - 2) *)
+   Out_Cfg_31_s16: INT;           (* Not Active  (0 - 2) *)
+   Out_Cfg_32_s16: INT;           (* Not Active  (0 - 2) *)
 
 (* Output Cfg 33-40 *)
-   Out_Cfg_33_s16          : INT;           (* PWM  (2 - 2) *)
-   Out_Cfg_34_s16          : INT;           (* PWM  (2 - 2) *)
-   Out_Cfg_35_s16          : INT;           (* PWM  (2 - 2) *)
-   Out_Cfg_36_s16          : INT;           (* PWM  (2 - 2) *)
-   Out_Cfg_37_s16          : INT;           (* PWM  (1 - 2) *)
-   Out_Cfg_38_s16          : INT;           (* PWM  (1 - 2) *)
-   Out_Cfg_39_s16          : INT;           (* PWM  (1 - 2) *)
-   Out_Cfg_40_s16          : INT;           (* PWM  (1 - 2) *)
+   Out_Cfg_33_s16: INT;           (* PWM  (2 - 2) *)
+   Out_Cfg_34_s16: INT;           (* PWM  (2 - 2) *)
+   Out_Cfg_35_s16: INT;           (* PWM  (2 - 2) *)
+   Out_Cfg_36_s16: INT;           (* PWM  (2 - 2) *)
+   Out_Cfg_37_s16: INT;           (* PWM  (1 - 2) *)
+   Out_Cfg_38_s16: INT;           (* PWM  (1 - 2) *)
+   Out_Cfg_39_s16: INT;           (* PWM  (1 - 2) *)
+   Out_Cfg_40_s16: INT;           (* PWM  (1 - 2) *)
 
 (* Output Cfg 41-47 *)
-   Out_Cfg_41_s16          : INT;           (* PWM  (1 - 2) *)
-   Out_Cfg_42_s16          : INT;           (* PWM  (1 - 2) *)
-   Out_Cfg_43_s16          : INT;           (* PWM  (1 - 2) *)
-   Out_Cfg_44_s16          : INT;           (* PWM  (1 - 2) *)
-   Out_Cfg_45_s16          : INT;           (* PWM  (1 - 2) *)
-   Out_Cfg_46_s16          : INT;           (* PWM  (1 - 2) *)
-   Out_Cfg_47_s16          : INT;           (* AOV  (3 - 2) *)
+   Out_Cfg_41_s16: INT;           (* PWM  (1 - 2) *)
+   Out_Cfg_42_s16: INT;           (* PWM  (1 - 2) *)
+   Out_Cfg_43_s16: INT;           (* PWM  (1 - 2) *)
+   Out_Cfg_44_s16: INT;           (* PWM  (1 - 2) *)
+   Out_Cfg_45_s16: INT;           (* PWM  (1 - 2) *)
+   Out_Cfg_46_s16: INT;           (* PWM  (1 - 2) *)
+   Out_Cfg_47_s16: INT;           (* AOV  (3 - 2) *)
 
 (* AOV Configuration *)
-   AOV_Debounce_s16        : INT;           (* 200 ms (50 - 250) *)
-   AOV_Freq_s16            : INT;           (* 80  (0 - 5000) *)
-   AOV_Res_Min_s16         : INT;           (* 0 Ohm (0 - 3000) *)
-   AOV_Res_Max_s16         : INT;           (* 0 Ohm (0 - 3000) *)
-   AOV_Kp_s16              : INT;           (* 250  (0 - 2000) *)
-   AOV_Ki_s16              : INT;           (* 250  (0 - 500) *)
+   AOV_Debounce_s16: INT;         (* 200 ms (50 - 250) *)
+   AOV_Freq_s16: INT;             (* 80  (0 - 5000) *)
+   AOV_Res_Min_s16: INT;          (* 0 Ohm (0 - 3000) *)
+   AOV_Res_Max_s16: INT;          (* 0 Ohm (0 - 3000) *)
+   AOV_Kp_s16: INT;               (* 250  (0 - 2000) *)
+   AOV_Ki_s16: INT;               (* 250  (0 - 500) *)
 
 (* AOC Configuration *)
-   AOC_Debounce_s16        : INT;           (* 200 ms (50 - 250) *)
-   AOC_Freq_s16            : INT;           (* 5000  (0 - 5000) *)
-   AOC_Res_Min_s16         : INT;           (* 0 Ohm (0 - 3000) *)
-   AOC_Res_Max_s16         : INT;           (* 0 Ohm (0 - 3000) *)
-   AOC_Kp_s16              : INT;           (* 250  (0 - 2000) *)
-   AOC_Ki_s16              : INT;           (* 250  (0 - 500) *)
+   AOC_Debounce_s16: INT;         (* 200 ms (50 - 250) *)
+   AOC_Freq_s16: INT;             (* 5000  (0 - 5000) *)
+   AOC_Res_Min_s16: INT;          (* 0 Ohm (0 - 3000) *)
+   AOC_Res_Max_s16: INT;          (* 0 Ohm (0 - 3000) *)
+   AOC_Kp_s16: INT;               (* 250  (0 - 2000) *)
+   AOC_Ki_s16: INT;               (* 250  (0 - 500) *)
 
 
 (* Menu 3 *)
 
 (* Output Value 1-8 *)
-   Out_Val_01_s16          : INT;           (* 0 % / mA (0 - 10000) *)
-   Out_Val_02_s16          : INT;           (* 0 % / mA (0 - 10000) *)
-   Out_Val_03_s16          : INT;           (* 0 % / mA (0 - 10000) *)
-   Out_Val_04_s16          : INT;           (* 0 % / mA (0 - 10000) *)
-   Out_Val_05_s16          : INT;           (* 0 % / mA (0 - 10000) *)
-   Out_Val_06_s16          : INT;           (* 0 % / mA (0 - 10000) *)
-   Out_Val_07_s16          : INT;           (* 0 % / mA (0 - 10000) *)
-   Out_Val_08_s16          : INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_01_s16: INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_02_s16: INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_03_s16: INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_04_s16: INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_05_s16: INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_06_s16: INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_07_s16: INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_08_s16: INT;           (* 0 % / mA (0 - 10000) *)
 
 (* Output Value 9-16 *)
-   Out_Val_09_s16          : INT;           (* 0 % / mA (0 - 10000) *)
-   Out_Val_10_s16          : INT;           (* 0 % / mA (0 - 10000) *)
-   Out_Val_11_s16          : INT;           (* 0 % / mA (0 - 10000) *)
-   Out_Val_12_s16          : INT;           (* 0 % / mA (0 - 10000) *)
-   Out_Val_13_s16          : INT;           (* 0 % / mA (0 - 10000) *)
-   Out_Val_14_s16          : INT;           (* 0 % / mA (0 - 10000) *)
-   Out_Val_15_s16          : INT;           (* 0 % / mA (0 - 10000) *)
-   Out_Val_16_s16          : INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_09_s16: INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_10_s16: INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_11_s16: INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_12_s16: INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_13_s16: INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_14_s16: INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_15_s16: INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_16_s16: INT;           (* 0 % / mA (0 - 10000) *)
 
 (* Output Value 17-36 *)
-   Out_Val_17_s16          : INT;           (* 0 % / mA (0 - 10000) *)
-   Out_Val_18_s16          : INT;           (* 0 % / mA (0 - 10000) *)
-   Out_Val_33_s16          : INT;           (* 0 % / mA (0 - 10000) *)
-   Out_Val_34_s16          : INT;           (* 0 % / mA (0 - 10000) *)
-   Out_Val_35_s16          : INT;           (* 0 % / mA (0 - 10000) *)
-   Out_Val_36_s16          : INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_17_s16: INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_18_s16: INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_33_s16: INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_34_s16: INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_35_s16: INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_36_s16: INT;           (* 0 % / mA (0 - 10000) *)
 
 (* Output Value 37-44 *)
-   Out_Val_37_s16          : INT;           (* 0 % / mA (0 - 10000) *)
-   Out_Val_38_s16          : INT;           (* 0 % / mA (0 - 10000) *)
-   Out_Val_39_s16          : INT;           (* 0 % / mA (0 - 10000) *)
-   Out_Val_40_s16          : INT;           (* 0 % / mA (0 - 10000) *)
-   Out_Val_41_s16          : INT;           (* 0 % / mA (0 - 10000) *)
-   Out_Val_42_s16          : INT;           (* 0 % / mA (0 - 10000) *)
-   Out_Val_43_s16          : INT;           (* 0 % / mA (0 - 10000) *)
-   Out_Val_44_s16          : INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_37_s16: INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_38_s16: INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_39_s16: INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_40_s16: INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_41_s16: INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_42_s16: INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_43_s16: INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_44_s16: INT;           (* 0 % / mA (0 - 10000) *)
 
 (* Output Value 45-47 *)
-   Out_Val_45_s16          : INT;           (* 0 % / mA (0 - 10000) *)
-   Out_Val_46_s16          : INT;           (* 0 % / mA (0 - 10000) *)
-   Out_Val_47_s16          : INT;           (* 0 % / mA (0 - 20000) *)
+   Out_Val_45_s16: INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_46_s16: INT;           (* 0 % / mA (0 - 10000) *)
+   Out_Val_47_s16: INT;           (* 0 % / mA (0 - 20000) *)
 
 (* POH Configuration *)
-   POH_Debounce_s16        : INT;           (* 100 ms (50 - 250) *)
-   POH_Res_Min_s16         : INT;           (* 2 Ohm (0 - 3000) *)
-   POH_Res_Max_s16         : INT;           (* 52 Ohm (0 - 3000) *)
-   POH_Kp_s16              : INT;           (* 250  (0 - 2000) *)
-   POH_Ki_s16              : INT;           (* 250  (0 - 500) *)
+   POH_Debounce_s16: INT;         (* 100 ms (50 - 250) *)
+   POH_Res_Min_s16: INT;          (* 2 Ohm (0 - 3000) *)
+   POH_Res_Max_s16: INT;          (* 52 Ohm (0 - 3000) *)
+   POH_Kp_s16: INT;               (* 250  (0 - 2000) *)
+   POH_Ki_s16: INT;               (* 250  (0 - 500) *)
 
 (* POL Configuration *)
-   POL_Debounce_s16        : INT;           (* 100 ms (50 - 250) *)
-   POL_Res_Min_s16         : INT;           (* 2 Ohm (0 - 3000) *)
-   POL_Res_Max_s16         : INT;           (* 52 Ohm (0 - 3000) *)
-   POL_Kp_s16              : INT;           (* 250  (0 - 2000) *)
-   POL_Ki_s16              : INT;           (* 250  (0 - 500) *)
+   POL_Debounce_s16: INT;         (* 100 ms (50 - 250) *)
+   POL_Res_Min_s16: INT;          (* 2 Ohm (0 - 3000) *)
+   POL_Res_Max_s16: INT;          (* 52 Ohm (0 - 3000) *)
+   POL_Kp_s16: INT;               (* 250  (0 - 2000) *)
+   POL_Ki_s16: INT;               (* 250  (0 - 500) *)
 
 (* DOH Configuration *)
-   DOH_Debounce_s16        : INT;           (* 200 ms (50 - 250) *)
-   DOH_Res_Min_s16         : INT;           (* 6 Ohm (0 - 3000) *)
-   DOH_Res_Max_s16         : INT;           (* 44 Ohm (0 - 3000) *)
+   DOH_Debounce_s16: INT;         (* 200 ms (50 - 250) *)
+   DOH_Res_Min_s16: INT;          (* 6 Ohm (0 - 3000) *)
+   DOH_Res_Max_s16: INT;          (* 44 Ohm (0 - 3000) *)
 END_STRUCT
 END_TYPE
 (* @END_DECLARATION := '0' *)
@@ -393,174 +393,174 @@ ree_getArray( PAGE4, 0, ADR(eep[1024]), 256 );
 (* Menu 1 *)
 
 (* Basic *)
-para_s.number_1_1_1_s16         := eep[EEP_number_1_1_1_e];
+para_s.number_1_1_1_s16 := eep[EEP_number_1_1_1_e];
 para_s.Input_to_Output_Mode_s16 := eep[EEP_Input_to_Output_Mode_e];
-para_s.test_par_new_s16         := eep[EEP_test_par_new_e];
-para_s.test_params_s16          := eep[EEP_test_params_e];
-para_s.test_par2_s16            := eep[EEP_test_par2_e];
+para_s.test_par_new_s16 := eep[EEP_test_par_new_e];
+para_s.test_params_s16 := eep[EEP_test_params_e];
+para_s.test_par2_s16 := eep[EEP_test_par2_e];
 
 (* Test Type *)
-para_s.Trimming_type_s16        := eep[EEP_Trimming_type_e];
-para_s.Analog_type_s16          := eep[EEP_Analog_type_e];
-para_s.Curve_Type_s16           := eep[EEP_Curve_Type_e];
-para_s.Function_Type_s16        := eep[EEP_Function_Type_e];
-para_s.Percent_Type_s16         := eep[EEP_Percent_Type_e];
-para_s.Ramp_Type_s16            := eep[EEP_Ramp_Type_e];
-para_s.Switch_Type_s16          := eep[EEP_Switch_Type_e];
-para_s.List_Type_s16            := eep[EEP_List_Type_e];
+para_s.Trimming_type_s16 := eep[EEP_Trimming_type_e];
+para_s.Analog_type_s16 := eep[EEP_Analog_type_e];
+para_s.Curve_Type_s16 := eep[EEP_Curve_Type_e];
+para_s.Function_Type_s16 := eep[EEP_Function_Type_e];
+para_s.Percent_Type_s16 := eep[EEP_Percent_Type_e];
+para_s.Ramp_Type_s16 := eep[EEP_Ramp_Type_e];
+para_s.Switch_Type_s16 := eep[EEP_Switch_Type_e];
+para_s.List_Type_s16 := eep[EEP_List_Type_e];
 
 (* Test Number *)
-para_s.number_1_3_1_s16         := eep[EEP_number_1_3_1_e];
-para_s.number_1_3_2_s16         := eep[EEP_number_1_3_2_e];
-para_s.number_1_3_3_s16         := eep[EEP_number_1_3_3_e];
-para_s.number_1_3_4_s16         := eep[EEP_number_1_3_4_e];
-para_s.number_1_3_5_s16         := eep[EEP_number_1_3_5_e];
-para_s.number_1_3_6_s16         := eep[EEP_number_1_3_6_e];
-para_s.number_1_3_7_s16         := eep[EEP_number_1_3_7_e];
-para_s.number_1_3_8_s16         := eep[EEP_number_1_3_8_e];
+para_s.number_1_3_1_s16 := eep[EEP_number_1_3_1_e];
+para_s.number_1_3_2_s16 := eep[EEP_number_1_3_2_e];
+para_s.number_1_3_3_s16 := eep[EEP_number_1_3_3_e];
+para_s.number_1_3_4_s16 := eep[EEP_number_1_3_4_e];
+para_s.number_1_3_5_s16 := eep[EEP_number_1_3_5_e];
+para_s.number_1_3_6_s16 := eep[EEP_number_1_3_6_e];
+para_s.number_1_3_7_s16 := eep[EEP_number_1_3_7_e];
+para_s.number_1_3_8_s16 := eep[EEP_number_1_3_8_e];
 
 
 (* Menu 2 *)
 
 (* Output Cfg 1-8 *)
-para_s.Out_Cfg_01_s16           := eep[EEP_Out_Cfg_01_e];
-para_s.Out_Cfg_02_s16           := eep[EEP_Out_Cfg_02_e];
-para_s.Out_Cfg_03_s16           := eep[EEP_Out_Cfg_03_e];
-para_s.Out_Cfg_04_s16           := eep[EEP_Out_Cfg_04_e];
-para_s.Out_Cfg_05_s16           := eep[EEP_Out_Cfg_05_e];
-para_s.Out_Cfg_06_s16           := eep[EEP_Out_Cfg_06_e];
-para_s.Out_Cfg_07_s16           := eep[EEP_Out_Cfg_07_e];
-para_s.Out_Cfg_08_s16           := eep[EEP_Out_Cfg_08_e];
+para_s.Out_Cfg_01_s16 := eep[EEP_Out_Cfg_01_e];
+para_s.Out_Cfg_02_s16 := eep[EEP_Out_Cfg_02_e];
+para_s.Out_Cfg_03_s16 := eep[EEP_Out_Cfg_03_e];
+para_s.Out_Cfg_04_s16 := eep[EEP_Out_Cfg_04_e];
+para_s.Out_Cfg_05_s16 := eep[EEP_Out_Cfg_05_e];
+para_s.Out_Cfg_06_s16 := eep[EEP_Out_Cfg_06_e];
+para_s.Out_Cfg_07_s16 := eep[EEP_Out_Cfg_07_e];
+para_s.Out_Cfg_08_s16 := eep[EEP_Out_Cfg_08_e];
 
 (* Output Cfg 9-16 *)
-para_s.Out_Cfg_09_s16           := eep[EEP_Out_Cfg_09_e];
-para_s.Out_Cfg_10_s16           := eep[EEP_Out_Cfg_10_e];
-para_s.Out_Cfg_11_s16           := eep[EEP_Out_Cfg_11_e];
-para_s.Out_Cfg_12_s16           := eep[EEP_Out_Cfg_12_e];
-para_s.Out_Cfg_13_s16           := eep[EEP_Out_Cfg_13_e];
-para_s.Out_Cfg_14_s16           := eep[EEP_Out_Cfg_14_e];
-para_s.Out_Cfg_15_s16           := eep[EEP_Out_Cfg_15_e];
-para_s.Out_Cfg_16_s16           := eep[EEP_Out_Cfg_16_e];
+para_s.Out_Cfg_09_s16 := eep[EEP_Out_Cfg_09_e];
+para_s.Out_Cfg_10_s16 := eep[EEP_Out_Cfg_10_e];
+para_s.Out_Cfg_11_s16 := eep[EEP_Out_Cfg_11_e];
+para_s.Out_Cfg_12_s16 := eep[EEP_Out_Cfg_12_e];
+para_s.Out_Cfg_13_s16 := eep[EEP_Out_Cfg_13_e];
+para_s.Out_Cfg_14_s16 := eep[EEP_Out_Cfg_14_e];
+para_s.Out_Cfg_15_s16 := eep[EEP_Out_Cfg_15_e];
+para_s.Out_Cfg_16_s16 := eep[EEP_Out_Cfg_16_e];
 
 (* Output Cfg 17-24 *)
-para_s.Out_Cfg_17_s16           := eep[EEP_Out_Cfg_17_e];
-para_s.Out_Cfg_18_s16           := eep[EEP_Out_Cfg_18_e];
-para_s.Out_Cfg_19_s16           := eep[EEP_Out_Cfg_19_e];
-para_s.Out_Cfg_20_s16           := eep[EEP_Out_Cfg_20_e];
-para_s.Out_Cfg_21_s16           := eep[EEP_Out_Cfg_21_e];
-para_s.Out_Cfg_22_s16           := eep[EEP_Out_Cfg_22_e];
-para_s.Out_Cfg_23_s16           := eep[EEP_Out_Cfg_23_e];
-para_s.Out_Cfg_24_s16           := eep[EEP_Out_Cfg_24_e];
+para_s.Out_Cfg_17_s16 := eep[EEP_Out_Cfg_17_e];
+para_s.Out_Cfg_18_s16 := eep[EEP_Out_Cfg_18_e];
+para_s.Out_Cfg_19_s16 := eep[EEP_Out_Cfg_19_e];
+para_s.Out_Cfg_20_s16 := eep[EEP_Out_Cfg_20_e];
+para_s.Out_Cfg_21_s16 := eep[EEP_Out_Cfg_21_e];
+para_s.Out_Cfg_22_s16 := eep[EEP_Out_Cfg_22_e];
+para_s.Out_Cfg_23_s16 := eep[EEP_Out_Cfg_23_e];
+para_s.Out_Cfg_24_s16 := eep[EEP_Out_Cfg_24_e];
 
 (* Output Cfg 25-32 *)
-para_s.Out_Cfg_25_s16           := eep[EEP_Out_Cfg_25_e];
-para_s.Out_Cfg_26_s16           := eep[EEP_Out_Cfg_26_e];
-para_s.Out_Cfg_27_s16           := eep[EEP_Out_Cfg_27_e];
-para_s.Out_Cfg_28_s16           := eep[EEP_Out_Cfg_28_e];
-para_s.Out_Cfg_29_s16           := eep[EEP_Out_Cfg_29_e];
-para_s.Out_Cfg_30_s16           := eep[EEP_Out_Cfg_30_e];
-para_s.Out_Cfg_31_s16           := eep[EEP_Out_Cfg_31_e];
-para_s.Out_Cfg_32_s16           := eep[EEP_Out_Cfg_32_e];
+para_s.Out_Cfg_25_s16 := eep[EEP_Out_Cfg_25_e];
+para_s.Out_Cfg_26_s16 := eep[EEP_Out_Cfg_26_e];
+para_s.Out_Cfg_27_s16 := eep[EEP_Out_Cfg_27_e];
+para_s.Out_Cfg_28_s16 := eep[EEP_Out_Cfg_28_e];
+para_s.Out_Cfg_29_s16 := eep[EEP_Out_Cfg_29_e];
+para_s.Out_Cfg_30_s16 := eep[EEP_Out_Cfg_30_e];
+para_s.Out_Cfg_31_s16 := eep[EEP_Out_Cfg_31_e];
+para_s.Out_Cfg_32_s16 := eep[EEP_Out_Cfg_32_e];
 
 (* Output Cfg 33-40 *)
-para_s.Out_Cfg_33_s16           := eep[EEP_Out_Cfg_33_e];
-para_s.Out_Cfg_34_s16           := eep[EEP_Out_Cfg_34_e];
-para_s.Out_Cfg_35_s16           := eep[EEP_Out_Cfg_35_e];
-para_s.Out_Cfg_36_s16           := eep[EEP_Out_Cfg_36_e];
-para_s.Out_Cfg_37_s16           := eep[EEP_Out_Cfg_37_e];
-para_s.Out_Cfg_38_s16           := eep[EEP_Out_Cfg_38_e];
-para_s.Out_Cfg_39_s16           := eep[EEP_Out_Cfg_39_e];
-para_s.Out_Cfg_40_s16           := eep[EEP_Out_Cfg_40_e];
+para_s.Out_Cfg_33_s16 := eep[EEP_Out_Cfg_33_e];
+para_s.Out_Cfg_34_s16 := eep[EEP_Out_Cfg_34_e];
+para_s.Out_Cfg_35_s16 := eep[EEP_Out_Cfg_35_e];
+para_s.Out_Cfg_36_s16 := eep[EEP_Out_Cfg_36_e];
+para_s.Out_Cfg_37_s16 := eep[EEP_Out_Cfg_37_e];
+para_s.Out_Cfg_38_s16 := eep[EEP_Out_Cfg_38_e];
+para_s.Out_Cfg_39_s16 := eep[EEP_Out_Cfg_39_e];
+para_s.Out_Cfg_40_s16 := eep[EEP_Out_Cfg_40_e];
 
 (* Output Cfg 41-47 *)
-para_s.Out_Cfg_41_s16           := eep[EEP_Out_Cfg_41_e];
-para_s.Out_Cfg_42_s16           := eep[EEP_Out_Cfg_42_e];
-para_s.Out_Cfg_43_s16           := eep[EEP_Out_Cfg_43_e];
-para_s.Out_Cfg_44_s16           := eep[EEP_Out_Cfg_44_e];
-para_s.Out_Cfg_45_s16           := eep[EEP_Out_Cfg_45_e];
-para_s.Out_Cfg_46_s16           := eep[EEP_Out_Cfg_46_e];
-para_s.Out_Cfg_47_s16           := eep[EEP_Out_Cfg_47_e];
+para_s.Out_Cfg_41_s16 := eep[EEP_Out_Cfg_41_e];
+para_s.Out_Cfg_42_s16 := eep[EEP_Out_Cfg_42_e];
+para_s.Out_Cfg_43_s16 := eep[EEP_Out_Cfg_43_e];
+para_s.Out_Cfg_44_s16 := eep[EEP_Out_Cfg_44_e];
+para_s.Out_Cfg_45_s16 := eep[EEP_Out_Cfg_45_e];
+para_s.Out_Cfg_46_s16 := eep[EEP_Out_Cfg_46_e];
+para_s.Out_Cfg_47_s16 := eep[EEP_Out_Cfg_47_e];
 
 (* AOV Configuration *)
-para_s.AOV_Debounce_s16         := eep[EEP_AOV_Debounce_e];
-para_s.AOV_Freq_s16             := eep[EEP_AOV_Freq_e];
-para_s.AOV_Res_Min_s16          := eep[EEP_AOV_Res_Min_e];
-para_s.AOV_Res_Max_s16          := eep[EEP_AOV_Res_Max_e];
-para_s.AOV_Kp_s16               := eep[EEP_AOV_Kp_e];
-para_s.AOV_Ki_s16               := eep[EEP_AOV_Ki_e];
+para_s.AOV_Debounce_s16 := eep[EEP_AOV_Debounce_e];
+para_s.AOV_Freq_s16 := eep[EEP_AOV_Freq_e];
+para_s.AOV_Res_Min_s16 := eep[EEP_AOV_Res_Min_e];
+para_s.AOV_Res_Max_s16 := eep[EEP_AOV_Res_Max_e];
+para_s.AOV_Kp_s16 := eep[EEP_AOV_Kp_e];
+para_s.AOV_Ki_s16 := eep[EEP_AOV_Ki_e];
 
 (* AOC Configuration *)
-para_s.AOC_Debounce_s16         := eep[EEP_AOC_Debounce_e];
-para_s.AOC_Freq_s16             := eep[EEP_AOC_Freq_e];
-para_s.AOC_Res_Min_s16          := eep[EEP_AOC_Res_Min_e];
-para_s.AOC_Res_Max_s16          := eep[EEP_AOC_Res_Max_e];
-para_s.AOC_Kp_s16               := eep[EEP_AOC_Kp_e];
-para_s.AOC_Ki_s16               := eep[EEP_AOC_Ki_e];
+para_s.AOC_Debounce_s16 := eep[EEP_AOC_Debounce_e];
+para_s.AOC_Freq_s16 := eep[EEP_AOC_Freq_e];
+para_s.AOC_Res_Min_s16 := eep[EEP_AOC_Res_Min_e];
+para_s.AOC_Res_Max_s16 := eep[EEP_AOC_Res_Max_e];
+para_s.AOC_Kp_s16 := eep[EEP_AOC_Kp_e];
+para_s.AOC_Ki_s16 := eep[EEP_AOC_Ki_e];
 
 
 (* Menu 3 *)
 
 (* Output Value 1-8 *)
-para_s.Out_Val_01_s16           := eep[EEP_Out_Val_01_e];
-para_s.Out_Val_02_s16           := eep[EEP_Out_Val_02_e];
-para_s.Out_Val_03_s16           := eep[EEP_Out_Val_03_e];
-para_s.Out_Val_04_s16           := eep[EEP_Out_Val_04_e];
-para_s.Out_Val_05_s16           := eep[EEP_Out_Val_05_e];
-para_s.Out_Val_06_s16           := eep[EEP_Out_Val_06_e];
-para_s.Out_Val_07_s16           := eep[EEP_Out_Val_07_e];
-para_s.Out_Val_08_s16           := eep[EEP_Out_Val_08_e];
+para_s.Out_Val_01_s16 := eep[EEP_Out_Val_01_e];
+para_s.Out_Val_02_s16 := eep[EEP_Out_Val_02_e];
+para_s.Out_Val_03_s16 := eep[EEP_Out_Val_03_e];
+para_s.Out_Val_04_s16 := eep[EEP_Out_Val_04_e];
+para_s.Out_Val_05_s16 := eep[EEP_Out_Val_05_e];
+para_s.Out_Val_06_s16 := eep[EEP_Out_Val_06_e];
+para_s.Out_Val_07_s16 := eep[EEP_Out_Val_07_e];
+para_s.Out_Val_08_s16 := eep[EEP_Out_Val_08_e];
 
 (* Output Value 9-16 *)
-para_s.Out_Val_09_s16           := eep[EEP_Out_Val_09_e];
-para_s.Out_Val_10_s16           := eep[EEP_Out_Val_10_e];
-para_s.Out_Val_11_s16           := eep[EEP_Out_Val_11_e];
-para_s.Out_Val_12_s16           := eep[EEP_Out_Val_12_e];
-para_s.Out_Val_13_s16           := eep[EEP_Out_Val_13_e];
-para_s.Out_Val_14_s16           := eep[EEP_Out_Val_14_e];
-para_s.Out_Val_15_s16           := eep[EEP_Out_Val_15_e];
-para_s.Out_Val_16_s16           := eep[EEP_Out_Val_16_e];
+para_s.Out_Val_09_s16 := eep[EEP_Out_Val_09_e];
+para_s.Out_Val_10_s16 := eep[EEP_Out_Val_10_e];
+para_s.Out_Val_11_s16 := eep[EEP_Out_Val_11_e];
+para_s.Out_Val_12_s16 := eep[EEP_Out_Val_12_e];
+para_s.Out_Val_13_s16 := eep[EEP_Out_Val_13_e];
+para_s.Out_Val_14_s16 := eep[EEP_Out_Val_14_e];
+para_s.Out_Val_15_s16 := eep[EEP_Out_Val_15_e];
+para_s.Out_Val_16_s16 := eep[EEP_Out_Val_16_e];
 
 (* Output Value 17-36 *)
-para_s.Out_Val_17_s16           := eep[EEP_Out_Val_17_e];
-para_s.Out_Val_18_s16           := eep[EEP_Out_Val_18_e];
-para_s.Out_Val_33_s16           := eep[EEP_Out_Val_33_e];
-para_s.Out_Val_34_s16           := eep[EEP_Out_Val_34_e];
-para_s.Out_Val_35_s16           := eep[EEP_Out_Val_35_e];
-para_s.Out_Val_36_s16           := eep[EEP_Out_Val_36_e];
+para_s.Out_Val_17_s16 := eep[EEP_Out_Val_17_e];
+para_s.Out_Val_18_s16 := eep[EEP_Out_Val_18_e];
+para_s.Out_Val_33_s16 := eep[EEP_Out_Val_33_e];
+para_s.Out_Val_34_s16 := eep[EEP_Out_Val_34_e];
+para_s.Out_Val_35_s16 := eep[EEP_Out_Val_35_e];
+para_s.Out_Val_36_s16 := eep[EEP_Out_Val_36_e];
 
 (* Output Value 37-44 *)
-para_s.Out_Val_37_s16           := eep[EEP_Out_Val_37_e];
-para_s.Out_Val_38_s16           := eep[EEP_Out_Val_38_e];
-para_s.Out_Val_39_s16           := eep[EEP_Out_Val_39_e];
-para_s.Out_Val_40_s16           := eep[EEP_Out_Val_40_e];
-para_s.Out_Val_41_s16           := eep[EEP_Out_Val_41_e];
-para_s.Out_Val_42_s16           := eep[EEP_Out_Val_42_e];
-para_s.Out_Val_43_s16           := eep[EEP_Out_Val_43_e];
-para_s.Out_Val_44_s16           := eep[EEP_Out_Val_44_e];
+para_s.Out_Val_37_s16 := eep[EEP_Out_Val_37_e];
+para_s.Out_Val_38_s16 := eep[EEP_Out_Val_38_e];
+para_s.Out_Val_39_s16 := eep[EEP_Out_Val_39_e];
+para_s.Out_Val_40_s16 := eep[EEP_Out_Val_40_e];
+para_s.Out_Val_41_s16 := eep[EEP_Out_Val_41_e];
+para_s.Out_Val_42_s16 := eep[EEP_Out_Val_42_e];
+para_s.Out_Val_43_s16 := eep[EEP_Out_Val_43_e];
+para_s.Out_Val_44_s16 := eep[EEP_Out_Val_44_e];
 
 (* Output Value 45-47 *)
-para_s.Out_Val_45_s16           := eep[EEP_Out_Val_45_e];
-para_s.Out_Val_46_s16           := eep[EEP_Out_Val_46_e];
-para_s.Out_Val_47_s16           := eep[EEP_Out_Val_47_e];
+para_s.Out_Val_45_s16 := eep[EEP_Out_Val_45_e];
+para_s.Out_Val_46_s16 := eep[EEP_Out_Val_46_e];
+para_s.Out_Val_47_s16 := eep[EEP_Out_Val_47_e];
 
 (* POH Configuration *)
-para_s.POH_Debounce_s16         := eep[EEP_POH_Debounce_e];
-para_s.POH_Res_Min_s16          := eep[EEP_POH_Res_Min_e];
-para_s.POH_Res_Max_s16          := eep[EEP_POH_Res_Max_e];
-para_s.POH_Kp_s16               := eep[EEP_POH_Kp_e];
-para_s.POH_Ki_s16               := eep[EEP_POH_Ki_e];
+para_s.POH_Debounce_s16 := eep[EEP_POH_Debounce_e];
+para_s.POH_Res_Min_s16 := eep[EEP_POH_Res_Min_e];
+para_s.POH_Res_Max_s16 := eep[EEP_POH_Res_Max_e];
+para_s.POH_Kp_s16 := eep[EEP_POH_Kp_e];
+para_s.POH_Ki_s16 := eep[EEP_POH_Ki_e];
 
 (* POL Configuration *)
-para_s.POL_Debounce_s16         := eep[EEP_POL_Debounce_e];
-para_s.POL_Res_Min_s16          := eep[EEP_POL_Res_Min_e];
-para_s.POL_Res_Max_s16          := eep[EEP_POL_Res_Max_e];
-para_s.POL_Kp_s16               := eep[EEP_POL_Kp_e];
-para_s.POL_Ki_s16               := eep[EEP_POL_Ki_e];
+para_s.POL_Debounce_s16 := eep[EEP_POL_Debounce_e];
+para_s.POL_Res_Min_s16 := eep[EEP_POL_Res_Min_e];
+para_s.POL_Res_Max_s16 := eep[EEP_POL_Res_Max_e];
+para_s.POL_Kp_s16 := eep[EEP_POL_Kp_e];
+para_s.POL_Ki_s16 := eep[EEP_POL_Ki_e];
 
 (* DOH Configuration *)
-para_s.DOH_Debounce_s16         := eep[EEP_DOH_Debounce_e];
-para_s.DOH_Res_Min_s16          := eep[EEP_DOH_Res_Min_e];
-para_s.DOH_Res_Max_s16          := eep[EEP_DOH_Res_Max_e];
+para_s.DOH_Debounce_s16 := eep[EEP_DOH_Debounce_e];
+para_s.DOH_Res_Min_s16 := eep[EEP_DOH_Res_Min_e];
+para_s.DOH_Res_Max_s16 := eep[EEP_DOH_Res_Max_e];
 
 END_PROGRAM
 
@@ -3121,9 +3121,9 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
       ProcessVariable_as   := 
 
          (*********************************************)
-         (* process value 1.1 *)
-         (*********************************************)
-         (
+      (* process value 1.1 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3131,11 +3131,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 1.2 *)
-         (*********************************************)
-         (
+      (* process value 1.2 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3143,11 +3143,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 1.3 *)
-         (*********************************************)
-         (
+      (* process value 1.3 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3155,11 +3155,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 1.4 *)
-         (*********************************************)
-         (
+      (* process value 1.4 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3167,11 +3167,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 1.5 *)
-         (*********************************************)
-         (
+      (* process value 1.5 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 0,
@@ -3179,11 +3179,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 1.6 *)
-         (*********************************************)
-         (
+      (* process value 1.6 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 0,
@@ -3191,11 +3191,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 15,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 1.7 *)
-         (*********************************************)
-         (
+      (* process value 1.7 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 0,
@@ -3203,11 +3203,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 8,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 1.8 *)
-         (*********************************************)
-         (
+      (* process value 1.8 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 0,
@@ -3215,7 +3215,7 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 1000,
          AccesslevelCode_u8   := 129
-         )
+      )
    ),
 
    (*********************************************)
@@ -3227,9 +3227,9 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
       ProcessVariable_as   := 
 
          (*********************************************)
-         (* process value 2.1 *)
-         (*********************************************)
-         (
+      (* process value 2.1 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3237,11 +3237,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 2.2 *)
-         (*********************************************)
-         (
+      (* process value 2.2 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3249,11 +3249,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 2.3 *)
-         (*********************************************)
-         (
+      (* process value 2.3 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3261,11 +3261,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 2.4 *)
-         (*********************************************)
-         (
+      (* process value 2.4 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3273,11 +3273,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 2.5 *)
-         (*********************************************)
-         (
+      (* process value 2.5 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3285,11 +3285,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 2.6 *)
-         (*********************************************)
-         (
+      (* process value 2.6 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3297,11 +3297,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 2.7 *)
-         (*********************************************)
-         (
+      (* process value 2.7 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3309,11 +3309,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 2.8 *)
-         (*********************************************)
-         (
+      (* process value 2.8 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3321,7 +3321,7 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         )
+      )
    ),
 
    (*********************************************)
@@ -3333,9 +3333,9 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
       ProcessVariable_as   := 
 
          (*********************************************)
-         (* process value 3.1 *)
-         (*********************************************)
-         (
+      (* process value 3.1 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3343,11 +3343,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 3.2 *)
-         (*********************************************)
-         (
+      (* process value 3.2 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3355,11 +3355,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 3.3 *)
-         (*********************************************)
-         (
+      (* process value 3.3 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3367,11 +3367,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 3.4 *)
-         (*********************************************)
-         (
+      (* process value 3.4 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3379,11 +3379,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 3.5 *)
-         (*********************************************)
-         (
+      (* process value 3.5 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3391,11 +3391,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 3.6 *)
-         (*********************************************)
-         (
+      (* process value 3.6 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3403,11 +3403,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 3.7 *)
-         (*********************************************)
-         (
+      (* process value 3.7 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3415,11 +3415,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 3.8 *)
-         (*********************************************)
-         (
+      (* process value 3.8 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3427,7 +3427,7 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         )
+      )
    ),
 
    (*********************************************)
@@ -3439,9 +3439,9 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
       ProcessVariable_as   := 
 
          (*********************************************)
-         (* process value 4.1 *)
-         (*********************************************)
-         (
+      (* process value 4.1 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3449,11 +3449,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 4.2 *)
-         (*********************************************)
-         (
+      (* process value 4.2 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3461,11 +3461,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 4.3 *)
-         (*********************************************)
-         (
+      (* process value 4.3 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3473,11 +3473,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 4.4 *)
-         (*********************************************)
-         (
+      (* process value 4.4 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3485,11 +3485,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 4.5 *)
-         (*********************************************)
-         (
+      (* process value 4.5 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3497,11 +3497,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 4.6 *)
-         (*********************************************)
-         (
+      (* process value 4.6 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3509,11 +3509,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 4.7 *)
-         (*********************************************)
-         (
+      (* process value 4.7 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3521,12 +3521,12 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 4.8 *)
-         (*********************************************)
-         (
-         )
+      (* process value 4.8 *)
+      (*********************************************)
+      (
+      )
    ),
 
    (*********************************************)
@@ -3538,9 +3538,9 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
       ProcessVariable_as   := 
 
          (*********************************************)
-         (* process value 5.1 *)
-         (*********************************************)
-         (
+      (* process value 5.1 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3548,11 +3548,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 5.2 *)
-         (*********************************************)
-         (
+      (* process value 5.2 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3560,11 +3560,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 5.3 *)
-         (*********************************************)
-         (
+      (* process value 5.3 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3572,11 +3572,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 5.4 *)
-         (*********************************************)
-         (
+      (* process value 5.4 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3584,11 +3584,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 5.5 *)
-         (*********************************************)
-         (
+      (* process value 5.5 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3596,11 +3596,11 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 5.6 *)
-         (*********************************************)
-         (
+      (* process value 5.6 *)
+      (*********************************************)
+      (
          ProcessVarName_as8   := 'Param_var',
          ProcVarType_u8       := 0,
          UnitCode_au8         := 1,
@@ -3608,17 +3608,17 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
          Divisor_s16          := 1,
          attr_u               := 0,
          AccesslevelCode_u8   := 129
-         ),
+      ),
          (*********************************************)
-         (* process value 5.7 *)
+      (* process value 5.7 *)
+      (*********************************************)
+      (
+      ),
          (*********************************************)
-         (
-         ),
-         (*********************************************)
-         (* process value 5.8 *)
-         (*********************************************)
-         (
-         )
+      (* process value 5.8 *)
+      (*********************************************)
+      (
+      )
    ),
 
    (*********************************************)
