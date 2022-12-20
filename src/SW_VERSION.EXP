@@ -12,6 +12,6 @@ END_VAR
 (*  DON'T MAKE ANY CHANGES TO THIS PROGRAM!! *) 
 (*     FILE WAS AUTOMATICALLY GENERATED!!    *) 
 (*********************************************) 
-SW_Git_Commit_s32 := 16#7b0d05e;
-SW_Git_Hash_as8 := '7b0d05e';
+SW_Git_Commit_s32 := 16#ec247af;
+SW_Git_Hash_as8 := 'ec247af';
 END_PROGRAM 
