@@ -3976,13 +3976,9 @@ END_VAR
 (*********************************************)
 
 ProcessVarGroups_as[1].ProcessVariable_as[1].RefVar := ADR(Uds_s.activeAccessLevel_u8);
-ProcessVarGroups_as[1].ProcessVariable_as[2].RefVar := ADR(Uds_s.activeAccessLevel_u8);
-ProcessVarGroups_as[1].ProcessVariable_as[3].RefVar := ADR(Uds_s.activeAccessLevel_u8);
-ProcessVarGroups_as[1].ProcessVariable_as[4].RefVar := ADR(Uds_s.activeAccessLevel_u8);
-ProcessVarGroups_as[1].ProcessVariable_as[5].RefVar := ADR(Uds_s.activeAccessLevel_u8);
-ProcessVarGroups_as[1].ProcessVariable_as[6].RefVar := ADR(Uds_s.activeAccessLevel_u8);
-ProcessVarGroups_as[1].ProcessVariable_as[7].RefVar := ADR(Uds_s.activeAccessLevel_u8);
-ProcessVarGroups_as[1].ProcessVariable_as[8].RefVar := ADR(Uds_s.activeAccessLevel_u8);
+ProcessVarGroups_as[1].ProcessVariable_as[1].SizeVar := SIZEOF(Uds_s.activeAccessLevel_u8);
+ProcessVarGroups_as[1].ProcessVariable_as[2].RefVar := ADR(Uds_s.sessionType);
+ProcessVarGroups_as[1].ProcessVariable_as[2].SizeVar := SIZEOF(Uds_s.sessionType);
 END_PROGRAM
 
 (* @NESTEDCOMMENTS := 'Yes' *)
