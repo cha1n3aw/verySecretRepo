@@ -3099,8 +3099,6 @@ PROGRAM ProcData
 (*********************************************)
 
 VAR
-END_VAR
-VAR CONSTANT
 
 (**)
 (*********************************************)
@@ -3964,6 +3962,9 @@ ProcessVarGroups_as      : ARRAY [1..48] OF ProcessVariableGroup_ts :=
 
 
    );
+END_VAR
+VAR CONSTANT
+
 
 
 (**)
@@ -3974,7 +3975,14 @@ END_VAR
 (*     FILE WAS AUTOMATICALLY GENERATED!!    *)
 (*********************************************)
 
-;
+ProcessVarGroups_as[1].ProcessVariable_as[1].RefVar := ADR(Uds_s.activeAccessLevel_u8);
+ProcessVarGroups_as[1].ProcessVariable_as[2].RefVar := ADR(Uds_s.activeAccessLevel_u8);
+ProcessVarGroups_as[1].ProcessVariable_as[3].RefVar := ADR(Uds_s.activeAccessLevel_u8);
+ProcessVarGroups_as[1].ProcessVariable_as[4].RefVar := ADR(Uds_s.activeAccessLevel_u8);
+ProcessVarGroups_as[1].ProcessVariable_as[5].RefVar := ADR(Uds_s.activeAccessLevel_u8);
+ProcessVarGroups_as[1].ProcessVariable_as[6].RefVar := ADR(Uds_s.activeAccessLevel_u8);
+ProcessVarGroups_as[1].ProcessVariable_as[7].RefVar := ADR(Uds_s.activeAccessLevel_u8);
+ProcessVarGroups_as[1].ProcessVariable_as[8].RefVar := ADR(Uds_s.activeAccessLevel_u8);
 END_PROGRAM
 
 (* @NESTEDCOMMENTS := 'Yes' *)
