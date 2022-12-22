@@ -4048,53 +4048,44 @@ VAR CONSTANT
 
 (**)
 (*********************************************)
-nrLists_u8      : USINT := 4;
+numberOfEntries      : USINT := 8;
 
 (*********************************************)
 (* Lists Tree*)
 
-ParaLists_as      : ARRAY [1..4] OF ARRAY[1..10] OF STRING(32) := 
-      'Not Active',
-      'Active',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      'PWM',
-      'PWM Current control',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      'PWM',
-      'AOV',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      'AOC',
-      'AOV',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      ''
-;
+ParaLists_as      : ARRAY [1..8] OF ListEntry := 
+   (
+      entryIndex := 0,
+      entryText := 'Not Active'
+   ),
+   (
+      entryIndex := 1,
+      entryText := 'Active'
+   ),
+   (
+      entryIndex := 10,
+      entryText := 'PWM'
+   ),
+   (
+      entryIndex := 11,
+      entryText := 'PWM Current control'
+   ),
+   (
+      entryIndex := 20,
+      entryText := 'PWM'
+   ),
+   (
+      entryIndex := 21,
+      entryText := 'AOV'
+   ),
+   (
+      entryIndex := 30,
+      entryText := 'AOC'
+   ),
+   (
+      entryIndex := 31,
+      entryText := 'AOV'
+   );
 
 (**)
 END_VAR
